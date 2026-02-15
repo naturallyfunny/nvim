@@ -1,9 +1,8 @@
--- pocco81/auto-save.nvim: A plugin for auto-saving buffers
+-- A more stable auto-save plugin: LudoPinelli/auto-save.nvim
 return {
-  "pocco81/auto-save.nvim",
-  enabled = false, -- NOTE: Temporarily disabled for debugging the undo/delete issue.
-  -- Load on these events to enable IDE-like auto-saving
-  event = { "TextChanged", "InsertLeave", "FocusLost", "BufLeave" },
+  "LudoPinelli/auto-save.nvim",
+  -- Load on non-intrusive events
+  event = { "InsertLeave", "FocusLost", "BufLeave" },
   opts = {
     enabled = true,
     execution_message = {
@@ -11,8 +10,9 @@ return {
       dim = 0,
       cleaning_interval = 1250,
     },
-    -- Triggers for saving, including on text change for IDE-like behavior
-    trigger_events = { "TextChanged", "InsertLeave", "FocusLost", "BufLeave" },
+    -- Use triggers that are guaranteed not to interfere with editing.
+    -- This configuration will NOT save while you are typing.
+    trigger_events = { "InsertLeave", "FocusLost", "BufLeave" },
     condition = function(buf)
       -- Use early returns to make the conditions clearer
       if not vim.api.nvim_buf_is_valid(buf) then
@@ -35,7 +35,6 @@ return {
       return true
     end,
     write_all_buffers = false,
-    -- Debounce saving to avoid issues. 1500ms is a good default.
-    debounce_delay = 1500,
+    -- No debounce needed for these events
   },
 }
