@@ -1,6 +1,7 @@
 -- pocco81/auto-save.nvim: A plugin for auto-saving buffers
 return {
   "pocco81/auto-save.nvim",
+  enabled = false, -- NOTE: Temporarily disabled for debugging the undo/delete issue.
   -- Load on these events to enable IDE-like auto-saving
   event = { "TextChanged", "InsertLeave", "FocusLost", "BufLeave" },
   opts = {
