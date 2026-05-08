@@ -80,7 +80,12 @@ local function setup_ui_highlights(hl, colors)
     "SnacksPickerNormal", "SnacksPickerNormalNC",
     "SnacksPickerList", "SnacksPickerPreview", "SnacksLayoutNormal",
     "SnacksDashboardNormal", "SnacksTerminal", "SnacksTerminalNormal",
-  }, { bg = c.base })
+    "SnacksExplorer", "SnacksExplorerNormal",
+    "NvimTreeNormal", "NvimTreeNormalNC", "NetrwNormal", "NetrwNormalNC",
+    "NormalSB", "SignColumnSB",
+    "StatusLine", "StatusLineNC", "MsgArea",
+    "WhichKeyNormal", "WhichKeyFloat",
+  }, { bg = "NONE" })
   set_highlights(hl, {
     "TelescopeNormal", "TelescopeBorder",
   }, { bg = "NONE" })
@@ -92,16 +97,17 @@ local function setup_ui_highlights(hl, colors)
 
   set_highlights(hl, {
     "WinSeparator", "VertSplit", "NeoTreeWinSeparator", "SnacksWinSeparator",
-  }, { fg = c.black, bg = c.black })
+  }, { fg = c.black, bg = "NONE" })
 
-  hl.FloatermBorder = { bg = c.black, fg = colors.border }
+  hl.FloatermBorder = { bg = "NONE", fg = colors.border }
   hl.TelescopeBorder = { fg = c.black }
-  hl.NeoTreeFloatBorder = { fg = c.black, bg = c.base }
-  hl.FloatBorder = { fg = c.black, bg = c.black }
+  hl.NeoTreeFloatBorder = { fg = c.black, bg = "NONE" }
+  hl.FloatBorder = { fg = c.black, bg = "NONE" }
   -- Noice.nvim floating command line styling
-  hl.NoiceCmdlinePopupBorder = { fg = c.black, bg = c.black }
-  hl.NoiceCmdlinePopupTitle = { fg = c.white, bg = c.black }
-  hl.NoiceCmdlineIcon = { fg = c.white, bg = c.black }
+  hl.NoiceCmdlinePopupBorder = { fg = c.black, bg = "NONE" }
+  hl.NoiceCmdlinePopupTitle = { fg = c.white, bg = "NONE" }
+  hl.NoiceCmdlineIcon = { fg = c.white, bg = "NONE" }
+  hl.NoiceCmdlinePopup = { bg = "NONE" }
   hl.LineNr = { fg = c.grey }
   hl.CursorLineNr = { fg = c.white, bold = true }
   hl.Cursor = { bg = c.cursor, fg = c.black }
@@ -121,10 +127,8 @@ end
 
 local function setup_visual_selection_highlights(hl)
   -- Menggunakan warna #333333
-  hl.Visual = { bg = "#333333", fg = c.white }
-
-  -- Warna seleksi saat tidak aktif (lebih gelap lagi)
-  hl.VisualNOS = { bg = "#333333", fg = c.grey }
+  hl.Visual = { bg = "#808080", fg = "#ffffff" }
+  hl.VisualNOS = { bg = "#606060", fg = "#cccccc" }
 end
 
 return {
@@ -132,7 +136,7 @@ return {
     "folke/tokyonight.nvim",
     opts = {
       style = "night",
-      transparent = false,
+      transparent = true,
       dim_inactive = false,
       styles = {
         sidebars = "transparent",
@@ -147,6 +151,7 @@ return {
         colors.bg = main_bg
         colors.bg_sidebar = main_bg
         colors.bg_dark = pop_bg
+        colors.bg_statusline = "NONE"
 
         colors.border = main_border_color -- Use local literal
         colors.fg = "#d4d6c6"
@@ -162,4 +167,28 @@ return {
   },
 
   { "LazyVim/LazyVim", opts = { colorscheme = "tokyonight" } },
+
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      -- Load the default Tokyonight theme for lualine
+      local tokyonight = require("lualine.themes.tokyonight")
+      
+      -- Strip backgrounds from the middle sections but leave section 'a' (mode), 'b' (branch), and 'z' alone
+      for _, mode in pairs(tokyonight) do
+        if mode.a then
+          mode.a.fg = mode.a.bg
+          mode.a.bg = "NONE"
+        end
+        if mode.b then mode.b.bg = "NONE" end
+        if mode.c then mode.c.bg = "NONE" end
+        if mode.x then mode.x.bg = "NONE" end
+        if mode.y then mode.y.bg = "NONE" end
+      end
+      
+      opts.options = opts.options or {}
+      opts.options.section_separators = { left = "", right = "" }
+      opts.options.theme = tokyonight
+    end,
+  },
 }

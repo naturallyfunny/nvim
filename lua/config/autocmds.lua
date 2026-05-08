@@ -41,14 +41,36 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
     -- These colors are based on the tokyonight.nvim configuration in lua/plugins/theme.lua
-    local bg_color = "#010101" -- main_bg
     local fg_color = "#d4d6c6" -- colors.fg
-    vim.api.nvim_set_hl(0, "Normal", { bg = bg_color, fg = fg_color, blend = 0 })
+    vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", fg = fg_color, blend = 0 })
   end,
   desc = "Ensure Normal highlight group has no blend",
 })
 
--- Ensure main windows are always opaque (winblend = 0)
+-- Force Lualine backgrounds to be transparent
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    -- Explicitly set lualine sections to transparent
+    vim.api.nvim_create_autocmd("ModeChanged", {
+      pattern = "*",
+      callback = function()
+        for _, mode in ipairs({ "normal", "insert", "visual", "replace", "command" }) do
+          -- Skip section 'a' (mode) and 'z' (location) so they retain their background color
+          for _, section in ipairs({ "b", "c", "x", "y" }) do
+            local hl_name = "lualine_" .. section .. "_" .. mode
+            local success, hl = pcall(vim.api.nvim_get_hl_by_name, hl_name, true)
+            if success and hl and hl.background then
+              hl.background = nil
+              hl.bg = "NONE"
+              vim.api.nvim_set_hl(0, hl_name, hl)
+            end
+          end
+        end
+      end,
+    })
+  end,
+})
 vim.api.nvim_create_autocmd({ "WinNew", "WinClosed", "BufWinEnter" }, {
   group = vim.api.nvim_create_augroup("ForceOpaqueMainWindows", { clear = true }),
   callback = function()
