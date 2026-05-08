@@ -127,8 +127,8 @@ end
 
 local function setup_visual_selection_highlights(hl)
   -- Menggunakan warna #333333
-  hl.Visual = { bg = "#808080", fg = "#ffffff" }
-  hl.VisualNOS = { bg = "#606060", fg = "#cccccc" }
+  hl.Visual = { bg = "#555555", fg = "#ffffff" }
+  hl.VisualNOS = { bg = "#3d3d3d", fg = "#cccccc" }
 end
 
 return {
