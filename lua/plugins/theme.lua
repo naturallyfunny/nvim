@@ -97,7 +97,7 @@ local function setup_ui_highlights(hl, colors)
 
   set_highlights(hl, {
     "WinSeparator", "VertSplit", "NeoTreeWinSeparator", "SnacksWinSeparator",
-  }, { fg = c.black, bg = "NONE" })
+  }, { fg = "NONE", bg = "NONE" })
 
   hl.FloatermBorder = { bg = "NONE", fg = colors.border }
   hl.TelescopeBorder = { fg = c.black }
@@ -127,8 +127,8 @@ end
 
 local function setup_visual_selection_highlights(hl)
   -- Menggunakan warna #333333
-  hl.Visual = { bg = "#555555", fg = "#ffffff" }
-  hl.VisualNOS = { bg = "#3d3d3d", fg = "#cccccc" }
+  hl.Visual = { bg = "#2a1f3d", fg = c.pale }
+  hl.VisualNOS = { bg = "#1e1530", fg = c.grey }
 end
 
 return {

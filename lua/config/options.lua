@@ -17,6 +17,7 @@ vim.opt.signcolumn = "no"
 vim.opt.foldcolumn = "0"
 vim.opt.cursorline = false
 vim.opt.list = false
+vim.opt.fillchars:append({ vert = " " })
 
 -- Set Neovim indentation to 4 spaces
 vim.opt.tabstop = 4
