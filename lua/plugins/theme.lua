@@ -115,7 +115,7 @@ local function setup_ui_highlights(hl, colors)
   hl.NoiceCmdlineIcon = { fg = c.white, bg = "NONE" }
   hl.NoiceCmdlinePopup = { bg = "NONE" }
   hl.LineNr = { fg = c.grey }
-  hl.CursorLineNr = { fg = c.white, bold = true }
+  hl.CursorLineNr = { fg = "#e8e8e8", bold = true }
   hl.Cursor = { bg = c.cursor, fg = c.black }
   hl.Comment = { fg = "#3a4261" }
   hl.MatchParen = { fg = "#7aa2f7" }
