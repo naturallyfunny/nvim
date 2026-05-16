@@ -48,7 +48,7 @@ local function setup_syntax_highlights(hl)
     "@lsp.typemod.namespace.declaration",
   }, { fg = "#FFFFFF", bold = false })
 
-  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#7aa2f7" })
+  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#9ece6a" })
 
   set_highlights(hl, {
     "Type", "@type.builtin", "@lsp.type.builtinType",
@@ -69,7 +69,7 @@ local function setup_syntax_highlights(hl)
 
   set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = c.silver })
   set_highlights(hl, { "@punctuation.bracket" }, { fg = c.white })
-  set_highlights(hl, { "String", "Character" }, { fg = "#9ece6a" })
+  set_highlights(hl, { "String", "Character" }, { fg = "#7aa2f7" })
   set_highlights(hl, {
     "Constant", "@constant.builtin", "@variable.builtin", "@constant",
     "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
@@ -134,7 +134,7 @@ end
 
 local function setup_visual_selection_highlights(hl)
   -- Menggunakan warna #333333
-  hl.Visual = { bg = "#2a1f3d", fg = c.pale }
+  hl.Visual = { bg = "#535c7e", fg = c.white }
   hl.VisualNOS = { bg = "#1e1530", fg = c.grey }
 end
 
