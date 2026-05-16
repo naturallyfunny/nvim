@@ -131,6 +131,8 @@ local function setup_ui_highlights(hl, colors)
   hl.SnacksTitle = { fg = c.white }
   hl.SnacksPickerToggle = { fg = c.white }
   hl.SnacksPickerPrompt = { fg = c.white }
+  hl.SnacksIndent = { fg = "#2a2a2a" }
+  hl.SnacksIndentScope = { fg = "#a0a0a0" }
 end
 
 local function setup_dashboard_highlights(hl)
