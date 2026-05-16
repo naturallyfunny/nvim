@@ -31,7 +31,7 @@ local c = {
   cyan_blue = "#2cc3df",
 
   package_color = "#FFFFFF",
-  string_color = "#7aa2f7",
+  string_color = "#9ece6a",
   darker_silver = "#B0B0B0",
 }
 
@@ -48,7 +48,7 @@ local function setup_syntax_highlights(hl)
     "@lsp.typemod.namespace.declaration",
   }, { fg = "#FFFFFF", bold = false })
 
-  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#9ece6a" })
+  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#7aa2f7" })
 
   set_highlights(hl, {
     "Type", "@type.builtin", "@lsp.type.builtinType",
@@ -69,7 +69,7 @@ local function setup_syntax_highlights(hl)
 
   set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = c.silver })
   set_highlights(hl, { "@punctuation.bracket" }, { fg = c.white })
-  set_highlights(hl, { "String", "Character" }, { fg = "#7aa2f7" })
+  set_highlights(hl, { "String", "Character" }, { fg = "#9ece6a" })
   set_highlights(hl, {
     "Constant", "@constant.builtin", "@variable.builtin", "@constant",
     "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
