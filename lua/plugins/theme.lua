@@ -28,7 +28,7 @@ local c = {
   grey = "#505050",
   cursor = "#FF0000",
   silver = "#C0C0C0",
-  cyan_blue = "#2cc3df",
+  cyan_blue = "#f7768e",
 
   package_color = "#FFFFFF",
   string_color = "#7db84e",
@@ -47,6 +47,8 @@ local function setup_syntax_highlights(hl)
     "Title",
     "@lsp.typemod.namespace.declaration",
   }, { fg = "#FFFFFF", bold = false })
+
+  set_highlights(hl, { "@function.builtin" }, { fg = "#f7768e" })
 
   set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#c4783c" })
 
@@ -116,7 +118,7 @@ local function setup_ui_highlights(hl, colors)
   hl.CursorLineNr = { fg = c.white, bold = true }
   hl.Cursor = { bg = c.cursor, fg = c.black }
   hl.Comment = { fg = "#3a4261" }
-  hl.MatchParen = { fg = c.cyan_blue }
+  hl.MatchParen = { fg = "#7aa2f7" }
   hl.DiagnosticError = { fg = "#8b3a3a" }
   hl.DiagnosticWarn = { fg = "#c4a35a" }
   hl.DiagnosticHint = { fg = "#6b8e6b" }
