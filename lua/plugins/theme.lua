@@ -50,7 +50,7 @@ local function setup_syntax_highlights(hl)
 
   set_highlights(hl, { "@function.builtin" }, { fg = "#f7768e" })
 
-  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#c4783c" })
+  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#a65d2e" })
 
   set_highlights(hl, {
     "Type", "@type.builtin", "@lsp.type.builtinType",
