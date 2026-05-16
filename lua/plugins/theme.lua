@@ -75,7 +75,7 @@ local function setup_syntax_highlights(hl)
   set_highlights(hl, {
     "Constant", "@constant.builtin", "@variable.builtin", "@constant",
     "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
-  }, { fg = "#c46a75" })
+  }, { fg = "#a07078" })
 end
 
 local function setup_ui_highlights(hl, colors)
@@ -122,6 +122,9 @@ local function setup_ui_highlights(hl, colors)
   hl.DiagnosticError = { fg = "#8b3a3a" }
   hl.DiagnosticWarn = { fg = "#c4a35a" }
   hl.DiagnosticHint = { fg = "#6b8e6b" }
+  hl.Directory = { fg = "#FFFFFF" }
+  hl.SnacksPickerFile = { fg = "#FFFFFF" }
+  hl.MiniIconsAzure = { fg = "#629a4a" }
 end
 
 local function setup_dashboard_highlights(hl)
@@ -201,6 +204,14 @@ return {
       tokyonight.visual.b.fg = "#7aa2f7"
       tokyonight.visual.z = tokyonight.visual.z or {}
       tokyonight.visual.z.fg = "#7aa2f7"
+
+      -- Change lazy.nvim updates component (cube icon + count) from cyan to white
+      local lazy_status = require("lazy.status")
+      for _, component in ipairs((opts.sections or {}).lualine_x or {}) do
+        if type(component) == "table" and component[1] == lazy_status.updates then
+          component.color = function() return { fg = "#FFFFFF" } end
+        end
+      end
 
       opts.options = opts.options or {}
       opts.options.section_separators = { left = "", right = "" }
