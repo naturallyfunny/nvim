@@ -48,7 +48,7 @@ local function setup_syntax_highlights(hl)
     "@lsp.typemod.namespace.declaration",
   }, { fg = "#FFFFFF", bold = false })
 
-  set_highlights(hl, { "@function.builtin" }, { fg = "#5d82b5" })
+  set_highlights(hl, { "@function.builtin" }, { fg = "#a07078" })
 
   set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#6a5d50" })
 
@@ -75,7 +75,7 @@ local function setup_syntax_highlights(hl)
   set_highlights(hl, {
     "Constant", "@constant.builtin", "@variable.builtin", "@constant",
     "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
-  }, { fg = "#a07078" })
+  }, { fg = "#5d82b5" })
 end
 
 local function setup_ui_highlights(hl, colors)
