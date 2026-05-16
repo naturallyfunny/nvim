@@ -8,7 +8,7 @@ local c = {
   base = "#010101",
   black = "#010101",
   text = "#d4d6c6",
-  white = "#E0E0E0",
+  white = "#FFFFFF",
 
   -- COLOR CONFIG:
   pink_bright = "#f30974",
@@ -48,7 +48,7 @@ local function setup_syntax_highlights(hl)
     "@lsp.typemod.namespace.declaration",
   }, { fg = "#FFFFFF", bold = false })
 
-  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = c.package_color })
+  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#7aa2f7" })
 
   set_highlights(hl, {
     "Type", "@type.builtin", "@lsp.type.builtinType",
@@ -58,18 +58,22 @@ local function setup_syntax_highlights(hl)
   set_highlights(hl, {
     "@type", "@type.definition", "@lsp.type.struct", "@lsp.type.interface",
     "@lsp.type.enum", "@lsp.type.type", "Structure",
-  }, { fg = c.white })
+  }, { fg = c.darker_silver })
 
   set_highlights(hl, {
     "Identifier", "@variable", "@variable.parameter",
     "@field", "@property", "@variable.member",
     "@lsp.type.property", "@lsp.type.variable", "@lsp.type.parameter",
+    "@lsp.typemod.variable.definition", "TSVariable", "TSVariableBuiltin",
   }, { fg = c.white })
 
-  set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = c.white })
+  set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = c.silver })
   set_highlights(hl, { "@punctuation.bracket" }, { fg = c.white })
-  set_highlights(hl, { "String", "Character" }, { fg = c.string_color })
-  set_highlights(hl, { "Constant", "@constant.builtin", "@variable.builtin" }, { fg = c.darker_silver })
+  set_highlights(hl, { "String", "Character" }, { fg = "#9ece6a" })
+  set_highlights(hl, {
+    "Constant", "@constant.builtin", "@variable.builtin", "@constant",
+    "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
+  }, { fg = "#c4783c" })
 end
 
 local function setup_ui_highlights(hl, colors)
@@ -113,6 +117,9 @@ local function setup_ui_highlights(hl, colors)
   hl.Cursor = { bg = c.cursor, fg = c.black }
   hl.Comment = { fg = "#3a4261" }
   hl.MatchParen = { fg = c.cyan_blue }
+  hl.DiagnosticError = { fg = "#8b3a3a" }
+  hl.DiagnosticWarn = { fg = "#c4a35a" }
+  hl.DiagnosticHint = { fg = "#6b8e6b" }
 end
 
 local function setup_dashboard_highlights(hl)
@@ -174,18 +181,25 @@ return {
       -- Load the default Tokyonight theme for lualine
       local tokyonight = require("lualine.themes.tokyonight")
       
-      -- Strip backgrounds from the middle sections but leave section 'a' (mode), 'b' (branch), and 'z' alone
       for _, mode in pairs(tokyonight) do
-        if mode.a then
-          mode.a.fg = mode.a.bg
-          mode.a.bg = "NONE"
-        end
-        if mode.b then mode.b.bg = "NONE" end
+        local mode_fg = mode.a and mode.a.bg
+        if mode.a then mode.a.fg = mode_fg mode.a.bg = "NONE" end
+        if mode.b then mode.b.fg = mode_fg mode.b.bg = "NONE" end
         if mode.c then mode.c.bg = "NONE" end
         if mode.x then mode.x.bg = "NONE" end
         if mode.y then mode.y.bg = "NONE" end
+        if mode.z then mode.z.fg = mode_fg mode.z.bg = "NONE" end
       end
-      
+
+      tokyonight.normal.a.fg = "#FFFFFF"
+      tokyonight.normal.b.fg = "#FFFFFF"
+      tokyonight.normal.z = tokyonight.normal.z or {}
+      tokyonight.normal.z.fg = "#FFFFFF"
+      tokyonight.visual.a.fg = "#7aa2f7"
+      tokyonight.visual.b.fg = "#7aa2f7"
+      tokyonight.visual.z = tokyonight.visual.z or {}
+      tokyonight.visual.z.fg = "#7aa2f7"
+
       opts.options = opts.options or {}
       opts.options.section_separators = { left = "", right = "" }
       opts.options.theme = tokyonight
