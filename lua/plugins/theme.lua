@@ -22,13 +22,4 @@ return {
   },
 
   { "LazyVim/LazyVim", opts = { colorscheme = "catppuccin" } },
-
-  {
-    "nvim-lualine/lualine.nvim",
-    opts = function(_, opts)
-      opts.options = opts.options or {}
-      opts.options.theme = "auto"
-      opts.options.section_separators = { left = "", right = "" }
-    end,
-  },
 }
