@@ -134,6 +134,11 @@ local function setup_ui_highlights(hl, colors)
   hl.SnacksTitle = { fg = c.white }
   hl.SnacksPickerToggle = { fg = c.white }
   hl.SnacksPickerPrompt = { fg = c.white }
+  -- Git-ignored and hidden (dot-prefixed) entries in the explorer. Snacks links
+  -- these to NonText, which tokyonight tints navy — match LineNr's neutral grey.
+  hl.SnacksPickerPathIgnored = { fg = c.grey }
+  hl.SnacksPickerPathHidden = { fg = c.grey }
+  hl.SnacksPickerGitStatusIgnored = { fg = c.grey }
   hl.SnacksIndent = { fg = "#3d3d3d" }
   hl.SnacksIndentScope = { fg = "#e8e8e8" }
 end
