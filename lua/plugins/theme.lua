@@ -211,6 +211,10 @@ return {
       tokyonight.normal.b.fg = "#FFFFFF"
       tokyonight.normal.z = tokyonight.normal.z or {}
       tokyonight.normal.z.fg = "#FFFFFF"
+      tokyonight.insert.a.fg = "#c94f4f"
+      tokyonight.insert.b.fg = "#c94f4f"
+      tokyonight.insert.z = tokyonight.insert.z or {}
+      tokyonight.insert.z.fg = "#c94f4f"
       tokyonight.visual.a.fg = "#7aa2f7"
       tokyonight.visual.b.fg = "#7aa2f7"
       tokyonight.visual.z = tokyonight.visual.z or {}
