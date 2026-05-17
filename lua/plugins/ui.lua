@@ -58,4 +58,14 @@ return {
     "nvim-mini/mini.indentscope",
     enabled = false,
   },
+
+  -- Change default folder icon from azure (overridden to green) to white
+  {
+    "echasnovski/mini.icons",
+    opts = {
+      default = {
+        directory = { hl = "MiniIconsWhite" },
+      },
+    },
+  },
 }
