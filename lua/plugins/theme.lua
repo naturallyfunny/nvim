@@ -147,6 +147,13 @@ local function setup_ui_highlights(hl, colors)
   hl.SnacksPickerDir = { fg = "#383838" }
   hl.SnacksIndent = { fg = "#3d3d3d" }
   hl.SnacksIndentScope = { fg = "#e8e8e8" }
+  -- Winbar/breadcrumb: tokyonight defaults to a navy-tinted comment color.
+  -- Use a neutral mid-grey so the directory path reads as plain grey, not blue.
+  hl.WinBar = { fg = "#8a8a8a", bg = "NONE" }
+  hl.WinBarNC = { fg = "#8a8a8a", bg = "NONE" }
+  -- pretty_path uses filename_hl="Bold" — give Bold an explicit white fg so the
+  -- filename stays white instead of inheriting lualine_c's grey.
+  hl.Bold = { fg = c.white, bold = true }
   hl.WhichKey = { fg = c.white }
   hl.WhichKeyDesc = { fg = c.white }
   hl.WhichKeyGroup = { fg = c.white }
@@ -217,7 +224,9 @@ return {
         local mode_fg = mode.a and mode.a.bg
         if mode.a then mode.a.fg = mode_fg mode.a.bg = "NONE" end
         if mode.b then mode.b.fg = mode_fg mode.b.bg = "NONE" end
-        if mode.c then mode.c.bg = "NONE" end
+        -- lualine_c is where pretty_path's directory text renders (directory_hl="" → falls
+        -- back to section default). Tokyonight's default is navy-tinted; force neutral grey.
+        if mode.c then mode.c.fg = "#8a8a8a" mode.c.bg = "NONE" end
         if mode.x then mode.x.bg = "NONE" end
         if mode.y then mode.y.bg = "NONE" end
         if mode.z then mode.z.fg = mode_fg mode.z.bg = "NONE" end
