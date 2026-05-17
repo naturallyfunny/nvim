@@ -55,12 +55,12 @@ local function setup_syntax_highlights(hl)
   set_highlights(hl, {
     "Type", "@type.builtin", "@lsp.type.builtinType",
     "@lsp.typemod.type.defaultLibrary", "@lsp.typemod.builtin.defaultLibrary",
-  }, { fg = "#e1e1e1", italic = true })
+  }, { fg = "#cecece", italic = true })
 
   set_highlights(hl, {
     "@type", "@type.definition", "@lsp.type.struct", "@lsp.type.interface",
     "@lsp.type.enum", "@lsp.type.type",
-  }, { fg = "#e1e1e1" })
+  }, { fg = "#cecece" })
 
   set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#c4c4c4" })
   set_highlights(hl, { "@function.builtin" }, { fg = "#c4c4c4" })
