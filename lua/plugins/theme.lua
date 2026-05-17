@@ -36,46 +36,48 @@ local c = {
 }
 
 local function setup_syntax_highlights(hl)
+  -- B&W scale: 7 even steps from #505050 (keywords) to #FFFFFF (functions/vars)
   set_highlights(hl, {
     "Keyword", "Statement", "Conditional", "Repeat", "Include",
     "Structure", "Define", "PreProc", "Exception",
     "@keyword", "@keyword.function", "@keyword.import", "@include",
-  }, { fg = c.grey, italic = false })
+  }, { fg = "#505050", italic = false })
+
+  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#8a8a8a" })
 
   set_highlights(hl, {
-    "Function", "@function", "@function.call", "@method", "@constructor",
-    "Title",
-    "@lsp.typemod.namespace.declaration",
-  }, { fg = "#FFFFFF", bold = false })
+    "Constant", "@constant.builtin", "@variable.builtin", "@constant",
+    "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
+  }, { fg = "#505050" })
 
-  set_highlights(hl, { "@function.builtin" }, { fg = "#a07078" })
-
-  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#4d6070" })
+  set_highlights(hl, { "String", "Character" }, { fg = "#6d6d6d" })
 
   set_highlights(hl, {
     "Type", "@type.builtin", "@lsp.type.builtinType",
     "@lsp.typemod.type.defaultLibrary", "@lsp.typemod.builtin.defaultLibrary",
-  }, { fg = c.darker_silver, italic = true })
+  }, { fg = "#cecece", italic = true })
 
   set_highlights(hl, {
     "@type", "@type.definition", "@lsp.type.struct", "@lsp.type.interface",
-    "@lsp.type.enum", "@lsp.type.type", "Structure",
-  }, { fg = c.darker_silver })
+    "@lsp.type.enum", "@lsp.type.type",
+  }, { fg = "#cecece" })
+
+  set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#c4c4c4" })
+  set_highlights(hl, { "@function.builtin" }, { fg = "#c4c4c4" })
+
+  set_highlights(hl, {
+    "Function", "@function", "@function.call", "@method", "@constructor",
+    "Title", "@lsp.typemod.namespace.declaration",
+  }, { fg = "#FFFFFF", bold = false })
 
   set_highlights(hl, {
     "Identifier", "@variable", "@variable.parameter",
     "@field", "@property", "@variable.member",
     "@lsp.type.property", "@lsp.type.variable", "@lsp.type.parameter",
     "@lsp.typemod.variable.definition", "TSVariable", "TSVariableBuiltin",
-  }, { fg = c.white })
+  }, { fg = "#FFFFFF" })
 
-  set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = c.silver })
-  set_highlights(hl, { "@punctuation.bracket" }, { fg = c.white })
-  set_highlights(hl, { "String", "Character" }, { fg = "#5e7050" })
-  set_highlights(hl, {
-    "Constant", "@constant.builtin", "@variable.builtin", "@constant",
-    "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
-  }, { fg = "#6a5d50" })
+  set_highlights(hl, { "@punctuation.bracket" }, { fg = "#FFFFFF" })
 end
 
 local function setup_ui_highlights(hl, colors)
@@ -89,7 +91,7 @@ local function setup_ui_highlights(hl, colors)
     "SnacksExplorer", "SnacksExplorerNormal",
     "NvimTreeNormal", "NvimTreeNormalNC", "NetrwNormal", "NetrwNormalNC",
     "NormalSB", "SignColumnSB",
-    "StatusLine", "StatusLineNC", "MsgArea",
+    "StatusLine", "StatusLineNC",
     "WhichKeyNormal", "WhichKeyFloat",
   }, { bg = "NONE" })
   set_highlights(hl, {
@@ -112,16 +114,21 @@ local function setup_ui_highlights(hl, colors)
   -- Noice.nvim floating command line styling
   hl.NoiceCmdlinePopupBorder = { fg = c.black, bg = "NONE" }
   hl.NoiceCmdlinePopupTitle = { fg = c.white, bg = "NONE" }
-  hl.NoiceCmdlineIcon = { fg = c.white, bg = "NONE" }
-  hl.NoiceCmdlinePopup = { bg = "NONE" }
+  -- Link the default cmdline icon group to the search icon group so all
+  -- prompt icons (`:` `/` `?` `!` `>`) share the same yellow as `/`.
+  hl.NoiceCmdlineIcon = { link = "NoiceCmdlineIconSearch" }
+  hl.MsgArea = { fg = c.white, bg = "NONE" }
+  hl.NoiceCmdline = { fg = c.white, bg = "NONE" }
+  hl.NoiceCmdlinePopup = { fg = c.white, bg = "NONE" }
+  hl.BlinkCmpLabelMatch = { fg = "#c94f4f" }
   hl.LineNr = { fg = c.grey }
   hl.LineNrAbove = { fg = c.grey }
   hl.LineNrBelow = { fg = c.grey }
   hl.CursorLineNr = { fg = "#e8e8e8", bold = true }
   hl.CursorLine = { bg = "NONE" }
   hl.Cursor = { bg = c.cursor, fg = c.black }
-  hl.Comment = { fg = "#3a4261" }
-  hl.MatchParen = { fg = "#7aa2f7" }
+  hl.Comment = { fg = "#383838" }
+  hl.MatchParen = { fg = "#c94f4f" }
   hl.DiagnosticError = { fg = "#8b3a3a" }
   hl.DiagnosticWarn = { fg = "#c4a35a" }
   hl.DiagnosticHint = { fg = "#6b8e6b" }
@@ -132,10 +139,19 @@ local function setup_ui_highlights(hl, colors)
   -- SnacksPickerToggle links to SnacksProfilerBadgeInfo which is also cyan (#2ac3de).
   hl.FloatTitle = { fg = c.white }
   hl.SnacksTitle = { fg = c.white }
-  hl.SnacksPickerToggle = { fg = c.white }
+  hl.SnacksPickerToggle = { fg = c.white, bg = "NONE" }
   hl.SnacksPickerPrompt = { fg = c.white }
+  hl.SnacksPickerRule = { fg = "#010101" }
+  hl.SnacksPickerMatch = { fg = c.white }
+  hl.SnacksPickerTotals = { fg = c.white }
+  hl.SnacksPickerDir = { fg = "#383838" }
   hl.SnacksIndent = { fg = "#3d3d3d" }
   hl.SnacksIndentScope = { fg = "#e8e8e8" }
+  hl.WhichKey = { fg = c.white }
+  hl.WhichKeyDesc = { fg = c.white }
+  hl.WhichKeyGroup = { fg = c.white }
+  hl.WhichKeySeparator = { fg = c.white }
+  hl.WhichKeyValue = { fg = c.white }
 end
 
 local function setup_dashboard_highlights(hl)
@@ -177,7 +193,7 @@ return {
         colors.bg_statusline = "NONE"
 
         colors.border = main_border_color -- Use local literal
-        colors.fg = "#d4d6c6"
+        colors.fg = "#FFFFFF"
       end,
 
       on_highlights = function(hl, colors)
