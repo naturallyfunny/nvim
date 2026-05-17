@@ -43,27 +43,27 @@ local function setup_syntax_highlights(hl)
     "@keyword", "@keyword.function", "@keyword.import", "@include",
   }, { fg = "#505050", italic = false })
 
-  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#6d6d6d" })
+  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#8a8a8a" })
 
   set_highlights(hl, {
     "Constant", "@constant.builtin", "@variable.builtin", "@constant",
     "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
-  }, { fg = "#8a8a8a" })
+  }, { fg = "#c94f4f" })
 
-  set_highlights(hl, { "String", "Character" }, { fg = "#a7a7a7" })
+  set_highlights(hl, { "String", "Character" }, { fg = "#6d6d6d" })
 
   set_highlights(hl, {
     "Type", "@type.builtin", "@lsp.type.builtinType",
     "@lsp.typemod.type.defaultLibrary", "@lsp.typemod.builtin.defaultLibrary",
-  }, { fg = "#c4c4c4", italic = true })
+  }, { fg = "#e1e1e1", italic = true })
 
   set_highlights(hl, {
     "@type", "@type.definition", "@lsp.type.struct", "@lsp.type.interface",
     "@lsp.type.enum", "@lsp.type.type",
-  }, { fg = "#c4c4c4" })
+  }, { fg = "#e1e1e1" })
 
-  set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#e1e1e1" })
-  set_highlights(hl, { "@function.builtin" }, { fg = "#e1e1e1" })
+  set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#c4c4c4" })
+  set_highlights(hl, { "@function.builtin" }, { fg = "#c4c4c4" })
 
   set_highlights(hl, {
     "Function", "@function", "@function.call", "@method", "@constructor",
