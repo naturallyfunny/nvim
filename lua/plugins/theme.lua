@@ -216,6 +216,13 @@ return {
       tokyonight.visual.z = tokyonight.visual.z or {}
       tokyonight.visual.z.fg = "#7aa2f7"
 
+      -- Change root_dir component (folder icon + project name) from cyan to white
+      for _, component in ipairs((opts.sections or {}).lualine_c or {}) do
+        if type(component) == "table" and type(component[1]) == "function" and component.color then
+          component.color = function() return { fg = "#FFFFFF" } end
+        end
+      end
+
       -- Change lazy.nvim updates component (cube icon + count) from cyan to white
       local lazy_status = require("lazy.status")
       for _, component in ipairs((opts.sections or {}).lualine_x or {}) do
