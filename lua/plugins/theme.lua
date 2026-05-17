@@ -128,6 +128,7 @@ local function setup_ui_highlights(hl, colors)
   hl.Directory = { fg = "#FFFFFF" }
   hl.SnacksPickerFile = { fg = "#FFFFFF" }
   hl.MiniIconsAzure = { fg = "#629a4a" }
+  hl.MiniIconsWhite = { fg = "#FFFFFF" }
   -- Explorer title bar: FloatTitle and SnacksTitle are cyan (#27a1b9) in tokyonight;
   -- SnacksPickerToggle links to SnacksProfilerBadgeInfo which is also cyan (#2ac3de).
   hl.FloatTitle = { fg = c.white }
