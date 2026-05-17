@@ -114,7 +114,9 @@ local function setup_ui_highlights(hl, colors)
   -- Noice.nvim floating command line styling
   hl.NoiceCmdlinePopupBorder = { fg = c.black, bg = "NONE" }
   hl.NoiceCmdlinePopupTitle = { fg = c.white, bg = "NONE" }
-  hl.NoiceCmdlineIcon = { fg = c.white, bg = "NONE" }
+  -- Link the default cmdline icon group to the search icon group so all
+  -- prompt icons (`:` `/` `?` `!` `>`) share the same yellow as `/`.
+  hl.NoiceCmdlineIcon = { link = "NoiceCmdlineIconSearch" }
   hl.MsgArea = { fg = c.white, bg = "NONE" }
   hl.NoiceCmdline = { fg = c.white, bg = "NONE" }
   hl.NoiceCmdlinePopup = { fg = c.white, bg = "NONE" }
