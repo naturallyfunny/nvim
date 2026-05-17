@@ -50,7 +50,7 @@ local function setup_syntax_highlights(hl)
 
   set_highlights(hl, { "@function.builtin" }, { fg = "#a07078" })
 
-  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#6a5d50" })
+  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#4d6070" })
 
   set_highlights(hl, {
     "Type", "@type.builtin", "@lsp.type.builtinType",
@@ -71,11 +71,11 @@ local function setup_syntax_highlights(hl)
 
   set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = c.silver })
   set_highlights(hl, { "@punctuation.bracket" }, { fg = c.white })
-  set_highlights(hl, { "String", "Character" }, { fg = "#629a4a" })
+  set_highlights(hl, { "String", "Character" }, { fg = "#5e7050" })
   set_highlights(hl, {
     "Constant", "@constant.builtin", "@variable.builtin", "@constant",
     "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
-  }, { fg = "#5d82b5" })
+  }, { fg = "#6a5d50" })
 end
 
 local function setup_ui_highlights(hl, colors)
@@ -127,7 +127,7 @@ local function setup_ui_highlights(hl, colors)
   hl.DiagnosticHint = { fg = "#6b8e6b" }
   hl.Directory = { fg = "#FFFFFF" }
   hl.SnacksPickerFile = { fg = "#FFFFFF" }
-  hl.MiniIconsAzure = { fg = "#629a4a" }
+  hl.MiniIconsAzure = { fg = "#FFFFFF" }
   -- Explorer title bar: FloatTitle and SnacksTitle are cyan (#27a1b9) in tokyonight;
   -- SnacksPickerToggle links to SnacksProfilerBadgeInfo which is also cyan (#2ac3de).
   hl.FloatTitle = { fg = c.white }
