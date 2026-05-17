@@ -91,7 +91,7 @@ local function setup_ui_highlights(hl, colors)
     "SnacksExplorer", "SnacksExplorerNormal",
     "NvimTreeNormal", "NvimTreeNormalNC", "NetrwNormal", "NetrwNormalNC",
     "NormalSB", "SignColumnSB",
-    "StatusLine", "StatusLineNC", "MsgArea",
+    "StatusLine", "StatusLineNC",
     "WhichKeyNormal", "WhichKeyFloat",
   }, { bg = "NONE" })
   set_highlights(hl, {
@@ -115,7 +115,10 @@ local function setup_ui_highlights(hl, colors)
   hl.NoiceCmdlinePopupBorder = { fg = c.black, bg = "NONE" }
   hl.NoiceCmdlinePopupTitle = { fg = c.white, bg = "NONE" }
   hl.NoiceCmdlineIcon = { fg = c.white, bg = "NONE" }
-  hl.NoiceCmdlinePopup = { bg = "NONE" }
+  hl.MsgArea = { fg = c.white, bg = "NONE" }
+  hl.NoiceCmdline = { fg = c.white, bg = "NONE" }
+  hl.NoiceCmdlinePopup = { fg = c.white, bg = "NONE" }
+  hl.BlinkCmpLabelMatch = { fg = "#c94f4f" }
   hl.LineNr = { fg = c.grey }
   hl.LineNrAbove = { fg = c.grey }
   hl.LineNrBelow = { fg = c.grey }
@@ -188,7 +191,7 @@ return {
         colors.bg_statusline = "NONE"
 
         colors.border = main_border_color -- Use local literal
-        colors.fg = "#d4d6c6"
+        colors.fg = "#FFFFFF"
       end,
 
       on_highlights = function(hl, colors)
