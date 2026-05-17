@@ -48,7 +48,7 @@ local function setup_syntax_highlights(hl)
   set_highlights(hl, {
     "Constant", "@constant.builtin", "@variable.builtin", "@constant",
     "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
-  }, { fg = "#c94f4f" })
+  }, { fg = "#505050" })
 
   set_highlights(hl, { "String", "Character" }, { fg = "#6d6d6d" })
 
