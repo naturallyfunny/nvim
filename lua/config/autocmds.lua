@@ -21,21 +21,34 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
--- Force snacks picker highlight overrides after Snacks' own ColorScheme re-application.
--- Snacks re-applies its managed hl_groups on every ColorScheme event (snacks/util/init.lua:27).
--- vim.schedule_wrap ensures we run after all ColorScheme callbacks in this event loop tick.
+-- Highlight overrides that must outlast plugin re-application.
+-- Both noice and snacks re-apply their defaults on ColorScheme events (without default=true).
+-- We use vim.schedule to run after all VeryLazy callbacks finish (including plugin setups),
+-- and vim.schedule_wrap on ColorScheme to run after all sync ColorScheme callbacks.
+local function apply_hl_overrides()
+  vim.api.nvim_set_hl(0, "SnacksPickerRule", { fg = "#010101" })
+  vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = "#FFFFFF" })
+  vim.api.nvim_set_hl(0, "SnacksPickerTotals", { fg = "#FFFFFF" })
+  vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#383838" })
+  vim.api.nvim_set_hl(0, "SnacksPickerToggle", { fg = "#FFFFFF", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#010101", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = "#010101", bg = "NONE" })
+  -- Noice: noice.setup() calls highlights.setup() after colorscheme loads, overwriting on_highlights
+  -- NoiceCmdline is the active group when cmdline.view = "cmdline" (native bottom);
+  -- NoiceCmdlinePopup applies when cmdline.view = "cmdline_popup" (floating). Set both.
+  vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = "#FFFFFF", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = "#FFFFFF", bg = "NONE" })
+  -- Blink: tokyonight sets BlinkCmpLabelMatch = blue1 #2ac3de directly in its blink groups file
+  vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#c94f4f" })
+end
+
+-- vim.schedule defers to the next event loop tick, after ALL VeryLazy callbacks
+-- (including noice.setup() → highlights.setup()) have finished.
+vim.schedule(apply_hl_overrides)
+
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
-  callback = vim.schedule_wrap(function()
-    vim.api.nvim_set_hl(0, "SnacksPickerRule", { fg = "#010101" })
-    vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = "#FFFFFF" })
-    vim.api.nvim_set_hl(0, "SnacksPickerTotals", { fg = "#FFFFFF" })
-    vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#383838" })
-    vim.api.nvim_set_hl(0, "SnacksPickerToggle", { fg = "#FFFFFF", bg = "NONE" })
-    -- Input window border (sidebar preset uses border = true on input)
-    vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#010101", bg = "NONE" })
-    vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = "#010101", bg = "NONE" })
-  end),
+  callback = vim.schedule_wrap(apply_hl_overrides),
   desc = "Override snacks picker highlights after Snacks re-application",
 })
 
@@ -59,7 +72,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
     -- These colors are based on the tokyonight.nvim configuration in lua/plugins/theme.lua
-    local fg_color = "#d4d6c6" -- colors.fg
+    local fg_color = "#FFFFFF" -- colors.fg (pure white so cmdline / unhighlighted text isn't grey)
     vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", fg = fg_color, blend = 0 })
   end,
   desc = "Ensure Normal highlight group has no blend",
