@@ -22,6 +22,7 @@ return {
               layout = {
                 position = "right",
                 width = 40,
+                border = "none",
                 box = "vertical",
                 { win = "list" },
               },

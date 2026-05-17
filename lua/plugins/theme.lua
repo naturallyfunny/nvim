@@ -134,8 +134,12 @@ local function setup_ui_highlights(hl, colors)
   -- SnacksPickerToggle links to SnacksProfilerBadgeInfo which is also cyan (#2ac3de).
   hl.FloatTitle = { fg = c.white }
   hl.SnacksTitle = { fg = c.white }
-  hl.SnacksPickerToggle = { fg = c.white }
+  hl.SnacksPickerToggle = { fg = c.white, bg = "NONE" }
   hl.SnacksPickerPrompt = { fg = c.white }
+  hl.SnacksPickerRule = { fg = "#010101" }
+  hl.SnacksPickerMatch = { fg = c.white }
+  hl.SnacksPickerTotals = { fg = c.white }
+  hl.SnacksPickerDir = { fg = "#383838" }
   hl.SnacksIndent = { fg = "#3d3d3d" }
   hl.SnacksIndentScope = { fg = "#e8e8e8" }
   hl.WhichKey = { fg = c.white }
