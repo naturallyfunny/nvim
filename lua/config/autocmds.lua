@@ -21,6 +21,24 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+-- Force snacks picker highlight overrides after Snacks' own ColorScheme re-application.
+-- Snacks re-applies its managed hl_groups on every ColorScheme event (snacks/util/init.lua:27).
+-- vim.schedule_wrap ensures we run after all ColorScheme callbacks in this event loop tick.
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = vim.schedule_wrap(function()
+    vim.api.nvim_set_hl(0, "SnacksPickerRule", { fg = "#010101" })
+    vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = "#FFFFFF" })
+    vim.api.nvim_set_hl(0, "SnacksPickerTotals", { fg = "#FFFFFF" })
+    vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#383838" })
+    vim.api.nvim_set_hl(0, "SnacksPickerToggle", { fg = "#FFFFFF", bg = "NONE" })
+    -- Input window border (sidebar preset uses border = true on input)
+    vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#010101", bg = "NONE" })
+    vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = "#010101", bg = "NONE" })
+  end),
+  desc = "Override snacks picker highlights after Snacks re-application",
+})
+
 -- FIX KURSOR MERAH (Prioritas Utama)
 -- Memaksa highlight cursor setiap kali colorscheme dimuat/diubah
 vim.api.nvim_create_autocmd("ColorScheme", {
