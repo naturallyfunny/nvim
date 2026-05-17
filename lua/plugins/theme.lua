@@ -36,46 +36,48 @@ local c = {
 }
 
 local function setup_syntax_highlights(hl)
+  -- B&W scale: 7 even steps from #505050 (keywords) to #FFFFFF (functions/vars)
   set_highlights(hl, {
     "Keyword", "Statement", "Conditional", "Repeat", "Include",
     "Structure", "Define", "PreProc", "Exception",
     "@keyword", "@keyword.function", "@keyword.import", "@include",
-  }, { fg = c.grey, italic = false })
+  }, { fg = "#505050", italic = false })
+
+  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#6d6d6d" })
 
   set_highlights(hl, {
-    "Function", "@function", "@function.call", "@method", "@constructor",
-    "Title",
-    "@lsp.typemod.namespace.declaration",
-  }, { fg = "#FFFFFF", bold = false })
+    "Constant", "@constant.builtin", "@variable.builtin", "@constant",
+    "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
+  }, { fg = "#8a8a8a" })
 
-  set_highlights(hl, { "@function.builtin" }, { fg = "#a07078" })
-
-  set_highlights(hl, { "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#4d6070" })
+  set_highlights(hl, { "String", "Character" }, { fg = "#a7a7a7" })
 
   set_highlights(hl, {
     "Type", "@type.builtin", "@lsp.type.builtinType",
     "@lsp.typemod.type.defaultLibrary", "@lsp.typemod.builtin.defaultLibrary",
-  }, { fg = c.darker_silver, italic = true })
+  }, { fg = "#c4c4c4", italic = true })
 
   set_highlights(hl, {
     "@type", "@type.definition", "@lsp.type.struct", "@lsp.type.interface",
-    "@lsp.type.enum", "@lsp.type.type", "Structure",
-  }, { fg = c.darker_silver })
+    "@lsp.type.enum", "@lsp.type.type",
+  }, { fg = "#c4c4c4" })
+
+  set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#e1e1e1" })
+  set_highlights(hl, { "@function.builtin" }, { fg = "#e1e1e1" })
+
+  set_highlights(hl, {
+    "Function", "@function", "@function.call", "@method", "@constructor",
+    "Title", "@lsp.typemod.namespace.declaration",
+  }, { fg = "#FFFFFF", bold = false })
 
   set_highlights(hl, {
     "Identifier", "@variable", "@variable.parameter",
     "@field", "@property", "@variable.member",
     "@lsp.type.property", "@lsp.type.variable", "@lsp.type.parameter",
     "@lsp.typemod.variable.definition", "TSVariable", "TSVariableBuiltin",
-  }, { fg = c.white })
+  }, { fg = "#FFFFFF" })
 
-  set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = c.silver })
-  set_highlights(hl, { "@punctuation.bracket" }, { fg = c.white })
-  set_highlights(hl, { "String", "Character" }, { fg = "#5e7050" })
-  set_highlights(hl, {
-    "Constant", "@constant.builtin", "@variable.builtin", "@constant",
-    "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
-  }, { fg = "#6a5d50" })
+  set_highlights(hl, { "@punctuation.bracket" }, { fg = "#FFFFFF" })
 end
 
 local function setup_ui_highlights(hl, colors)
