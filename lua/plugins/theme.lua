@@ -122,7 +122,7 @@ local function setup_ui_highlights(hl, colors)
   hl.CursorLineNr = { fg = "#e8e8e8", bold = true }
   hl.CursorLine = { bg = "NONE" }
   hl.Cursor = { bg = c.cursor, fg = c.black }
-  hl.Comment = { fg = "#3a4261" }
+  hl.Comment = { fg = "#383838" }
   hl.MatchParen = { fg = "#c94f4f" }
   hl.DiagnosticError = { fg = "#8b3a3a" }
   hl.DiagnosticWarn = { fg = "#c4a35a" }
@@ -138,6 +138,11 @@ local function setup_ui_highlights(hl, colors)
   hl.SnacksPickerPrompt = { fg = c.white }
   hl.SnacksIndent = { fg = "#3d3d3d" }
   hl.SnacksIndentScope = { fg = "#e8e8e8" }
+  hl.WhichKey = { fg = c.white }
+  hl.WhichKeyDesc = { fg = c.white }
+  hl.WhichKeyGroup = { fg = c.white }
+  hl.WhichKeySeparator = { fg = c.white }
+  hl.WhichKeyValue = { fg = c.white }
 end
 
 local function setup_dashboard_highlights(hl)
