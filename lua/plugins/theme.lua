@@ -115,7 +115,10 @@ local function setup_ui_highlights(hl, colors)
   hl.NoiceCmdlineIcon = { fg = c.white, bg = "NONE" }
   hl.NoiceCmdlinePopup = { bg = "NONE" }
   hl.LineNr = { fg = c.grey }
-  hl.CursorLineNr = { fg = c.white, bold = true }
+  hl.LineNrAbove = { fg = c.grey }
+  hl.LineNrBelow = { fg = c.grey }
+  hl.CursorLineNr = { fg = "#e8e8e8", bold = true }
+  hl.CursorLine = { bg = "NONE" }
   hl.Cursor = { bg = c.cursor, fg = c.black }
   hl.Comment = { fg = "#3a4261" }
   hl.MatchParen = { fg = "#7aa2f7" }
@@ -124,15 +127,15 @@ local function setup_ui_highlights(hl, colors)
   hl.DiagnosticHint = { fg = "#6b8e6b" }
   hl.Directory = { fg = "#FFFFFF" }
   hl.SnacksPickerFile = { fg = "#FFFFFF" }
-  hl.MiniIconsAzure = { fg = "#629a4a" }
+  hl.MiniIconsAzure = { fg = "#FFFFFF" }
   -- Explorer title bar: FloatTitle and SnacksTitle are cyan (#27a1b9) in tokyonight;
   -- SnacksPickerToggle links to SnacksProfilerBadgeInfo which is also cyan (#2ac3de).
   hl.FloatTitle = { fg = c.white }
   hl.SnacksTitle = { fg = c.white }
   hl.SnacksPickerToggle = { fg = c.white }
   hl.SnacksPickerPrompt = { fg = c.white }
-  hl.SnacksIndent = { fg = "#2a2a2a" }
-  hl.SnacksIndentScope = { fg = "#a0a0a0" }
+  hl.SnacksIndent = { fg = "#3d3d3d" }
+  hl.SnacksIndentScope = { fg = "#e8e8e8" }
 end
 
 local function setup_dashboard_highlights(hl)
@@ -212,6 +215,13 @@ return {
       tokyonight.visual.b.fg = "#7aa2f7"
       tokyonight.visual.z = tokyonight.visual.z or {}
       tokyonight.visual.z.fg = "#7aa2f7"
+
+      -- Change root_dir component (folder icon + project name) from cyan to white
+      for _, component in ipairs((opts.sections or {}).lualine_c or {}) do
+        if type(component) == "table" and type(component[1]) == "function" and component.color then
+          component.color = function() return { fg = "#FFFFFF" } end
+        end
+      end
 
       -- Change lazy.nvim updates component (cube icon + count) from cyan to white
       local lazy_status = require("lazy.status")

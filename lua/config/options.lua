@@ -15,7 +15,7 @@ vim.opt.number = true
 vim.opt.numberwidth = 1
 vim.opt.signcolumn = "no"
 vim.opt.foldcolumn = "0"
-vim.opt.cursorline = false
+vim.opt.cursorline = true
 vim.opt.list = false
 vim.opt.fillchars:append({ vert = " " })
 
