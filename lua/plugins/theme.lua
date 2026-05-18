@@ -151,8 +151,14 @@ local function setup_ui_highlights(hl, colors)
     for _, part in ipairs({ "Border", "Title", "Icon", "Body" }) do
       hl["Notify" .. up .. part] = { fg = c.white, bg = "NONE" }
     end
-    hl["NoiceFormatLevel" .. level] = { fg = c.white }
+    hl["NoiceFormatLevel" .. level] = { fg = c.white, bg = "NONE" }
   end
+  -- Strip the dark badge background from Warn/Error level labels in the mini view
+  -- while preserving their diagnostic fg tints.
+  hl.NoiceFormatLevelWarn  = { fg = "#c4a35a", bg = "NONE" }
+  hl.NoiceFormatLevelError = { fg = "#8b3a3a", bg = "NONE" }
+  -- The mini view itself can carry a bg from NormalFloat — force it transparent.
+  hl.NoiceMini = { bg = "NONE" }
   -- Unused symbols (unused var/const/struct/import) — LSP "unnecessary" tag.
   -- Tokyonight defaults this to a navy-tinted dim; swap to a desaturated red.
   hl.DiagnosticUnnecessary = { fg = "#6a5454" }
