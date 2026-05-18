@@ -222,52 +222,55 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
-      -- Load the default Tokyonight theme for lualine
-      local tokyonight = require("lualine.themes.tokyonight")
-      
-      for _, mode in pairs(tokyonight) do
-        local mode_fg = mode.a and mode.a.bg
-        if mode.a then mode.a.fg = mode_fg mode.a.bg = "NONE" end
-        if mode.b then mode.b.fg = mode_fg mode.b.bg = "NONE" end
-        -- lualine_c is where pretty_path's directory text renders (directory_hl="" → falls
-        -- back to section default). Tokyonight's default is navy-tinted; force neutral grey.
-        if mode.c then mode.c.fg = "#8a8a8a" mode.c.bg = "NONE" end
-        if mode.x then mode.x.bg = "NONE" end
-        if mode.y then mode.y.bg = "NONE" end
-        if mode.z then mode.z.fg = mode_fg mode.z.bg = "NONE" end
+      -- Solid monochrome B&W statusline with powerline chevrons.
+      -- Mode-pill brightness gradient: INSERT brightest (active editing focus),
+      -- NORMAL slightly off-white, COMMAND/VISUAL mid, REPLACE darkest.
+      -- Section c blends into the editor bg (#010101) so empty stretches don't
+      -- show as a grey rectangle. Section b uses a subtle accent bg so the
+      -- a→b and b→c chevrons remain visible.
+      local b_bg, b_fg = "#1a1a1a", "#b8b8b8"
+      local c_bg, c_fg = "#010101", "#6a6a6a"
+      local function mode_section(a_bg, a_fg)
+        return {
+          a = { bg = a_bg, fg = a_fg, gui = "bold" },
+          b = { bg = b_bg, fg = b_fg },
+          c = { bg = c_bg, fg = c_fg },
+        }
       end
+      local theme = {
+        normal   = mode_section("#e8e8e8", "#010101"),
+        insert   = mode_section("#FFFFFF", "#c94f4f"),
+        visual   = mode_section("#FFFFFF", "#7aa2f7"),
+        replace  = mode_section("#3a3a3a", "#FFFFFF"),
+        command  = mode_section("#b0b0b0", "#010101"),
+        inactive = {
+          a = { bg = c_bg, fg = "#4a4a4a", gui = "bold" },
+          b = { bg = c_bg, fg = "#4a4a4a" },
+          c = { bg = c_bg, fg = "#4a4a4a" },
+        },
+      }
 
-      tokyonight.normal.a.fg = "#FFFFFF"
-      tokyonight.normal.b.fg = "#FFFFFF"
-      tokyonight.normal.z = tokyonight.normal.z or {}
-      tokyonight.normal.z.fg = "#FFFFFF"
-      tokyonight.insert.a.fg = "#c94f4f"
-      tokyonight.insert.b.fg = "#c94f4f"
-      tokyonight.insert.z = tokyonight.insert.z or {}
-      tokyonight.insert.z.fg = "#c94f4f"
-      tokyonight.visual.a.fg = "#7aa2f7"
-      tokyonight.visual.b.fg = "#7aa2f7"
-      tokyonight.visual.z = tokyonight.visual.z or {}
-      tokyonight.visual.z.fg = "#7aa2f7"
-
-      -- Change root_dir component (folder icon + project name) from cyan to white
+      -- root_dir component (folder icon + project name) renders inside section c.
       for _, component in ipairs((opts.sections or {}).lualine_c or {}) do
         if type(component) == "table" and type(component[1]) == "function" and component.color then
-          component.color = function() return { fg = "#FFFFFF" } end
+          component.color = function() return { fg = "#FFFFFF", bg = c_bg, gui = "bold" } end
         end
       end
 
-      -- Change lazy.nvim updates component (cube icon + count) from cyan to white
+      -- lazy.nvim updates component (cube icon + count) renders inside section x.
       local lazy_status = require("lazy.status")
       for _, component in ipairs((opts.sections or {}).lualine_x or {}) do
         if type(component) == "table" and component[1] == lazy_status.updates then
-          component.color = function() return { fg = "#FFFFFF" } end
+          component.color = function() return { fg = "#FFFFFF", bg = c_bg } end
         end
       end
 
       opts.options = opts.options or {}
-      opts.options.section_separators = { left = "", right = "" }
-      opts.options.theme = tokyonight
+      -- Powerline chevrons: U+E0B0 (solid right), U+E0B2 (solid left) for sections;
+      -- U+E0B1 (thin right), U+E0B3 (thin left) for components.
+      opts.options.section_separators = { left = "\xee\x82\xb0", right = "\xee\x82\xb2" }
+      opts.options.component_separators = { left = "\xee\x82\xb1", right = "\xee\x82\xb3" }
+      opts.options.theme = theme
     end,
   },
 }
