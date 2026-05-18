@@ -134,7 +134,7 @@ local function setup_ui_highlights(hl, colors)
   hl.CursorLine = { bg = "NONE" }
   hl.Cursor = { bg = c.cursor, fg = c.black }
   hl.Comment = { fg = "#383838" }
-  hl.MatchParen = { fg = "#c94f4f" }
+  hl.MatchParen = { fg = "#7aa2f7", bold = true }
   hl.DiagnosticError = { fg = "#8b3a3a" }
   hl.DiagnosticWarn = { fg = "#c4a35a" }
   hl.DiagnosticHint = { fg = "#6b8e6b" }
