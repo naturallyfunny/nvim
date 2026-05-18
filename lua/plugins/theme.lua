@@ -239,8 +239,8 @@ return {
       end
       local theme = {
         normal   = mode_section("#e8e8e8", "#010101"),
-        insert   = mode_section("#FFFFFF", "#010101"),
-        visual   = mode_section("#7a7a7a", "#FFFFFF"),
+        insert   = mode_section("#FFFFFF", "#c94f4f"),
+        visual   = mode_section("#FFFFFF", "#7aa2f7"),
         replace  = mode_section("#3a3a3a", "#FFFFFF"),
         command  = mode_section("#b0b0b0", "#010101"),
         inactive = {
