@@ -263,6 +263,15 @@ return {
         if type(component) == "table" and component[1] == lazy_status.updates then
           component.color = function() return { fg = "#FFFFFF", bg = c_bg } end
         end
+        -- gitsigns diff counters (added/modified/removed) — tokyonight colors
+        -- modified blue (DiffChange). Force all three to white for monochrome.
+        if type(component) == "table" and component[1] == "diff" then
+          component.diff_color = {
+            added    = { fg = "#FFFFFF" },
+            modified = { fg = "#FFFFFF" },
+            removed  = { fg = "#FFFFFF" },
+          }
+        end
       end
 
       opts.options = opts.options or {}
