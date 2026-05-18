@@ -117,6 +117,12 @@ local function setup_ui_highlights(hl, colors)
   -- Link the default cmdline icon group to the search icon group so all
   -- prompt icons (`:` `/` `?` `!` `>`) share the same yellow as `/`.
   hl.NoiceCmdlineIcon = { link = "NoiceCmdlineIconSearch" }
+  -- Per-format icons (one per cmdline.format entry in noice.lua). Noice creates
+  -- these dynamically and they sometimes outlast the base-group override above,
+  -- so pin each directly to the search-icon yellow.
+  for _, name in ipairs({ "Cmdline", "Lua", "Help", "Input", "Filter", "Search_up", "Search_down" }) do
+    hl["NoiceCmdlineIcon" .. name] = { link = "NoiceCmdlineIconSearch" }
+  end
   hl.MsgArea = { fg = c.white, bg = "NONE" }
   hl.NoiceCmdline = { fg = c.white, bg = "NONE" }
   hl.NoiceCmdlinePopup = { fg = c.white, bg = "NONE" }
@@ -132,6 +138,21 @@ local function setup_ui_highlights(hl, colors)
   hl.DiagnosticError = { fg = "#8b3a3a" }
   hl.DiagnosticWarn = { fg = "#c4a35a" }
   hl.DiagnosticHint = { fg = "#6b8e6b" }
+  hl.DiagnosticInfo = { fg = "#6a5454" }
+
+  -- Force non-error/non-warning notifications (info/hint/trace/debug) to white.
+  -- Covers snacks.notifier, nvim-notify, and noice — borders, titles, icons,
+  -- bodies, and footers all share the same white. Error/Warn keep their tints.
+  for _, level in ipairs({ "Info", "Hint", "Trace", "Debug" }) do
+    for _, part in ipairs({ "", "Border", "Title", "Icon", "Footer", "History" }) do
+      hl["SnacksNotifier" .. part .. level] = { fg = c.white, bg = "NONE" }
+    end
+    local up = level:upper()
+    for _, part in ipairs({ "Border", "Title", "Icon", "Body" }) do
+      hl["Notify" .. up .. part] = { fg = c.white, bg = "NONE" }
+    end
+    hl["NoiceFormatLevel" .. level] = { fg = c.white }
+  end
   -- Unused symbols (unused var/const/struct/import) — LSP "unnecessary" tag.
   -- Tokyonight defaults this to a navy-tinted dim; swap to a desaturated red.
   hl.DiagnosticUnnecessary = { fg = "#6a5454" }
