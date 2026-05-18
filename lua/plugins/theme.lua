@@ -132,6 +132,9 @@ local function setup_ui_highlights(hl, colors)
   hl.DiagnosticError = { fg = "#8b3a3a" }
   hl.DiagnosticWarn = { fg = "#c4a35a" }
   hl.DiagnosticHint = { fg = "#6b8e6b" }
+  -- Unused symbols (unused var/const/struct/import) — LSP "unnecessary" tag.
+  -- Tokyonight defaults this to a navy-tinted dim; swap to a desaturated red.
+  hl.DiagnosticUnnecessary = { fg = "#6a5454" }
   hl.Directory = { fg = "#FFFFFF" }
   hl.SnacksPickerFile = { fg = "#FFFFFF" }
   hl.MiniIconsAzure = { fg = "#FFFFFF" }
