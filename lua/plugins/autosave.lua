@@ -1,40 +1,58 @@
--- A more stable auto-save plugin: LudoPinelli/auto-save.nvim
+-- VS Code-style "afterDelay" autosave.
+-- Saves ~1s after you stop typing, plus immediately on FocusLost / BufLeave.
+-- Suppresses LazyVim's format-on-save during autosave so undo stays clean —
+-- formatting still runs on a manual :w.
 return {
-  "LudoPinelli/auto-save.nvim",
-  -- Load on non-intrusive events
-  event = { "InsertLeave", "FocusLost", "BufLeave" },
+  "okuuva/auto-save.nvim",
+  version = "*",
+  event = "VeryLazy",
   opts = {
-    enabled = true,
-    execution_message = {
-      message = "✓ auto-saved",
-      dim = 0,
-      cleaning_interval = 1250,
+    debounce_delay = 1000,
+    trigger_events = {
+      immediate_save = { "BufLeave", "FocusLost" },
+      defer_save = { "InsertLeave", "TextChanged" },
+      cancel_deferred_save = { "InsertEnter" },
     },
-    -- Use triggers that are guaranteed not to interfere with editing.
-    -- This configuration will NOT save while you are typing.
-    trigger_events = { "InsertLeave", "FocusLost", "BufLeave" },
     condition = function(buf)
-      -- Use early returns to make the conditions clearer
       if not vim.api.nvim_buf_is_valid(buf) then
         return false
       end
-
-      -- Exclude special buffers
-      local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
-      if buftype ~= "" then
+      if vim.bo[buf].buftype ~= "" then
         return false
       end
-
-      -- Exclude specific filetypes
-      local fts = { "TelescopePrompt", "NvimTree", "gitcommit", "gitrebase", "svn", "hgcommit" }
-      if vim.tbl_contains(fts, vim.bo[buf].filetype) then
+      local skip_ft = { "TelescopePrompt", "NvimTree", "gitcommit", "gitrebase", "svn", "hgcommit" }
+      if vim.tbl_contains(skip_ft, vim.bo[buf].filetype) then
         return false
       end
-
-      -- If all checks pass, allow auto-saving
       return true
     end,
     write_all_buffers = false,
-    -- No debounce needed for these events
+    noautocmd = false,
   },
+  config = function(_, opts)
+    require("auto-save").setup(opts)
+
+    -- Suppress LazyVim's BufWritePre formatter for the autosave write only.
+    -- okuuva fires User AutoSaveWritePre right before `:silent! write`, and
+    -- User AutoSaveWritePost after — we toggle vim.g.autoformat across that
+    -- window. Using vim.g (not vim.b) because the pre event runs before the
+    -- buf_call switches into the target buffer.
+    local group = vim.api.nvim_create_augroup("AutoSaveNoFormat", { clear = true })
+    vim.api.nvim_create_autocmd("User", {
+      group = group,
+      pattern = "AutoSaveWritePre",
+      callback = function()
+        vim.g.__autosave_prev_autoformat = vim.g.autoformat
+        vim.g.autoformat = false
+      end,
+    })
+    vim.api.nvim_create_autocmd("User", {
+      group = group,
+      pattern = "AutoSaveWritePost",
+      callback = function()
+        vim.g.autoformat = vim.g.__autosave_prev_autoformat
+        vim.g.__autosave_prev_autoformat = nil
+      end,
+    })
+  end,
 }
