@@ -80,6 +80,18 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   desc = "Ensure Normal highlight group has no blend",
 })
 
+-- Show markdown as raw text (LazyVim defaults conceallevel=2, which hides
+-- code fences, link syntax, emphasis markers, etc.) and turn off the spell
+-- checker so non-English words don't get red squiggles.
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown" },
+  callback = function()
+    vim.opt_local.conceallevel = 0
+    vim.opt_local.spell = false
+  end,
+  desc = "Raw markdown rendering, no spell-check",
+})
+
 vim.api.nvim_create_autocmd({ "WinNew", "WinClosed", "BufWinEnter" }, {
   group = vim.api.nvim_create_augroup("ForceOpaqueMainWindows", { clear = true }),
   callback = function()

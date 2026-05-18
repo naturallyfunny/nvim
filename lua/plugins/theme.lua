@@ -220,6 +220,87 @@ local function setup_dashboard_highlights(hl)
   }, { fg = c.white })
 end
 
+-- Map markdown syntax onto the same 7-step B&W scale used by code.
+-- Levels: #505050 (1) → #6d6d6d → #8a8a8a → #a7a7a7 → #c4c4c4 → #cecece → #FFFFFF (7).
+-- Body text already reads as white from Normal, so this only retints the
+-- syntactic decorations (headings, markers, code, links, quotes).
+local function setup_markdown_highlights(hl)
+  -- Heading text — level 7, bold. All six levels share the same weight so
+  -- structure comes from the marker count, not from color shifts.
+  set_highlights(hl, {
+    "@markup.heading", "@markup.heading.markdown",
+    "@markup.heading.1", "@markup.heading.2", "@markup.heading.3",
+    "@markup.heading.4", "@markup.heading.5", "@markup.heading.6",
+    "@markup.heading.1.markdown", "@markup.heading.2.markdown",
+    "@markup.heading.3.markdown", "@markup.heading.4.markdown",
+    "@markup.heading.5.markdown", "@markup.heading.6.markdown",
+    "markdownH1", "markdownH2", "markdownH3",
+    "markdownH4", "markdownH5", "markdownH6",
+  }, { fg = "#FFFFFF", bold = true, bg = "NONE" })
+
+  -- Heading marker (#, ##, ###) — level 4, sits behind the title.
+  set_highlights(hl, {
+    "@markup.heading.1.marker.markdown", "@markup.heading.2.marker.markdown",
+    "@markup.heading.3.marker.markdown", "@markup.heading.4.marker.markdown",
+    "@markup.heading.5.marker.markdown", "@markup.heading.6.marker.markdown",
+    "@punctuation.special.markdown",
+    "markdownH1Delimiter", "markdownH2Delimiter", "markdownH3Delimiter",
+    "markdownH4Delimiter", "markdownH5Delimiter", "markdownH6Delimiter",
+    "markdownHeadingDelimiter",
+  }, { fg = "#a7a7a7", bold = false, bg = "NONE" })
+
+  -- Inline code `like this` — level 2, no background tint.
+  set_highlights(hl, {
+    "@markup.raw", "@markup.raw.markdown", "@markup.raw.markdown_inline",
+    "markdownCode", "markdownCodeDelimiter",
+  }, { fg = "#6d6d6d", bg = "NONE" })
+
+  -- Fenced code block delimiters (```lang) — level 2.
+  set_highlights(hl, {
+    "@markup.raw.block.markdown",
+    "markdownCodeBlock",
+  }, { fg = "#6d6d6d", bg = "NONE" })
+
+  -- Bold / italic — keep white, just toggle the gui attribute.
+  set_highlights(hl, {
+    "@markup.strong", "@markup.strong.markdown_inline", "markdownBold",
+  }, { fg = "#FFFFFF", bold = true })
+  set_highlights(hl, {
+    "@markup.italic", "@markup.italic.markdown_inline", "markdownItalic",
+  }, { fg = "#FFFFFF", italic = true })
+
+  -- Links: label level 5, URL level 3, surrounding brackets/parens level 4.
+  set_highlights(hl, {
+    "@markup.link", "@markup.link.label", "@markup.link.label.markdown_inline",
+    "markdownLinkText", "markdownLink",
+  }, { fg = "#c4c4c4", bg = "NONE", underline = false })
+  set_highlights(hl, {
+    "@markup.link.url", "@markup.link.url.markdown_inline",
+    "markdownUrl",
+  }, { fg = "#8a8a8a", bg = "NONE", underline = false })
+  set_highlights(hl, {
+    "markdownLinkDelimiter", "markdownLinkTextDelimiter",
+  }, { fg = "#a7a7a7" })
+
+  -- List bullets/numbers (-, *, 1.) — level 3, restrained.
+  set_highlights(hl, {
+    "@markup.list", "@markup.list.markdown",
+    "markdownListMarker", "markdownOrderedListMarker",
+  }, { fg = "#8a8a8a" })
+
+  -- Block quotes — level 2.
+  set_highlights(hl, {
+    "@markup.quote", "@markup.quote.markdown",
+    "markdownBlockquote",
+  }, { fg = "#6d6d6d", italic = true })
+
+  -- Horizontal rules (---) — level 3.
+  set_highlights(hl, {
+    "@punctuation.special.markdown",
+    "markdownRule",
+  }, { fg = "#8a8a8a" })
+end
+
 local function setup_visual_selection_highlights(hl)
   -- Menggunakan warna #333333
   hl.Visual = { bg = "#535c7e", fg = c.white }
@@ -257,6 +338,7 @@ return {
         setup_ui_highlights(hl, colors)
         setup_dashboard_highlights(hl)
         setup_visual_selection_highlights(hl)
+        setup_markdown_highlights(hl)
       end,
     },
   },
