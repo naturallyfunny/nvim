@@ -225,8 +225,11 @@ return {
       -- Solid monochrome B&W statusline with powerline chevrons.
       -- Mode-pill brightness gradient: INSERT brightest (active editing focus),
       -- NORMAL slightly off-white, COMMAND/VISUAL mid, REPLACE darkest.
-      local b_bg, b_fg = "#262626", "#a8a8a8"
-      local c_bg, c_fg = "#0d0d0d", "#6a6a6a"
+      -- Section c blends into the editor bg (#010101) so empty stretches don't
+      -- show as a grey rectangle. Section b uses a subtle accent bg so the
+      -- a→b and b→c chevrons remain visible.
+      local b_bg, b_fg = "#1a1a1a", "#b8b8b8"
+      local c_bg, c_fg = "#010101", "#6a6a6a"
       local function mode_section(a_bg, a_fg)
         return {
           a = { bg = a_bg, fg = a_fg, gui = "bold" },
