@@ -65,6 +65,20 @@ local function setup_syntax_highlights(hl)
   set_highlights(hl, { "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#c4c4c4" })
   set_highlights(hl, { "@function.builtin" }, { fg = "#c4c4c4" })
 
+  -- Level 4 (#a7a7a7) — control/qualifier keywords and special string-like
+  -- tokens that sit between plain @keyword (level 1) and @type.builtin
+  -- (level 6). Covers SQL conditional/operator/modifier/attribute words
+  -- (IF, NOT, AND, DEFAULT, UNIQUE, CASCADE, …) and go.mod's @string.special
+  -- version/url tokens, so phrases like `CREATE TABLE IF NOT EXISTS …` and
+  -- `require module v1.2.3` keep visual rhythm against their neighbors.
+  set_highlights(hl, {
+    "Special", "SpecialChar",
+    "@keyword.conditional", "@keyword.repeat",
+    "@keyword.operator", "@keyword.modifier", "@keyword.directive",
+    "@attribute", "@boolean",
+    "@string.special", "@string.special.url",
+  }, { fg = "#a7a7a7" })
+
   set_highlights(hl, {
     "Function", "@function", "@function.call", "@method", "@constructor",
     "Title", "@lsp.typemod.namespace.declaration",
