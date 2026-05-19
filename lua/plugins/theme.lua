@@ -14,9 +14,7 @@ local c = {
   pink_bright = "#f30974",
   pink_dark = "#ab0652",
 
-  -- [BARU] PINK SAGE / DUSTY PINK
-  -- Kode ini jauh lebih desaturated (keabu-abuan) dan soft.
-  -- Tidak lagi neon ("menyala").
+  -- PINK SAGE / DUSTY PINK — heavily desaturated, soft, not neon.
   pink_sage = "#523646",
 
   green_lime = "#bae67e",
@@ -148,7 +146,7 @@ local function setup_ui_highlights(hl, colors)
   hl.CursorLine = { bg = "NONE" }
   hl.Cursor = { bg = c.cursor, fg = c.black }
   hl.Comment = { fg = "#383838" }
-  hl.MatchParen = { fg = "#7aa2f7", bold = true }
+  hl.MatchParen = { fg = "#FFFFFF", bold = true }
   hl.DiagnosticError = { fg = "#8b3a3a" }
   hl.DiagnosticWarn = { fg = "#c4a35a" }
   hl.DiagnosticHint = { fg = "#6b8e6b" }
@@ -302,9 +300,26 @@ local function setup_markdown_highlights(hl)
 end
 
 local function setup_visual_selection_highlights(hl)
-  -- Menggunakan warna #333333
-  hl.Visual = { bg = "#535c7e", fg = c.white }
-  hl.VisualNOS = { bg = "#1e1530", fg = c.grey }
+  -- Visual selection
+  hl.Visual    = { bg = "#a7a7a7", fg = c.black }  -- L4
+  hl.VisualNOS = { bg = "#6d6d6d", fg = c.black }  -- L2
+
+  -- Search / * occurrences
+  hl.Search    = { bg = "#8a8a8a", fg = c.black }  -- L3: all matches
+  hl.CurSearch = { bg = "#c4c4c4", fg = c.black }  -- L5: active match
+  hl.IncSearch = { bg = "#FFFFFF",  fg = c.black }  -- L7: yank flash / current :s
+
+  -- Editing helpers
+  hl.Substitute                  = { bg = "#a7a7a7", fg = c.black }         -- L4
+  hl.WildMenu                    = { bg = "#a7a7a7", fg = c.black }         -- L4
+  hl.QuickFixLine                = { bg = "#8a8a8a", fg = c.black }         -- L3
+  hl.LspSignatureActiveParameter = { bg = "#6d6d6d", fg = c.black, bold = true } -- L2
+  hl.Folded                      = { fg = "#6d6d6d", bg = "NONE" }          -- L2 fg, no bg
+
+  -- LSP word references (Snacks.words / document_highlight)
+  hl.LspReferenceText  = { bg = "#8a8a8a", fg = c.black }  -- L3
+  hl.LspReferenceRead  = { bg = "#8a8a8a", fg = c.black }
+  hl.LspReferenceWrite = { bg = "#8a8a8a", fg = c.black }
 end
 
 return {
@@ -366,7 +381,7 @@ return {
       local theme = {
         normal   = mode_section("#e8e8e8", "#010101"),
         insert   = mode_section("#FFFFFF", "#c94f4f"),
-        visual   = mode_section("#FFFFFF", "#7aa2f7"),
+        visual   = mode_section("#a7a7a7", "#010101"),
         replace  = mode_section("#3a3a3a", "#FFFFFF"),
         command  = mode_section("#b0b0b0", "#010101"),
         inactive = {
