@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end)
   end,
 })
-
+--
 -- Highlight overrides that must outlast plugin re-application.
 -- Both noice and snacks re-apply their defaults on ColorScheme events (without default=true).
 -- We use vim.schedule to run after all VeryLazy callbacks finish (including plugin setups),
@@ -54,8 +54,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   desc = "Override snacks picker highlights after Snacks re-application",
 })
 
--- FIX KURSOR MERAH (Prioritas Utama)
--- Memaksa highlight cursor setiap kali colorscheme dimuat/diubah
+-- Force red cursor on every colorscheme load/change
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
@@ -63,7 +62,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.api.nvim_set_hl(0, "Cursor", red_cursor)
     vim.api.nvim_set_hl(0, "TermCursor", red_cursor)
     vim.api.nvim_set_hl(0, "CursorNC", red_cursor)
-    -- Tambahan untuk mode Insert (seringkali di-handle terpisah oleh terminal emulator/GUI)
+    -- Also covers Insert mode (often handled separately by the terminal emulator/GUI)
     vim.api.nvim_set_hl(0, "lCursor", red_cursor)
     vim.api.nvim_set_hl(0, "CursorIM", red_cursor)
   end,

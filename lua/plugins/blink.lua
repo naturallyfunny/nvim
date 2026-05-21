@@ -3,29 +3,27 @@ return {
     "saghen/blink.cmp",
     opts = {
       completion = {
-        -- Mengaktifkan ghost text (teks bayangan)
+        -- Enable ghost text (inline preview)
         ghost_text = {
           enabled = true,
         },
-        -- Opsi list: agar menu muncul otomatis atau manual
         list = {
           selection = {
-            preselect = false, -- Jangan pilih otomatis item pertama (biar ghost text lebih dominan visualnya)
-            auto_insert = true, -- Insert text saat navigasi
+            preselect = false, -- Don't auto-select first item so ghost text stays visible
+            auto_insert = true, -- Insert text while navigating
           },
         },
       },
-      -- Konfigurasi Keymap
       keymap = {
-        preset = "none", -- Kita set manual agar 'persis' keinginan user
+        preset = "none", -- Fully manual keymaps
 
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-e>"] = { "hide" },
         ["<C-y>"] = { "select_and_accept" },
 
-        -- LOGIKA TAB SEPERTI VS CODE / COPILOT:
-        -- 1. Jika menu terbuka -> Tab menerima (select_and_accept)
-        -- 2. Jika tidak -> Tab indentasi biasa (fallback)
+        -- Tab logic (VS Code / Copilot style):
+        -- 1. Menu open  -> Tab accepts (select_and_accept)
+        -- 2. Otherwise  -> normal indent (fallback)
         ["<Tab>"] = {
           function(cmp)
             if cmp.snippet_active() then
