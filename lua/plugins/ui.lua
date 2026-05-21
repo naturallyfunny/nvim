@@ -5,7 +5,9 @@ return {
     "folke/snacks.nvim",
     opts = {
       dashboard = {
-        preset = {},
+        preset = {
+          header = dashboard.header,
+        },
       },
       picker = {
         backdrop = false,
@@ -40,7 +42,7 @@ return {
         },
       },
       indent = {
-        enabled = true,
+        enabled = false,
       },
       dim = {
         enabled = false,
@@ -48,7 +50,7 @@ return {
     },
   },
 
-  -- Bufferline (Tab Bar di atas)
+  -- Bufferline (tab bar)
   {
     "akinsho/bufferline.nvim",
     enabled = true,
