@@ -350,6 +350,12 @@ local function setup_bw_overrides(hl)
   hl.TelescopePromptTitle   = { fg = c.white }
   hl.TelescopeSelectionCaret = { fg = c.white }
 
+  -- Flash.nvim (s / S / f / t jumps) — mirror Search/CurSearch logic.
+  hl.FlashMatch    = { bg = "#2a2a2a", fg = c.white }        -- non-cursor matches
+  hl.FlashCurrent  = { bg = "#c4c4c4", fg = c.black }        -- cursor match
+  hl.FlashLabel    = { bg = "#FFFFFF", fg = c.black, bold = true }  -- jump label char
+  hl.FlashBackdrop = { fg = "#383838" }                      -- dimmed surrounding text
+
   -- Lazy.nvim plugin manager UI.
   hl.LazyNormal      = { bg = "NONE", fg = c.white }
   hl.LazyButton      = { bg = "#1c1c1c", fg = "#a7a7a7" }
@@ -371,9 +377,9 @@ local function setup_visual_selection_highlights(hl)
   hl.VisualNOS = { bg = "#202020", fg = "#aaaaaa" }  -- dimmer for inactive window
 
   -- Search / * occurrences
-  hl.Search    = { bg = "#8a8a8a", fg = c.black }  -- L3: all matches
-  hl.CurSearch = { bg = "#c4c4c4", fg = c.black }  -- L5: active match
-  hl.IncSearch = { bg = "#FFFFFF",  fg = c.black }  -- L7: yank flash / current :s
+  hl.Search    = { bg = "#2a2a2a", fg = c.white }   -- non-cursor matches: dark bg, white fg
+  hl.CurSearch = { bg = "#c4c4c4", fg = c.black }  -- cursor match: bright, stands out
+  hl.IncSearch = { bg = "#FFFFFF",  fg = c.black }  -- typing: brightest
 
   -- Editing helpers
   hl.Substitute                  = { bg = "#303030", fg = c.white }
@@ -478,7 +484,7 @@ return {
       end
       local theme = {
         normal   = mode_section("#e8e8e8", "#010101"),
-        insert   = mode_section("#FFFFFF", "#c94f4f"),
+        insert   = mode_section("#010101", "#e8e8e8"),
         visual   = mode_section("#a7a7a7", "#010101"),
         replace  = mode_section("#3a3a3a", "#FFFFFF"),
         command  = mode_section("#b0b0b0", "#010101"),
