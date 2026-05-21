@@ -299,6 +299,72 @@ local function setup_markdown_highlights(hl)
   }, { fg = "#8a8a8a" })
 end
 
+local function setup_bw_overrides(hl)
+  -- Diff (DiffAdd/Change/Delete/Text) — tokyonight gives these coloured bg tints.
+  hl.DiffAdd    = { bg = "#1c1c1c", fg = "NONE" }
+  hl.DiffChange = { bg = "#1c1c1c", fg = "NONE" }
+  hl.DiffDelete = { bg = "#1c1c1c", fg = "#505050" }
+  hl.DiffText   = { bg = "#2a2a2a", fg = "#FFFFFF" }
+
+  -- Git signs in the sign column.
+  local gs = {
+    Add = "#c4c4c4", Change = "#8a8a8a", Delete = "#505050",
+    Untracked = "#3a3a3a", Topdelete = "#505050", Changedelete = "#6d6d6d",
+  }
+  for kind, color in pairs(gs) do
+    for _, suffix in ipairs({ "", "Nr", "Ln", "Staged" }) do
+      hl["GitSigns" .. kind .. suffix] = { fg = color }
+    end
+  end
+
+  -- Phantom / whitespace chars — tokyonight links these to its blue-grey fg_gutter.
+  hl.NonText    = { fg = "#2a2a2a" }
+  hl.SpecialKey = { fg = "#2a2a2a" }
+  hl.Whitespace = { fg = "#1c1c1c" }
+  hl.EndOfBuffer = { fg = "#010101" }
+  hl.ColorColumn = { bg = "#1a1a1a", fg = "NONE" }
+
+  -- Diagnostic sub-groups: virtual text, floating window, sign column.
+  -- Reuse the same desaturated tints set on the base Diagnostic* groups.
+  local diag = {
+    Error = "#8b3a3a", Warn = "#c4a35a", Hint = "#6b8e6b",
+    Info = "#6a5454", Unnecessary = "#6a5454",
+  }
+  for sev, color in pairs(diag) do
+    hl["DiagnosticVirtualText" .. sev] = { fg = color, bg = "NONE" }
+    hl["DiagnosticFloating"    .. sev] = { fg = color, bg = "NONE" }
+    hl["DiagnosticSign"        .. sev] = { fg = color, bg = "NONE" }
+  end
+
+  -- Completion menu (Pmenu) — tokyonight may tint kinds with colour.
+  hl.PmenuKind    = { fg = "#a7a7a7", bg = "NONE" }
+  hl.PmenuKindSel = { fg = "#FFFFFF", bg = "NONE" }
+  hl.PmenuExtra    = { fg = "#6d6d6d", bg = "NONE" }
+  hl.PmenuExtraSel = { fg = "#a7a7a7", bg = "NONE" }
+
+  -- Telescope internals that tokyonight colours with its blue/cyan.
+  hl.TelescopeMatching      = { fg = "#FFFFFF", bold = true }
+  hl.TelescopePromptCounter = { fg = "#6d6d6d" }
+  hl.TelescopeResultsTitle  = { fg = c.white }
+  hl.TelescopePreviewTitle  = { fg = c.white }
+  hl.TelescopePromptTitle   = { fg = c.white }
+  hl.TelescopeSelectionCaret = { fg = c.white }
+
+  -- Lazy.nvim plugin manager UI.
+  hl.LazyNormal      = { bg = "NONE", fg = c.white }
+  hl.LazyButton      = { bg = "#1c1c1c", fg = "#a7a7a7" }
+  hl.LazyButtonActive = { bg = "#2a2a2a", fg = c.white, bold = true }
+  hl.LazyH1          = { fg = c.white, bold = true }
+  hl.LazyH2          = { fg = "#a7a7a7", bold = true }
+  hl.LazySpecial     = { fg = "#8a8a8a" }
+  hl.LazyCommit      = { fg = "#6d6d6d" }
+  hl.LazyCommitType  = { fg = "#8a8a8a" }
+  hl.LazyReasonPlugin = { fg = "#8a8a8a" }
+  hl.LazyProgressDone = { fg = c.white }
+  hl.LazyProgressTodo = { fg = "#505050" }
+  hl.LazyLocal       = { fg = "#6d6d6d" }
+end
+
 local function setup_visual_selection_highlights(hl)
   -- Visual selection
   hl.Visual    = { bg = "#303030", fg = c.white }  -- dark bg, white fg
@@ -337,21 +403,53 @@ return {
       on_colors = function(colors)
         local main_bg = "#010101"
         local pop_bg = "#010101"
-        local main_border_color = "#E0E0E0" -- Define local literal for border
+        local main_border_color = "#E0E0E0"
 
-        colors.bg = main_bg
-        colors.bg_sidebar = main_bg
-        colors.bg_dark = pop_bg
+        colors.bg            = main_bg
+        colors.bg_sidebar    = main_bg
+        colors.bg_dark       = pop_bg
         colors.bg_statusline = "NONE"
+        colors.border        = main_border_color
+        colors.fg            = "#FFFFFF"
 
-        colors.border = main_border_color -- Use local literal
-        colors.fg = "#FFFFFF"
+        -- Neutralize the full palette so any group not explicitly overridden
+        -- in on_highlights falls back to a neutral grey instead of navy/cyan.
+        colors.fg_dark      = "#c4c4c4"
+        colors.fg_gutter    = "#505050"   -- was blue-grey (line nr, gutter)
+        colors.comment      = "#383838"
+        colors.dark3        = "#505050"
+        colors.dark5        = "#6d6d6d"
+        colors.bg_highlight = "#1c1c1c"   -- was navy-tinted
+        colors.bg_visual    = "#2a2a2a"   -- was dark navy
+        colors.bg_popup     = main_bg
+        colors.bg_float     = main_bg
+        colors.bg_search    = "#3a3a3a"   -- was blue
+        colors.blue         = "#8a8a8a"
+        colors.blue0        = "#2a2a2a"
+        colors.blue1        = "#6d6d6d"
+        colors.blue2        = "#6d6d6d"
+        colors.blue5        = "#8a8a8a"
+        colors.blue6        = "#a7a7a7"
+        colors.blue7        = "#505050"
+        colors.cyan         = "#c4c4c4"
+        colors.teal         = "#6d6d6d"
+        colors.green        = "#8a8a8a"
+        colors.green1       = "#6d6d6d"
+        colors.green2       = "#6d6d6d"
+        colors.magenta      = "#a7a7a7"
+        colors.magenta2     = "#8a8a8a"
+        colors.purple       = "#8a8a8a"
+        colors.orange       = "#a7a7a7"
+        colors.yellow       = "#c4c4c4"
+        colors.red          = "#8a8a8a"
+        colors.red1         = "#6d6d6d"
       end,
 
       on_highlights = function(hl, colors)
         setup_syntax_highlights(hl)
         setup_ui_highlights(hl, colors)
         setup_dashboard_highlights(hl)
+        setup_bw_overrides(hl)
         setup_visual_selection_highlights(hl)
         setup_markdown_highlights(hl)
       end,
