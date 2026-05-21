@@ -154,8 +154,7 @@ return {
       require("bufferline").setup(opts)
 
       -- Re-apply key bufferline highlights after any ColorScheme load so
-      -- tokyonight's on_highlights or other plugins can't reintroduce the
-      -- default blue indicator / diagnostic tints.
+      -- plugins can't reintroduce the default blue indicator / diagnostic tints.
       local bg = "NONE"
       local fg_selected = "#FFFFFF"
       local apply = function()

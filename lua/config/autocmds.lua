@@ -40,7 +40,7 @@ local function apply_hl_overrides()
   vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = "#FFFFFF", bg = "NONE" })
   -- Match all cmdline prompt icons to the search icon's yellow (DiagnosticSignWarn).
   vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { link = "NoiceCmdlineIconSearch" })
-  -- Blink: tokyonight sets BlinkCmpLabelMatch = blue1 #2ac3de directly in its blink groups file
+  -- Blink: plugins may override BlinkCmpLabelMatch after colorscheme loads
   vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#c94f4f" })
 end
 
@@ -72,8 +72,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
-    -- These colors are based on the tokyonight.nvim configuration in lua/plugins/theme.lua
-    local fg_color = "#FFFFFF" -- colors.fg (pure white so cmdline / unhighlighted text isn't grey)
+    local fg_color = "#FFFFFF"
     vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", fg = fg_color, blend = 0 })
   end,
   desc = "Ensure Normal highlight group has no blend",
