@@ -109,6 +109,12 @@ end
 vim.api.nvim_set_hl(0, "MsgArea",           { fg = c.white, bg = "NONE" })
 vim.api.nvim_set_hl(0, "NoiceCmdline",      { fg = c.white, bg = "NONE" })
 vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = c.white, bg = "NONE" })
+
+-- Confirm dialog ("Save? Yes No?") — kuning supaya match dengan command/warning
+vim.api.nvim_set_hl(0, "NoiceConfirm",            { fg = c.white,   bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceConfirmBorder",      { fg = "#c4a35a", bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceFormatConfirm",      { bg = "#2a2a2a", fg = "#c4a35a" })
+vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = "#c4a35a", fg = c.black, bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#c94f4f" })
 vim.api.nvim_set_hl(0, "LineNr",            { fg = c.grey })
 vim.api.nvim_set_hl(0, "LineNrAbove",       { fg = c.grey })
@@ -134,6 +140,15 @@ for _, level in ipairs({ "Info", "Hint", "Trace", "Debug" }) do
   vim.api.nvim_set_hl(0, "NoiceFormatLevel" .. level, { fg = c.white, bg = "NONE" })
 end
 
+-- Warn: kuning; Error: merah — sesuai request user
+for _, part in ipairs({ "", "Border", "Title", "Icon", "Footer", "History" }) do
+  vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. "Warn",  { fg = "#c4a35a", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. "Error", { fg = "#8b3a3a", bg = "NONE" })
+end
+for _, part in ipairs({ "Border", "Title", "Icon", "Body" }) do
+  vim.api.nvim_set_hl(0, "NotifyWARN"  .. part, { fg = "#c4a35a", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "NotifyERROR" .. part, { fg = "#8b3a3a", bg = "NONE" })
+end
 vim.api.nvim_set_hl(0, "NoiceFormatLevelWarn",  { fg = "#c4a35a", bg = "NONE" })
 vim.api.nvim_set_hl(0, "NoiceFormatLevelError",  { fg = "#8b3a3a", bg = "NONE" })
 vim.api.nvim_set_hl(0, "NoiceMini",              { bg = "NONE" })

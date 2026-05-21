@@ -1,28 +1,32 @@
 return {
   "folke/noice.nvim",
   opts = {
-    -- Force every vim.notify call (info/warn/error) into the bottom-right mini view
-    notify = {
-      enabled = true,
-      view = "mini",
-    },
-    -- Same for :messages-style output (echo/echomsg/lua print)
-    messages = {
-      enabled = true,
-      view = "mini",
-      view_error = "mini",
-      view_warn = "mini",
-      view_history = "messages",
-      view_search = false,
-    },
     lsp = {
-      progress = { enabled = true, view = "mini" },
-      message = { enabled = true, view = "mini" },
+      -- Let noice render LSP hover/signature markdown properly
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
+      },
     },
     routes = {
-      -- Catch-all so nothing escapes to the popup view
-      { filter = { event = "notify" }, view = "mini" },
-      { filter = { event = "msg_show" }, view = "mini" },
+      -- Route common file-write / jump-position messages to mini (LazyVim default)
+      {
+        filter = {
+          event = "msg_show",
+          any = {
+            { find = "%d+L, %d+B" },
+            { find = "; after #%d+" },
+            { find = "; before #%d+" },
+          },
+        },
+        view = "mini",
+      },
+    },
+    presets = {
+      bottom_search = true,        -- search count appears at the bottom cmdline area
+      command_palette = true,      -- position cmdline and popupmenu together
+      long_message_to_split = true, -- long messages go to a split instead of popup
     },
     cmdline = {
       view = "cmdline", -- render at bottom, not as floating popup
