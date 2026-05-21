@@ -301,8 +301,8 @@ end
 
 local function setup_visual_selection_highlights(hl)
   -- Visual selection
-  hl.Visual    = { bg = "#a7a7a7", fg = c.black }  -- L4
-  hl.VisualNOS = { bg = "#6d6d6d", fg = c.black }  -- L2
+  hl.Visual    = { bg = "#303030", fg = c.white }  -- dark bg, white fg
+  hl.VisualNOS = { bg = "#202020", fg = "#aaaaaa" }  -- dimmer for inactive window
 
   -- Search / * occurrences
   hl.Search    = { bg = "#8a8a8a", fg = c.black }  -- L3: all matches
@@ -310,16 +310,16 @@ local function setup_visual_selection_highlights(hl)
   hl.IncSearch = { bg = "#FFFFFF",  fg = c.black }  -- L7: yank flash / current :s
 
   -- Editing helpers
-  hl.Substitute                  = { bg = "#a7a7a7", fg = c.black }         -- L4
-  hl.WildMenu                    = { bg = "#a7a7a7", fg = c.black }         -- L4
-  hl.QuickFixLine                = { bg = "#8a8a8a", fg = c.black }         -- L3
-  hl.LspSignatureActiveParameter = { bg = "#6d6d6d", fg = c.black, bold = true } -- L2
-  hl.Folded                      = { fg = "#6d6d6d", bg = "NONE" }          -- L2 fg, no bg
+  hl.Substitute                  = { bg = "#303030", fg = c.white }
+  hl.WildMenu                    = { bg = "#303030", fg = c.white }
+  hl.QuickFixLine                = { bg = "#252525", fg = c.white }
+  hl.LspSignatureActiveParameter = { bg = "#303030", fg = c.white, bold = true }
+  hl.Folded                      = { fg = "#6d6d6d", bg = "NONE" }
 
   -- LSP word references (Snacks.words / document_highlight)
-  hl.LspReferenceText  = { bg = "#8a8a8a", fg = c.black }  -- L3
-  hl.LspReferenceRead  = { bg = "#8a8a8a", fg = c.black }
-  hl.LspReferenceWrite = { bg = "#8a8a8a", fg = c.black }
+  hl.LspReferenceText  = { bg = "#2a2a2a", fg = c.white }
+  hl.LspReferenceRead  = { bg = "#2a2a2a", fg = c.white }
+  hl.LspReferenceWrite = { bg = "#2a2a2a", fg = c.white }
 end
 
 return {
