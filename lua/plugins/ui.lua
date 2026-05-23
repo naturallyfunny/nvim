@@ -11,11 +11,6 @@ return {
       },
       picker = {
         backdrop = false,
-        win = {
-          wo = {
-            -- winblend = 0, -- Let the theme handle transparency
-          },
-        },
         sources = {
           explorer = {
             hidden = true,

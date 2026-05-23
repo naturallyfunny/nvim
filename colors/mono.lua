@@ -14,7 +14,6 @@ local c = {
   black  = "#010101",
   white  = "#FFFFFF",
   grey   = "#505050",
-  cursor = "#FF0000",
   border = "#E0E0E0",
 }
 
@@ -85,7 +84,7 @@ set_hl({
   "NormalSB", "SignColumnSB",
   "StatusLine", "StatusLineNC",
   "WhichKeyNormal", "WhichKeyFloat",
-  "TelescopeNormal", "TelescopeBorder",
+  "TelescopeNormal",
   "Floaterm", "NormalFloat",
   "Pmenu", "PmenuSel", "PmenuSbar", "PmenuThumb",
 }, { bg = "NONE" })
@@ -110,18 +109,17 @@ vim.api.nvim_set_hl(0, "MsgArea",           { fg = c.white, bg = "NONE" })
 vim.api.nvim_set_hl(0, "NoiceCmdline",      { fg = c.white, bg = "NONE" })
 vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = c.white, bg = "NONE" })
 
--- Confirm dialog ("Save? Yes No?") — kuning supaya match dengan command/warning
-vim.api.nvim_set_hl(0, "NoiceConfirm",            { fg = c.white,   bg = "NONE" })
-vim.api.nvim_set_hl(0, "NoiceConfirmBorder",      { fg = "#c4a35a", bg = "NONE" })
-vim.api.nvim_set_hl(0, "NoiceFormatConfirm",      { bg = "#2a2a2a", fg = "#c4a35a" })
-vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = "#c4a35a", fg = c.black, bold = true })
+-- Confirm dialog ("Save? Yes No?")
+vim.api.nvim_set_hl(0, "NoiceConfirm",              { fg = c.white,   bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceConfirmBorder",        { fg = "#505050", bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceFormatConfirm",        { bg = "#2a2a2a", fg = c.white })
+vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = "#c4c4c4", fg = c.black, bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#c94f4f" })
 vim.api.nvim_set_hl(0, "LineNr",            { fg = c.grey })
 vim.api.nvim_set_hl(0, "LineNrAbove",       { fg = c.grey })
 vim.api.nvim_set_hl(0, "LineNrBelow",       { fg = c.grey })
 vim.api.nvim_set_hl(0, "CursorLineNr",      { fg = "#e8e8e8", bold = true })
 vim.api.nvim_set_hl(0, "CursorLine",        { bg = "NONE" })
-vim.api.nvim_set_hl(0, "Cursor",            { bg = c.cursor, fg = c.black })
 vim.api.nvim_set_hl(0, "Comment",           { fg = "#383838" })
 vim.api.nvim_set_hl(0, "MatchParen",        { fg = "#FFFFFF", bold = true })
 vim.api.nvim_set_hl(0, "DiagnosticError",   { fg = "#8b3a3a" })

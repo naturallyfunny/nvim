@@ -54,20 +54,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   desc = "Override snacks picker highlights after Snacks re-application",
 })
 
--- Force red cursor on every colorscheme load/change
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
-  callback = function()
-    local red_cursor = { bg = "#FF0000", fg = "#000000" }
-    vim.api.nvim_set_hl(0, "Cursor", red_cursor)
-    vim.api.nvim_set_hl(0, "TermCursor", red_cursor)
-    vim.api.nvim_set_hl(0, "CursorNC", red_cursor)
-    -- Also covers Insert mode (often handled separately by the terminal emulator/GUI)
-    vim.api.nvim_set_hl(0, "lCursor", red_cursor)
-    vim.api.nvim_set_hl(0, "CursorIM", red_cursor)
-  end,
-})
-
 -- Explicitly ensure Normal highlight group has no blend
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
