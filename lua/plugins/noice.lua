@@ -57,6 +57,24 @@ return {
           winhighlight = "Normal:NoicePopupmenu,FloatBorder:NoicePopupmenuBorder",
         },
       },
+      notify = {
+        border = {
+          style = "single",
+          padding = { 0, 1 },
+        },
+        win_options = {
+          winhighlight = "Normal:NoiceNotification,FloatBorder:NoiceNotificationBorder",
+        },
+      },
+      mini = {
+        border = {
+          style = "single",
+          padding = { 0, 1 },
+        },
+        win_options = {
+          winhighlight = "Normal:NoiceNotification,FloatBorder:NoiceNotificationBorder",
+        },
+      },
     },
   },
 }

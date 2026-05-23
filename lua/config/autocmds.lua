@@ -44,6 +44,20 @@ local function apply_hl_overrides()
   vim.api.nvim_set_hl(0, "NoicePopupmenuBorder",     { fg = "#3a3a3a", bg = "#0d0d0d" })
   vim.api.nvim_set_hl(0, "NoicePopupmenuSelected",   { fg = "#FFFFFF", bg = "#1e1e1e", bold = true })
   vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = "#FFFFFF", bg = "#0d0d0d" })
+  -- SnacksNotifier: notifications route through snacks backend.
+  -- All border levels use the same grey so the box is uniform; differentiation
+  -- is only in the title/icon brightness per level.
+  local nb = "#0d0d0d"
+  for _, lvl in ipairs({ "Info", "Warn", "Error", "Debug", "Trace" }) do
+    vim.api.nvim_set_hl(0, "SnacksNotifierBorder" .. lvl, { fg = "#3a3a3a", bg = nb })
+    vim.api.nvim_set_hl(0, "SnacksNotifier"       .. lvl, { fg = "#FFFFFF",  bg = nb })
+  end
+  vim.api.nvim_set_hl(0, "SnacksNotifierTitleInfo",  { fg = "#6a6a6a", bg = nb })
+  vim.api.nvim_set_hl(0, "SnacksNotifierTitleWarn",  { fg = "#e5c07b", bg = nb, bold = true })
+  vim.api.nvim_set_hl(0, "SnacksNotifierTitleError", { fg = "#e06c75", bg = nb, bold = true })
+  vim.api.nvim_set_hl(0, "SnacksNotifierIconInfo",   { fg = "#6a6a6a", bg = nb })
+  vim.api.nvim_set_hl(0, "SnacksNotifierIconWarn",   { fg = "#e5c07b", bg = nb })
+  vim.api.nvim_set_hl(0, "SnacksNotifierIconError",  { fg = "#e06c75", bg = nb })
   -- Blink: plugins may override BlinkCmpLabelMatch after colorscheme loads
   vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#c94f4f" })
 end

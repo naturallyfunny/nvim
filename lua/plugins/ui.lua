@@ -4,6 +4,17 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      -- Override the notification window style: single border, same as cmdline popup.
+      -- Border hl groups are set in autocmds.lua so all levels use the same grey box.
+      styles = {
+        notification = {
+          border = "single",
+          wo = { winhighlight = "" },
+        },
+      },
+      notifier = {
+        style = "compact",
+      },
       dashboard = {
         preset = {
           header = dashboard.header,
