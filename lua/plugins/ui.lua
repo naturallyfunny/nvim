@@ -11,6 +11,9 @@ return {
           border = "single",
           wo = { winhighlight = "" },
         },
+        input = {
+          border = "single",
+        },
       },
       notifier = {
         style = "compact",
