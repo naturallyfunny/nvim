@@ -26,36 +26,38 @@ set_hl({
   "@keyword", "@keyword.function", "@keyword.import", "@include",
 }, { fg = "#505050", italic = false })
 
-set_hl({ "@module", "@namespace", "@lsp.type.namespace" }, { fg = "#8a8a8a" })
+set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = "#6d6d6d" })
 
 set_hl({
   "Constant", "@constant.builtin", "@variable.builtin", "@constant",
   "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
-}, { fg = "#505050" })
+}, { fg = "#8a8a8a" })
 
-set_hl({ "String", "Character" }, { fg = "#6d6d6d" })
+set_hl({ "String", "Character", "@string", "@string.escape", "@character" }, { fg = "#8a8a8a", italic = true })
 
 set_hl({
   "Type", "@type.builtin", "@lsp.type.builtinType",
   "@lsp.typemod.type.defaultLibrary", "@lsp.typemod.builtin.defaultLibrary",
-}, { fg = "#cecece", italic = true })
+}, { fg = "#505050", italic = true })
 
 set_hl({
   "@type", "@type.definition", "@lsp.type.struct", "@lsp.type.interface",
   "@lsp.type.enum", "@lsp.type.type",
-}, { fg = "#cecece" })
+}, { fg = "#c4c4c4" })
 
-set_hl({ "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#c4c4c4" })
-set_hl({ "@function.builtin" }, { fg = "#c4c4c4" })
+set_hl({ "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#e0e0e0" })
+set_hl({ "@function.builtin" }, { fg = "#FFFFFF" })
 
 -- SQL/go.mod conditional/operator/modifier tokens sit between @keyword and @type.builtin
 set_hl({
   "Special", "SpecialChar",
   "@keyword.conditional", "@keyword.repeat",
   "@keyword.operator", "@keyword.modifier", "@keyword.directive",
-  "@attribute", "@boolean",
+  "@attribute",
   "@string.special", "@string.special.url",
 }, { fg = "#a7a7a7" })
+
+set_hl({ "@boolean", "Boolean" }, { fg = "#8a8a8a" })
 
 set_hl({
   "Function", "@function", "@function.call", "@method", "@constructor",
@@ -69,7 +71,7 @@ set_hl({
   "@lsp.typemod.variable.definition", "TSVariable", "TSVariableBuiltin",
 }, { fg = "#FFFFFF" })
 
-set_hl({ "@punctuation.bracket" }, { fg = "#FFFFFF" })
+set_hl({ "@punctuation.bracket", "@string.delimiter" }, { fg = "#FFFFFF" })
 
 -- UI: transparent backgrounds throughout
 set_hl({
@@ -120,7 +122,7 @@ vim.api.nvim_set_hl(0, "LineNrAbove",       { fg = c.grey })
 vim.api.nvim_set_hl(0, "LineNrBelow",       { fg = c.grey })
 vim.api.nvim_set_hl(0, "CursorLineNr",      { fg = "#e8e8e8", bold = true })
 vim.api.nvim_set_hl(0, "CursorLine",        { bg = "NONE" })
-vim.api.nvim_set_hl(0, "Comment",           { fg = "#383838" })
+vim.api.nvim_set_hl(0, "Comment",           { fg = "#2a2a2a" })
 vim.api.nvim_set_hl(0, "MatchParen",        { fg = "#FFFFFF", bold = true })
 vim.api.nvim_set_hl(0, "DiagnosticError",   { fg = "#8b3a3a" })
 vim.api.nvim_set_hl(0, "DiagnosticWarn",    { fg = "#c4a35a" })
