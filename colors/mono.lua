@@ -116,7 +116,7 @@ vim.api.nvim_set_hl(0, "NoiceConfirm",              { fg = c.white,   bg = "NONE
 vim.api.nvim_set_hl(0, "NoiceConfirmBorder",        { fg = "#505050", bg = "NONE" })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirm",        { bg = "#2a2a2a", fg = c.white })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = "#c4c4c4", fg = c.black, bold = true })
-vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#c94f4f" })
+vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#8a8a8a" })
 vim.api.nvim_set_hl(0, "LineNr",            { fg = c.grey })
 vim.api.nvim_set_hl(0, "LineNrAbove",       { fg = c.grey })
 vim.api.nvim_set_hl(0, "LineNrBelow",       { fg = c.grey })
