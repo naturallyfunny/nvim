@@ -36,10 +36,14 @@ local function apply_hl_overrides()
   -- Noice: noice.setup() calls highlights.setup() after colorscheme loads, overwriting on_highlights
   -- NoiceCmdline is the active group when cmdline.view = "cmdline" (native bottom);
   -- NoiceCmdlinePopup applies when cmdline.view = "cmdline_popup" (floating). Set both.
-  vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = "#FFFFFF", bg = "NONE" })
-  vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = "#FFFFFF", bg = "NONE" })
-  -- Match all cmdline prompt icons to the search icon's yellow (DiagnosticSignWarn).
-  vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { link = "NoiceCmdlineIconSearch" })
+  -- Cmdline popup panel: dark bg so it floats cleanly above editor content.
+  vim.api.nvim_set_hl(0, "NoiceCmdlinePopup",       { fg = "#FFFFFF", bg = "#0d0d0d" })
+  vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder",  { fg = "#3a3a3a", bg = "#0d0d0d" })
+  vim.api.nvim_set_hl(0, "NoiceCmdlineIcon",         { fg = "#6a6a6a", bg = "#0d0d0d" })
+  vim.api.nvim_set_hl(0, "NoicePopupmenu",           { fg = "#b8b8b8", bg = "#0d0d0d" })
+  vim.api.nvim_set_hl(0, "NoicePopupmenuBorder",     { fg = "#3a3a3a", bg = "#0d0d0d" })
+  vim.api.nvim_set_hl(0, "NoicePopupmenuSelected",   { fg = "#FFFFFF", bg = "#1e1e1e", bold = true })
+  vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = "#FFFFFF", bg = "#0d0d0d" })
   -- Blink: plugins may override BlinkCmpLabelMatch after colorscheme loads
   vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#c94f4f" })
 end
