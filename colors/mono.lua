@@ -205,7 +205,7 @@ end
 vim.api.nvim_set_hl(0, "NonText",    { fg = "#2a2a2a" })
 vim.api.nvim_set_hl(0, "SpecialKey", { fg = "#2a2a2a" })
 vim.api.nvim_set_hl(0, "Whitespace", { fg = "#1c1c1c" })
-vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = "#010101" })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.grey })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#1a1a1a", fg = "NONE" })
 
 -- Diagnostics: virtual text, floating window, sign column
