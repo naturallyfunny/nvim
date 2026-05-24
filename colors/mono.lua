@@ -18,7 +18,7 @@ local c = {
 }
 
 -- Syntax: 7-step B&W scale
--- #505050 (keywords) → #6d6d6d → #8a8a8a → #a7a7a7 → #c4c4c4 → #cecece → #FFFFFF (functions/vars)
+-- #505050 (keywords) → #6d6d6d → #8a8a8a → #aaaaaa → #c4c4c4 → #cecece → #FFFFFF (functions/vars)
 
 set_hl({
   "Keyword", "Statement", "Conditional", "Repeat", "Include",
@@ -26,19 +26,19 @@ set_hl({
   "@keyword", "@keyword.function", "@keyword.import", "@include",
 }, { fg = "#505050", italic = false })
 
-set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = "#6d6d6d" })
+set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = "#505050" })
 
 set_hl({
   "Constant", "@constant.builtin", "@variable.builtin", "@constant",
   "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
-}, { fg = "#707070" })
+}, { fg = "#aaaaaa" })
 
-set_hl({ "String", "Character", "@string", "@string.escape", "@character" }, { fg = "#a7a7a7" })
+set_hl({ "String", "Character", "@string", "@string.escape", "@character" }, { fg = "#aaaaaa" })
 
 set_hl({
   "Type", "@type.builtin", "@lsp.type.builtinType",
   "@lsp.typemod.type.defaultLibrary", "@lsp.typemod.builtin.defaultLibrary",
-}, { fg = "#505050", italic = true })
+}, { fg = "#6d6d6d", italic = true })
 
 set_hl({
   "@type", "@type.definition", "@lsp.type.struct", "@lsp.type.interface",
@@ -55,9 +55,9 @@ set_hl({
   "@keyword.operator", "@keyword.modifier", "@keyword.directive",
   "@attribute",
   "@string.special", "@string.special.url",
-}, { fg = "#a7a7a7" })
+}, { fg = "#aaaaaa" })
 
-set_hl({ "@boolean", "Boolean" }, { fg = "#a7a7a7" })
+set_hl({ "@boolean", "Boolean", "@number", "@number.float", "@float", "Number", "Float" }, { fg = "#aaaaaa" })
 
 set_hl({
   "Function", "@function", "@function.call", "@method", "@constructor",
@@ -227,10 +227,10 @@ for sev, color in pairs(diag) do
 end
 
 -- Completion menu
-vim.api.nvim_set_hl(0, "PmenuKind",     { fg = "#a7a7a7", bg = "NONE" })
+vim.api.nvim_set_hl(0, "PmenuKind",     { fg = "#aaaaaa", bg = "NONE" })
 vim.api.nvim_set_hl(0, "PmenuKindSel",  { fg = "#FFFFFF", bg = "NONE" })
 vim.api.nvim_set_hl(0, "PmenuExtra",    { fg = "#6d6d6d", bg = "NONE" })
-vim.api.nvim_set_hl(0, "PmenuExtraSel", { fg = "#a7a7a7", bg = "NONE" })
+vim.api.nvim_set_hl(0, "PmenuExtraSel", { fg = "#aaaaaa", bg = "NONE" })
 
 -- Telescope
 vim.api.nvim_set_hl(0, "TelescopeMatching",      { fg = "#FFFFFF", bold = true })
@@ -248,10 +248,10 @@ vim.api.nvim_set_hl(0, "FlashBackdrop", { fg = "#383838" })
 
 -- Lazy.nvim
 vim.api.nvim_set_hl(0, "LazyNormal",       { bg = "NONE", fg = c.white })
-vim.api.nvim_set_hl(0, "LazyButton",       { bg = "#1c1c1c", fg = "#a7a7a7" })
+vim.api.nvim_set_hl(0, "LazyButton",       { bg = "#1c1c1c", fg = "#aaaaaa" })
 vim.api.nvim_set_hl(0, "LazyButtonActive", { bg = "#2a2a2a", fg = c.white, bold = true })
 vim.api.nvim_set_hl(0, "LazyH1",           { fg = c.white, bold = true })
-vim.api.nvim_set_hl(0, "LazyH2",           { fg = "#a7a7a7", bold = true })
+vim.api.nvim_set_hl(0, "LazyH2",           { fg = "#aaaaaa", bold = true })
 vim.api.nvim_set_hl(0, "LazySpecial",      { fg = "#8a8a8a" })
 vim.api.nvim_set_hl(0, "LazyCommit",       { fg = "#6d6d6d" })
 vim.api.nvim_set_hl(0, "LazyCommitType",   { fg = "#8a8a8a" })
@@ -296,7 +296,7 @@ set_hl({
   "markdownH1Delimiter", "markdownH2Delimiter", "markdownH3Delimiter",
   "markdownH4Delimiter", "markdownH5Delimiter", "markdownH6Delimiter",
   "markdownHeadingDelimiter",
-}, { fg = "#a7a7a7", bold = false, bg = "NONE" })
+}, { fg = "#aaaaaa", bold = false, bg = "NONE" })
 
 set_hl({
   "@markup.raw", "@markup.raw.markdown", "@markup.raw.markdown_inline",
@@ -321,7 +321,7 @@ set_hl({
   "@markup.link.url", "@markup.link.url.markdown_inline", "markdownUrl",
 }, { fg = "#8a8a8a", bg = "NONE", underline = false })
 
-set_hl({ "markdownLinkDelimiter", "markdownLinkTextDelimiter" }, { fg = "#a7a7a7" })
+set_hl({ "markdownLinkDelimiter", "markdownLinkTextDelimiter" }, { fg = "#aaaaaa" })
 
 set_hl({
   "@markup.list", "@markup.list.markdown",
