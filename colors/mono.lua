@@ -31,9 +31,9 @@ set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { 
 set_hl({
   "Constant", "@constant.builtin", "@variable.builtin", "@constant",
   "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
-}, { fg = "#8a8a8a" })
+}, { fg = "#707070" })
 
-set_hl({ "String", "Character", "@string", "@string.escape", "@character" }, { fg = "#8a8a8a", italic = true })
+set_hl({ "String", "Character", "@string", "@string.escape", "@character" }, { fg = "#a7a7a7" })
 
 set_hl({
   "Type", "@type.builtin", "@lsp.type.builtinType",
@@ -45,7 +45,7 @@ set_hl({
   "@lsp.type.enum", "@lsp.type.type",
 }, { fg = "#c4c4c4" })
 
-set_hl({ "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#e0e0e0" })
+set_hl({ "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#c4c4c4" })
 set_hl({ "@function.builtin" }, { fg = "#FFFFFF" })
 
 -- SQL/go.mod conditional/operator/modifier tokens sit between @keyword and @type.builtin
@@ -57,7 +57,7 @@ set_hl({
   "@string.special", "@string.special.url",
 }, { fg = "#a7a7a7" })
 
-set_hl({ "@boolean", "Boolean" }, { fg = "#8a8a8a" })
+set_hl({ "@boolean", "Boolean" }, { fg = "#a7a7a7" })
 
 set_hl({
   "Function", "@function", "@function.call", "@method", "@constructor",
