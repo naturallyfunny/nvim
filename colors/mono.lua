@@ -26,6 +26,9 @@ set_hl({
   "@keyword", "@keyword.function", "@keyword.import", "@include",
 }, { fg = "#505050", italic = false })
 
+set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = "#FFFFFF" })
+vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {})  -- let treesitter handle keywords so @keyword.return.go can fire
+
 set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = "#505050" })
 
 set_hl({
