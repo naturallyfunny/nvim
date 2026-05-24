@@ -24,7 +24,7 @@ set_hl({
   "Keyword", "Statement", "Conditional", "Repeat", "Include",
   "Structure", "Define", "PreProc", "Exception",
   "@keyword", "@keyword.function", "@keyword.import", "@include",
-}, { fg = "#505050", italic = false })
+}, { fg = "#6d6d6d", italic = false })
 
 set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = "#FFFFFF" })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {})  -- let treesitter handle keywords so @keyword.return.go can fire
@@ -34,9 +34,9 @@ set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { 
 set_hl({
   "Constant", "@constant.builtin", "@variable.builtin", "@constant",
   "@lsp.typemod.variable.readonly", "@lsp.typemod.variable.defaultLibrary",
-}, { fg = "#aaaaaa" })
+}, { fg = "#8a8a8a" })
 
-set_hl({ "String", "Character", "@string", "@string.escape", "@character" }, { fg = "#aaaaaa" })
+set_hl({ "String", "Character", "@string", "@string.escape", "@character" }, { fg = "#8a8a8a" })
 
 set_hl({
   "Type", "@type.builtin", "@lsp.type.builtinType",
@@ -48,19 +48,21 @@ set_hl({
   "@lsp.type.enum", "@lsp.type.type",
 }, { fg = "#c4c4c4" })
 
-set_hl({ "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#c4c4c4" })
+set_hl({ "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = "#aaaaaa" })
 set_hl({ "@function.builtin" }, { fg = "#FFFFFF" })
 
--- SQL/go.mod conditional/operator/modifier tokens sit between @keyword and @type.builtin
+set_hl({ "@keyword.repeat" }, { fg = "#6d6d6d" })
+set_hl({ "@keyword.conditional" }, { fg = "#aaaaaa" })
+
+-- SQL/go.mod operator/modifier tokens sit between @keyword and @type.builtin
 set_hl({
   "Special", "SpecialChar",
-  "@keyword.conditional", "@keyword.repeat",
   "@keyword.operator", "@keyword.modifier", "@keyword.directive",
   "@attribute",
   "@string.special", "@string.special.url",
 }, { fg = "#aaaaaa" })
 
-set_hl({ "@boolean", "Boolean", "@number", "@number.float", "@float", "Number", "Float" }, { fg = "#aaaaaa" })
+set_hl({ "@boolean", "Boolean", "@number", "@number.float", "@float", "Number", "Float" }, { fg = "#8a8a8a" })
 
 set_hl({
   "Function", "@function", "@function.call", "@method", "@constructor",
@@ -125,7 +127,7 @@ vim.api.nvim_set_hl(0, "LineNrAbove",       { fg = c.grey })
 vim.api.nvim_set_hl(0, "LineNrBelow",       { fg = c.grey })
 vim.api.nvim_set_hl(0, "CursorLineNr",      { fg = "#e8e8e8", bold = true })
 vim.api.nvim_set_hl(0, "CursorLine",        { bg = "NONE" })
-vim.api.nvim_set_hl(0, "Comment",           { fg = "#2a2a2a" })
+vim.api.nvim_set_hl(0, "Comment",           { fg = "#1e1e1e" })
 vim.api.nvim_set_hl(0, "MatchParen",        { fg = "#FFFFFF", bold = true })
 vim.api.nvim_set_hl(0, "DiagnosticError",   { fg = "#8b3a3a" })
 vim.api.nvim_set_hl(0, "DiagnosticWarn",    { fg = "#c4a35a" })
