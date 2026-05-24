@@ -25,45 +25,14 @@
 -- Both noice and snacks re-apply their defaults on ColorScheme events (without default=true).
 -- We use vim.schedule to run after all VeryLazy callbacks finish (including plugin setups),
 -- and vim.schedule_wrap on ColorScheme to run after all sync ColorScheme callbacks.
+-- The actual colors live in each colorscheme (colors/*.lua), which registers a
+-- reapply() with lua/config/theme_registry.lua. This keeps zero hardcoded colors here,
+-- so switching :colorscheme swaps every UI accent without touching this file.
 local function apply_hl_overrides()
-  vim.api.nvim_set_hl(0, "SnacksPickerRule", { fg = "#010101" })
-  vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = "#FFFFFF" })
-  vim.api.nvim_set_hl(0, "SnacksPickerTotals", { fg = "#FFFFFF" })
-  vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#383838" })
-  vim.api.nvim_set_hl(0, "SnacksPickerToggle", { fg = "#FFFFFF", bg = "NONE" })
-  vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#010101", bg = "NONE" })
-  vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = "#010101", bg = "NONE" })
-  -- Noice: noice.setup() calls highlights.setup() after colorscheme loads, overwriting on_highlights
-  -- NoiceCmdline is the active group when cmdline.view = "cmdline" (native bottom);
-  -- NoiceCmdlinePopup applies when cmdline.view = "cmdline_popup" (floating). Set both.
-  -- Cmdline popup panel: transparent bg to match the rest of the theme.
-  vim.api.nvim_set_hl(0, "NoiceCmdlinePopup",       { fg = "#FFFFFF", bg = "NONE" })
-  vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder",  { fg = "#3a3a3a", bg = "NONE" })
-  -- All cmdline icons (:, !, /, ?, etc.) white across every format variant.
-  for _, suffix in ipairs({ "", "Search", "Filter", "Lua", "Help", "Input", "Cmdline" }) do
-    vim.api.nvim_set_hl(0, "NoiceCmdlineIcon" .. suffix, { fg = "#FFFFFF", bg = "NONE" })
+  local spec = require("config.theme_registry").current()
+  if spec and spec.reapply then
+    spec.reapply()
   end
-  vim.api.nvim_set_hl(0, "NoiceNotificationBorder",  { fg = "#3a3a3a", bg = "NONE" })
-  vim.api.nvim_set_hl(0, "NoicePopupmenu",           { fg = "#FFFFFF", bg = "NONE" })
-  vim.api.nvim_set_hl(0, "NoicePopupmenuBorder",     { fg = "#3a3a3a", bg = "NONE" })
-  vim.api.nvim_set_hl(0, "NoicePopupmenuSelected",   { fg = "#FFFFFF", bg = "#1e1e1e", bold = true })
-  vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = "#FFFFFF", bg = "NONE" })
-  -- SnacksNotifier: notifications route through snacks backend.
-  -- All border levels use the same grey so the box is uniform; differentiation
-  -- is only in the title/icon brightness per level.
-  local nb = "NONE"
-  for _, lvl in ipairs({ "Info", "Warn", "Error", "Debug", "Trace" }) do
-    vim.api.nvim_set_hl(0, "SnacksNotifierBorder" .. lvl, { fg = "#3a3a3a", bg = nb })
-    vim.api.nvim_set_hl(0, "SnacksNotifier"       .. lvl, { fg = "#FFFFFF",  bg = nb })
-  end
-  vim.api.nvim_set_hl(0, "SnacksNotifierTitleInfo",  { fg = "#6a6a6a", bg = nb })
-  vim.api.nvim_set_hl(0, "SnacksNotifierTitleWarn",  { fg = "#e5c07b", bg = nb, bold = true })
-  vim.api.nvim_set_hl(0, "SnacksNotifierTitleError", { fg = "#e06c75", bg = nb, bold = true })
-  vim.api.nvim_set_hl(0, "SnacksNotifierIconInfo",   { fg = "#6a6a6a", bg = nb })
-  vim.api.nvim_set_hl(0, "SnacksNotifierIconWarn",   { fg = "#e5c07b", bg = nb })
-  vim.api.nvim_set_hl(0, "SnacksNotifierIconError",  { fg = "#e06c75", bg = nb })
-  -- Blink: plugins may override BlinkCmpLabelMatch after colorscheme loads
-  vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#8a8a8a" })
 end
 
 -- vim.schedule defers to the next event loop tick, after ALL VeryLazy callbacks

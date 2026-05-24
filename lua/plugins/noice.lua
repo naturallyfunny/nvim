@@ -58,7 +58,7 @@ return {
           padding = { 0, 1 },
         },
         win_options = {
-          winhighlight = "Normal:NoicePopupmenu,FloatBorder:NoicePopupmenuBorder",
+          winhighlight = "Normal:NoicePopupmenu,FloatBorder:NoicePopupmenuBorder,PmenuMatch:NoicePopupmenuMatch",
         },
       },
       notify = {

@@ -336,3 +336,71 @@ set_hl({
 }, { fg = "#6d6d6d", italic = true })
 
 set_hl({ "markdownRule" }, { fg = "#8a8a8a" })
+
+-- ── Plugin re-application + statusline registration ────────────────────────
+-- noice/snacks re-apply their own defaults on ColorScheme events, clobbering the
+-- groups below. reapply() is invoked from lua/config/autocmds.lua after they run.
+local function reapply()
+  vim.api.nvim_set_hl(0, "SnacksPickerRule",        { fg = "#010101" })
+  vim.api.nvim_set_hl(0, "SnacksPickerMatch",       { fg = "#FFFFFF" })
+  vim.api.nvim_set_hl(0, "SnacksPickerTotals",      { fg = "#FFFFFF" })
+  vim.api.nvim_set_hl(0, "SnacksPickerDir",         { fg = "#383838" })
+  vim.api.nvim_set_hl(0, "SnacksPickerToggle",      { fg = "#FFFFFF", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#010101", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SnacksPickerBorder",      { fg = "#010101", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "NoiceCmdlinePopup",       { fg = "#FFFFFF", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = "#3a3a3a", bg = "NONE" })
+  for _, suffix in ipairs({ "", "Search", "Filter", "Lua", "Help", "Input", "Cmdline" }) do
+    vim.api.nvim_set_hl(0, "NoiceCmdlineIcon" .. suffix, { fg = "#FFFFFF", bg = "NONE" })
+  end
+  vim.api.nvim_set_hl(0, "NoiceNotificationBorder", { fg = "#3a3a3a", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "NoicePopupmenu",          { fg = "#FFFFFF", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "NoicePopupmenuBorder",    { fg = "#3a3a3a", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "NoicePopupmenuSelected",  { fg = "#FFFFFF", bg = "#1e1e1e", bold = true })
+  vim.api.nvim_set_hl(0, "NoicePopupmenuMatch",     { fg = "#FFFFFF", bg = "NONE", bold = true })
+  vim.api.nvim_set_hl(0, "NoiceCmdline",            { fg = "#FFFFFF", bg = "NONE" })
+  local nb = "NONE"
+  for _, lvl in ipairs({ "Info", "Warn", "Error", "Debug", "Trace" }) do
+    vim.api.nvim_set_hl(0, "SnacksNotifierBorder" .. lvl, { fg = "#3a3a3a", bg = nb })
+    vim.api.nvim_set_hl(0, "SnacksNotifier"       .. lvl, { fg = "#FFFFFF", bg = nb })
+  end
+  vim.api.nvim_set_hl(0, "SnacksNotifierTitleInfo",  { fg = "#6a6a6a", bg = nb })
+  vim.api.nvim_set_hl(0, "SnacksNotifierTitleWarn",  { fg = "#e5c07b", bg = nb, bold = true })
+  vim.api.nvim_set_hl(0, "SnacksNotifierTitleError", { fg = "#e06c75", bg = nb, bold = true })
+  vim.api.nvim_set_hl(0, "SnacksNotifierIconInfo",   { fg = "#6a6a6a", bg = nb })
+  vim.api.nvim_set_hl(0, "SnacksNotifierIconWarn",   { fg = "#e5c07b", bg = nb })
+  vim.api.nvim_set_hl(0, "SnacksNotifierIconError",  { fg = "#e06c75", bg = nb })
+  vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch",       { fg = "#8a8a8a" })
+end
+
+local b_bg, b_fg = "#1a1a1a", "#b8b8b8"
+local c_bg, c_fg = "NONE", "#6a6a6a"
+local function mode_section(a_bg, a_fg)
+  return {
+    a = { bg = a_bg, fg = a_fg, gui = "bold" },
+    b = { bg = b_bg, fg = b_fg },
+    c = { bg = c_bg, fg = c_fg },
+  }
+end
+
+require("config.theme_registry").register("mono", {
+  reapply = reapply,
+  lualine = {
+    theme = {
+      normal   = mode_section("#e8e8e8", "#010101"),
+      insert   = mode_section("#010101", "#e8e8e8"),
+      visual   = mode_section("#303030", "#FFFFFF"),
+      replace  = mode_section("#3a3a3a", "#FFFFFF"),
+      command  = mode_section("#b0b0b0", "#010101"),
+      inactive = {
+        a = { bg = c_bg, fg = "#4a4a4a", gui = "bold" },
+        b = { bg = c_bg, fg = "#4a4a4a" },
+        c = { bg = c_bg, fg = "#4a4a4a" },
+      },
+    },
+    c_bg         = c_bg,
+    filename     = "#FFFFFF",
+    lazy_updates = "#FFFFFF",
+    diff = { added = "#FFFFFF", modified = "#FFFFFF", removed = "#FFFFFF" },
+  },
+})
