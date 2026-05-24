@@ -17,6 +17,7 @@ return {
       },
       notifier = {
         style = "compact",
+        margin = { top = 0, right = 1, bottom = 2 },
       },
       dashboard = {
         preset = {

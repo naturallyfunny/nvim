@@ -43,6 +43,7 @@ local function apply_hl_overrides()
   for _, suffix in ipairs({ "", "Search", "Filter", "Lua", "Help", "Input", "Cmdline" }) do
     vim.api.nvim_set_hl(0, "NoiceCmdlineIcon" .. suffix, { fg = "#FFFFFF", bg = "NONE" })
   end
+  vim.api.nvim_set_hl(0, "NoiceNotificationBorder",  { fg = "#3a3a3a", bg = "NONE" })
   vim.api.nvim_set_hl(0, "NoicePopupmenu",           { fg = "#FFFFFF", bg = "NONE" })
   vim.api.nvim_set_hl(0, "NoicePopupmenuBorder",     { fg = "#3a3a3a", bg = "NONE" })
   vim.api.nvim_set_hl(0, "NoicePopupmenuSelected",   { fg = "#FFFFFF", bg = "#1e1e1e", bold = true })

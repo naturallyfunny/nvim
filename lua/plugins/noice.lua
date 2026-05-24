@@ -71,6 +71,10 @@ return {
         },
       },
       mini = {
+        position = {
+          row = -2,
+          col = "100%",
+        },
         border = {
           style = "single",
           padding = { 0, 1 },
