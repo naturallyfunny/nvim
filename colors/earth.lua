@@ -310,17 +310,34 @@ vim.api.nvim_set_hl(0, "LspReferenceWrite",           { bg = "#2a3840", fg = c.f
 
 -- ── Markdown ──────────────────────────────────────────────────────────────
 
+-- H1 — sage green, paling menonjol
+set_hl({
+  "@markup.heading.1", "@markup.heading.1.markdown", "markdownH1",
+}, { fg = c.utype, bold = true, bg = "NONE" })
+
+-- H2 — forest green
+set_hl({
+  "@markup.heading.2", "@markup.heading.2.markdown", "markdownH2",
+}, { fg = c.module, bold = true, bg = "NONE" })
+
+-- H3 — mid sage
+set_hl({
+  "@markup.heading.3", "@markup.heading.3.markdown", "markdownH3",
+}, { fg = c.special, bold = true, bg = "NONE" })
+
+-- H4 — warm cream
+set_hl({
+  "@markup.heading.4", "@markup.heading.4.markdown", "markdownH4",
+}, { fg = c.var, bold = true, bg = "NONE" })
+
+-- H5/H6 + fallback — warm grey muted
 set_hl({
   "@markup.heading", "@markup.heading.markdown",
-  "@markup.heading.1", "@markup.heading.2", "@markup.heading.3",
-  "@markup.heading.4", "@markup.heading.5", "@markup.heading.6",
-  "@markup.heading.1.markdown", "@markup.heading.2.markdown",
-  "@markup.heading.3.markdown", "@markup.heading.4.markdown",
-  "@markup.heading.5.markdown", "@markup.heading.6.markdown",
-  "markdownH1", "markdownH2", "markdownH3",
-  "markdownH4", "markdownH5", "markdownH6",
-}, { fg = c.fg, bold = true, bg = "NONE" })
+  "@markup.heading.5", "@markup.heading.5.markdown", "markdownH5",
+  "@markup.heading.6", "@markup.heading.6.markdown", "markdownH6",
+}, { fg = c.type, bold = true, bg = "NONE" })
 
+-- Heading markers — hampir tak terlihat, tidak mengalihkan perhatian
 set_hl({
   "@markup.heading.1.marker.markdown", "@markup.heading.2.marker.markdown",
   "@markup.heading.3.marker.markdown", "@markup.heading.4.marker.markdown",
@@ -329,43 +346,52 @@ set_hl({
   "markdownH1Delimiter", "markdownH2Delimiter", "markdownH3Delimiter",
   "markdownH4Delimiter", "markdownH5Delimiter", "markdownH6Delimiter",
   "markdownHeadingDelimiter",
-}, { fg = c.type, bold = false, bg = "NONE" })
+}, { fg = c.grey, bold = false, bg = "NONE" })
 
+-- Inline code & code block — cyan biru
 set_hl({
   "@markup.raw", "@markup.raw.markdown", "@markup.raw.markdown_inline",
   "markdownCode", "markdownCodeDelimiter",
   "@markup.raw.block.markdown", "markdownCodeBlock",
-}, { fg = c.grey, bg = "NONE" })
+}, { fg = c.const, bg = "NONE" })
 
+-- Bold — krim hangat (lebih hangat dari fg putih murni)
 set_hl({
   "@markup.strong", "@markup.strong.markdown_inline", "markdownBold",
-}, { fg = c.fg, bold = true })
+}, { fg = c.var, bold = true })
 
+-- Italic — abu hangat
 set_hl({
   "@markup.italic", "@markup.italic.markdown_inline", "markdownItalic",
 }, { fg = c.type, italic = true })
 
+-- Link text — cyan, kontras jelas
 set_hl({
   "@markup.link", "@markup.link.label", "@markup.link.label.markdown_inline",
   "markdownLinkText", "markdownLink",
-}, { fg = c.var, bg = "NONE", underline = false })
+}, { fg = c.const, bg = "NONE", underline = false })
 
+-- URL — coklat tanah
 set_hl({
   "@markup.link.url", "@markup.link.url.markdown_inline", "markdownUrl",
 }, { fg = c.string, bg = "NONE", underline = false })
 
-set_hl({ "markdownLinkDelimiter", "markdownLinkTextDelimiter" }, { fg = c.op })
+-- Link delimiters — subtle
+set_hl({ "markdownLinkDelimiter", "markdownLinkTextDelimiter" }, { fg = c.grey })
 
+-- List markers — forest green, jelas terbaca
 set_hl({
   "@markup.list", "@markup.list.markdown",
   "markdownListMarker", "markdownOrderedListMarker",
-}, { fg = c.keyword })
+}, { fg = c.module })
 
+-- Blockquote — coklat hangat italic, terasa organik
 set_hl({
   "@markup.quote", "@markup.quote.markdown", "markdownBlockquote",
-}, { fg = c.grey, italic = true })
+}, { fg = c.string, italic = true })
 
-set_hl({ "markdownRule" }, { fg = c.grey })
+-- Horizontal rule — subtle border
+set_hl({ "markdownRule" }, { fg = c.border })
 
 -- ── Plugin re-application + statusline registration ────────────────────────
 -- noice/snacks re-apply their own defaults on ColorScheme events, clobbering the
