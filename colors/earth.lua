@@ -11,7 +11,7 @@ local function set_hl(groups, opts)
 end
 
 local c = {
-  bg      = "#0e0e16",
+  bg      = "#0c0c13",
   fg      = "#FFFFFF",
   keyword = "#2e553a",
   string  = "#785e3b",
@@ -208,7 +208,7 @@ vim.api.nvim_set_hl(0, "WhichKeyValue",     { fg = c.type })
 
 -- ── Dashboard ─────────────────────────────────────────────────────────────
 
-set_hl({ "DashboardHeader", "SnacksDashboardHeader" },               { fg = c.utype })
+set_hl({ "DashboardHeader", "SnacksDashboardHeader" },               { fg = c.module })
 set_hl({ "DashboardIcon",   "SnacksDashboardIcon" },                 { fg = c.const })
 set_hl({ "DashboardKey",    "SnacksDashboardKey", "DashboardShortCut" }, { fg = c.var })
 set_hl({ "DashboardDesc",   "SnacksDashboardDesc", "DashboardCenter" }, { fg = c.fg })
