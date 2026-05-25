@@ -52,7 +52,7 @@ return {
         },
       },
       indent = {
-        enabled = false,
+        enabled = true,
       },
       dim = {
         enabled = false,
