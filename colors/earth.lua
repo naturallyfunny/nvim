@@ -355,15 +355,15 @@ set_hl({
   "@markup.raw.block.markdown", "markdownCodeBlock",
 }, { fg = c.const, bg = "NONE" })
 
--- Bold — krim hangat (lebih hangat dari fg putih murni)
+-- Bold — coklat tanah
 set_hl({
   "@markup.strong", "@markup.strong.markdown_inline", "markdownBold",
-}, { fg = c.var, bold = true })
+}, { fg = c.string, bold = true })
 
--- Italic — abu hangat
+-- Italic — warm cream
 set_hl({
   "@markup.italic", "@markup.italic.markdown_inline", "markdownItalic",
-}, { fg = c.type, italic = true })
+}, { fg = c.var, italic = true })
 
 -- Link text — cyan, kontras jelas
 set_hl({
