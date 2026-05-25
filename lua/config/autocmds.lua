@@ -45,14 +45,15 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   desc = "Override snacks picker highlights after Snacks re-application",
 })
 
--- Explicitly ensure Normal highlight group has no blend
+
+-- Persist active colorscheme so the next startup restores it
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
-    local fg_color = "#FFFFFF"
-    vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", fg = fg_color, blend = 0 })
+    local f = vim.fn.stdpath("state") .. "/colorscheme"
+    vim.fn.writefile({ vim.g.colors_name }, f)
   end,
-  desc = "Ensure Normal highlight group has no blend",
+  desc = "Save active colorscheme to state file",
 })
 
 -- Show markdown as raw text (LazyVim defaults conceallevel=2, which hides

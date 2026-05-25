@@ -1,5 +1,12 @@
 return {
-  { "LazyVim/LazyVim", opts = { colorscheme = "mono" } },
+  {
+    "LazyVim/LazyVim",
+    opts = function()
+      local f = vim.fn.stdpath("state") .. "/colorscheme"
+      local saved = vim.fn.filereadable(f) == 1 and vim.fn.readfile(f)[1] or "earth"
+      return { colorscheme = saved }
+    end,
+  },
 
   {
     "nvim-lualine/lualine.nvim",
