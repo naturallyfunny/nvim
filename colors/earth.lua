@@ -271,10 +271,10 @@ vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = c.var })
 
 -- ── Flash.nvim ────────────────────────────────────────────────────────────
 
-vim.api.nvim_set_hl(0, "FlashMatch",    { bg = "#2a3040", fg = c.fg })
+vim.api.nvim_set_hl(0, "FlashMatch",    { bg = "#1a2820", fg = c.fg })
 vim.api.nvim_set_hl(0, "FlashCurrent",  { bg = c.keyword, fg = c.fg })
 vim.api.nvim_set_hl(0, "FlashLabel",    { bg = c.var, fg = c.bg, bold = true })
-vim.api.nvim_set_hl(0, "FlashBackdrop", { fg = c.grey })
+vim.api.nvim_set_hl(0, "FlashBackdrop", { fg = c.comment })
 
 -- ── Lazy.nvim ─────────────────────────────────────────────────────────────
 
@@ -295,7 +295,7 @@ vim.api.nvim_set_hl(0, "LazyLocal",        { fg = c.grey })
 
 vim.api.nvim_set_hl(0, "Visual",    { bg = "#8aad8a",  fg = "#222335" })
 vim.api.nvim_set_hl(0, "VisualNOS", { bg = "#2d3d44",  fg = c.type })
-vim.api.nvim_set_hl(0, "Search",    { bg = "#2a3840",  fg = c.fg })
+vim.api.nvim_set_hl(0, "Search",    { bg = "#241c0e",  fg = c.fg })
 vim.api.nvim_set_hl(0, "CurSearch", { bg = c.keyword,  fg = c.fg })
 vim.api.nvim_set_hl(0, "IncSearch", { bg = c.var,      fg = c.bg })
 
