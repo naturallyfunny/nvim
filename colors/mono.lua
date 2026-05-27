@@ -377,8 +377,8 @@ local function reapply()
   vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch",       { fg = "#8a8a8a" })
 end
 
-local b_bg, b_fg = "#1a1a1a", "#b8b8b8"
-local c_bg, c_fg = "#1e1e1e", "#6a6a6a"
+local b_bg, b_fg = "#1d1d1d", "#FEFEFE"
+local c_bg, c_fg = "#0d0d0d", "#6a6a6a"
 local function mode_section(a_bg, a_fg)
   return {
     a = { bg = a_bg, fg = a_fg, gui = "bold" },
@@ -391,11 +391,11 @@ require("config.theme_registry").register("mono", {
   reapply = reapply,
   lualine = {
     theme = {
-      normal   = mode_section("#e8e8e8", "#010101"),
-      insert   = mode_section("#010101", "#e8e8e8"),
-      visual   = mode_section("#303030", "#FFFFFF"),
-      replace  = mode_section(c.dim, "#FFFFFF"),
-      command  = mode_section("#b0b0b0", "#010101"),
+      normal   = mode_section("#FEFEFE", c_bg),
+      insert   = mode_section(c_bg, "#FEFEFE"),
+      visual   = mode_section("#8a8a8a", c_bg),
+      replace  = mode_section(c_bg, "#FEFEFE"),
+      command  = mode_section("#FEFEFE", c_bg),
       inactive = {
         a = { bg = c_bg, fg = "#4a4a4a", gui = "bold" },
         b = { bg = c_bg, fg = "#4a4a4a" },
