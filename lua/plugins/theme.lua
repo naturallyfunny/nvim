@@ -37,6 +37,24 @@ return {
               return { fg = ll.filename, bg = ll.c_bg, gui = "bold" }
             end
           end
+          -- trouble.nvim's symbols component (LazyVim adds it with `cond` and
+          -- no `color`) emits `%#hl#str%*` per segment. `%*` resets to the
+          -- default StatusLine highlight — which is `bg=NONE` in this theme,
+          -- so the inter-segment whitespace renders transparent against the
+          -- dashboard-friendly statusline. Rewrite each `%*` to an explicit
+          -- `%#lualine_c_normal#` so trouble's output stays inside section c's
+          -- bg without forcing StatusLine itself to change.
+          if type(component) == "table" and type(component[1]) == "function"
+             and component.cond and not component.color then
+            local original = component[1]
+            component[1] = function(...)
+              local out = original(...)
+              if type(out) == "string" then
+                return (out:gsub("%%%*", "%%#lualine_c_normal#"))
+              end
+              return out
+            end
+          end
         end
 
         local lazy_status = require("lazy.status")

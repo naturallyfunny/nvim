@@ -378,7 +378,7 @@ local function reapply()
 end
 
 local b_bg, b_fg = "#1a1a1a", "#b8b8b8"
-local c_bg, c_fg = "NONE", "#6a6a6a"
+local c_bg, c_fg = "#1e1e1e", "#6a6a6a"
 local function mode_section(a_bg, a_fg)
   return {
     a = { bg = a_bg, fg = a_fg, gui = "bold" },
