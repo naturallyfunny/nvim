@@ -458,6 +458,7 @@ require("config.theme_registry").register("earth", {
     },
     c_bg         = c_bg,
     filename     = "#f3d6b8",
+    directory    = "#505060",
     lazy_updates = "#b89868",
     diff = { added = "#f3d6b8", modified = "#328c45", removed = "#8b4040" },
   },

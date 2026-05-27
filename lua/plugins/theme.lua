@@ -34,7 +34,7 @@ return {
           if type(component) == "table" and type(component[1]) == "function" and component.color then
             component.color = function()
               local ll = spec()
-              return { fg = ll.filename, bg = ll.c_bg, gui = "bold" }
+              return { fg = ll.directory or ll.filename, bg = ll.c_bg, gui = "bold" }
             end
           end
           -- trouble.nvim's symbols component (LazyVim adds it with `cond` and

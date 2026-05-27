@@ -18,10 +18,10 @@ local c = {
   dim    = "#3a3a3a",
 }
 
--- lualine section b bg, also reused for indent guides.
-local b_bg = "#2d2d2d"
--- lualine section c bg, also reused for snacks picker borders.
-local c_bg = "#131313"
+-- lualine section b bg.
+local b_bg = "#2a2a2a"
+-- lualine section c bg, also reused for win separators, explorer tree branch lines, and snacks picker backgrounds.
+local c_bg = "#111111"
 
 -- Syntax: 7-step B&W scale
 -- #505050 (keywords) → #6d6d6d → #8a8a8a → #aaaaaa → #c4c4c4 → #cecece → #FFFFFF (functions/vars)
@@ -102,7 +102,7 @@ set_hl({
   "Pmenu", "PmenuSel", "PmenuSbar", "PmenuThumb",
 }, { bg = "NONE" })
 
-set_hl({ "WinSeparator", "VertSplit", "NeoTreeWinSeparator", "SnacksWinSeparator" }, { fg = c.grey, bg = "NONE" })
+set_hl({ "WinSeparator", "VertSplit", "NeoTreeWinSeparator", "SnacksWinSeparator" }, { fg = c_bg, bg = "NONE" })
 
 vim.api.nvim_set_hl(0, "FloatermBorder",          { bg = "NONE", fg = c.border })
 vim.api.nvim_set_hl(0, "TelescopeBorder",          { fg = c.black })
@@ -174,6 +174,8 @@ vim.api.nvim_set_hl(0, "SnacksPickerMatch",       { fg = c.white })
 vim.api.nvim_set_hl(0, "SnacksPickerTotals",      { fg = c.white })
 vim.api.nvim_set_hl(0, "SnacksPickerDir",         { fg = "#383838" })
 vim.api.nvim_set_hl(0, "SnacksPickerTree",        { fg = c.grey })
+vim.api.nvim_set_hl(0, "SnacksPickerBorder",      { fg = c.grey, bg = "NONE" })
+vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = c.grey, bg = "NONE" })
 vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { fg = c.grey })
 vim.api.nvim_set_hl(0, "SnacksPickerPathHidden",  { fg = c.grey })
 vim.api.nvim_set_hl(0, "SnacksPickerGitStatusIgnored", { fg = c.grey })
@@ -182,7 +184,7 @@ vim.api.nvim_set_hl(0, "SnacksInputNormal", { fg = c.white,   bg = "NONE" })
 vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = "#505050", bg = "NONE" })
 vim.api.nvim_set_hl(0, "SnacksInputTitle",  { fg = c.white,   bg = "NONE" })
 vim.api.nvim_set_hl(0, "SnacksInputIcon",   { fg = c.white,   bg = "NONE" })
-vim.api.nvim_set_hl(0, "SnacksIndent",            { fg = b_bg })
+vim.api.nvim_set_hl(0, "SnacksIndent",            { fg = c.grey })
 vim.api.nvim_set_hl(0, "SnacksIndentScope",       { fg = "#e8e8e8" })
 vim.api.nvim_set_hl(0, "WinBar",                  { fg = "#8a8a8a", bg = "NONE" })
 vim.api.nvim_set_hl(0, "WinBarNC",                { fg = "#8a8a8a", bg = "NONE" })
@@ -354,9 +356,9 @@ local function reapply()
   vim.api.nvim_set_hl(0, "SnacksPickerTotals",      { fg = c.white })
   vim.api.nvim_set_hl(0, "SnacksPickerDir",         { fg = "#383838" })
   vim.api.nvim_set_hl(0, "SnacksPickerToggle",      { fg = c.white, bg = "NONE" })
-  vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = c_bg, bg = "NONE" })
-  vim.api.nvim_set_hl(0, "SnacksPickerBorder",      { fg = c_bg, bg = "NONE" })
-  vim.api.nvim_set_hl(0, "SnacksWinSeparator",      { fg = c.grey, bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = c.grey, bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SnacksPickerBorder",      { fg = c.grey, bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SnacksWinSeparator",      { fg = c_bg, bg = "NONE" })
   vim.api.nvim_set_hl(0, "NoiceCmdlinePopup",       { fg = c.white, bg = "NONE" })
   vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = c.dim, bg = "NONE" })
   for _, suffix in ipairs({ "", "Search", "Filter", "Lua", "Help", "Input", "Cmdline" }) do
@@ -409,6 +411,7 @@ require("config.theme_registry").register("mono", {
     },
     c_bg         = c_bg,
     filename     = c.white,
+    directory    = "#6a6a6a",
     lazy_updates = c.white,
     diff = { added = c.white, modified = c.white, removed = c.white},
   },
