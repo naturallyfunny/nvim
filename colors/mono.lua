@@ -96,9 +96,7 @@ set_hl({
   "Pmenu", "PmenuSel", "PmenuSbar", "PmenuThumb",
 }, { bg = "NONE" })
 
-set_hl({
-  "WinSeparator", "VertSplit", "NeoTreeWinSeparator", "SnacksWinSeparator",
-}, { fg = "NONE", bg = "NONE" })
+set_hl({ "WinSeparator", "VertSplit", "NeoTreeWinSeparator", "SnacksWinSeparator" }, { fg = "#3a3a3a", bg = "NONE" })
 
 vim.api.nvim_set_hl(0, "FloatermBorder",          { bg = "NONE", fg = c.border })
 vim.api.nvim_set_hl(0, "TelescopeBorder",          { fg = c.black })
@@ -187,6 +185,7 @@ vim.api.nvim_set_hl(0, "WhichKeyDesc",            { fg = c.white })
 vim.api.nvim_set_hl(0, "WhichKeyGroup",           { fg = c.white })
 vim.api.nvim_set_hl(0, "WhichKeySeparator",       { fg = c.white })
 vim.api.nvim_set_hl(0, "WhichKeyValue",           { fg = c.white })
+vim.api.nvim_set_hl(0, "WhichKeyBorder",          { fg = "#3a3a3a", bg = "NONE" })
 
 -- Dashboard
 set_hl({
@@ -348,8 +347,9 @@ local function reapply()
   vim.api.nvim_set_hl(0, "SnacksPickerTotals",      { fg = "#FFFFFF" })
   vim.api.nvim_set_hl(0, "SnacksPickerDir",         { fg = "#383838" })
   vim.api.nvim_set_hl(0, "SnacksPickerToggle",      { fg = "#FFFFFF", bg = "NONE" })
-  vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#010101", bg = "NONE" })
-  vim.api.nvim_set_hl(0, "SnacksPickerBorder",      { fg = "#010101", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#3a3a3a", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SnacksPickerBorder",      { fg = "#3a3a3a", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "SnacksWinSeparator",      { fg = "#3a3a3a", bg = "NONE" })
   vim.api.nvim_set_hl(0, "NoiceCmdlinePopup",       { fg = "#FFFFFF", bg = "NONE" })
   vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = "#3a3a3a", bg = "NONE" })
   for _, suffix in ipairs({ "", "Search", "Filter", "Lua", "Help", "Input", "Cmdline" }) do
