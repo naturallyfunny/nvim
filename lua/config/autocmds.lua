@@ -59,6 +59,21 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 -- Show markdown as raw text (LazyVim defaults conceallevel=2, which hides
 -- code fences, link syntax, emphasis markers, etc.) and turn off the spell
 -- checker so non-English words don't get red squiggles.
+-- Show ~ for end-of-buffer only in real file windows; all other buffers (dashboard,
+-- lazy, terminal, etc.) inherit the global eob=" " and stay clean.
+-- FileType fires before the first paint so there is no visible flash.
+vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
+  callback = function()
+    if vim.api.nvim_win_get_config(0).relative ~= "" then return end -- skip floats
+    if vim.bo.buftype == "" then
+      vim.wo.fillchars = "vert: ,eob:~"
+    else
+      vim.wo.fillchars = "vert: ,eob: "
+    end
+  end,
+  desc = "eob tilde only in file buffers",
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown" },
   callback = function()
