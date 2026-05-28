@@ -1,1 +1,1 @@
-vim.keymap.set("i", "jk", "<Esc>", { desc = "Escape" })
+vim.keymap.set("i", "kj", "<Esc>", { desc = "Escape" })
