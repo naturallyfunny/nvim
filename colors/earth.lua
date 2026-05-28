@@ -42,10 +42,10 @@ local c = {
   surf_earth = "#241c0e",  -- Search bg (dark sepia)
   surf_ghost = "#272a3a",  -- Whitespace (very dark blue-grey)
   surf_col   = "#282b40",  -- ColorColumn bg
-  surf_navy  = "#2a2d40",  -- [b_bg] lualine b, LazyButton (dark navy panel)
+  surf_navy  = "#2a2d40",  -- LazyButton (dark navy panel)
   surf_teal  = "#2a3840",  -- LspReference bg (dark teal)
   surf_mid   = "#2d3d44",  -- VisualNOS bg (dark teal-grey)
-  surf_lift  = "#333650",  -- LazyButtonActive bg (lifted navy)
+  surf_lift  = "#333650",  -- [b_bg] lualine b, LazyButtonActive bg (lifted navy)
 
   -- Lualine palette
   bar    = "#181826",  -- [c_bg] lualine section c bg (dark step above editor bg)
@@ -73,7 +73,7 @@ local c = {
 }
 
 -- lualine section b bg.
-local b_bg = c.surf_navy
+local b_bg = c.surf_lift
 -- lualine section c bg, also reused for inactive mode sections.
 local c_bg = c.bar
 
@@ -461,7 +461,7 @@ end
 
 -- ── Lualine registration ──────────────────────────────────────────────────────
 
-local b_fg = c.muted
+local b_fg = c.fg
 local c_fg = c.mid
 local function mode_section(a_bg, a_fg)
   return {
@@ -475,8 +475,8 @@ require("config.theme_registry").register("earth", {
   reapply = reapply,
   lualine = {
     theme = {
-      normal   = mode_section(c.type,  c.deep),
-      insert   = mode_section(c.module, c.fg),
+      normal   = mode_section(c.type,    c.deep),
+      insert   = mode_section(c.keyword, c.fg),
       visual   = mode_section(c.sage,  c.deep),
       replace  = mode_section(c.cyan_l, c.cream),
       command  = mode_section(c.fg,    c.sel),
