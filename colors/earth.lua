@@ -20,6 +20,7 @@ local c = {
   -- Syntax: semantic roles
   keyword = "#2e553a",  -- keywords (dark forest green)
   module  = "#328c45",  -- namespaces, structural green
+  vivid   = "#3ec85c",  -- dashboard header accent (brighter saturated green)
   special = "#5a7f52",  -- special keywords, attributes (mid green)
   string  = "#785e3b",  -- string literals (warm brown)
   const   = "#69bdd6",  -- constants, numbers (sky cyan)
@@ -254,7 +255,7 @@ vim.api.nvim_set_hl(0, "WhichKeyValue",     { fg = c.type })
 
 -- ── Dashboard ─────────────────────────────────────────────────────────────────
 
-set_hl({ "DashboardHeader", "SnacksDashboardHeader" },                  { fg = c.module })
+set_hl({ "DashboardHeader", "SnacksDashboardHeader" },                  { fg = c.vivid })
 set_hl({ "DashboardIcon",   "SnacksDashboardIcon" },                    { fg = c.const })
 set_hl({ "DashboardKey",    "SnacksDashboardKey", "DashboardShortCut" },{ fg = c.var })
 set_hl({ "DashboardDesc",   "SnacksDashboardDesc", "DashboardCenter" }, { fg = c.fg })
