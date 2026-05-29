@@ -65,7 +65,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
   callback = function()
     if vim.api.nvim_win_get_config(0).relative ~= "" then return end -- skip floats
-    if vim.bo.buftype == "" then
+    if vim.bo.buftype == "" and vim.bo.filetype ~= "netrw" then
       vim.wo.fillchars = "vert:│,eob:~"
     else
       vim.wo.fillchars = "vert:│,eob: "
