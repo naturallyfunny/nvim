@@ -66,9 +66,9 @@ vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
   callback = function()
     if vim.api.nvim_win_get_config(0).relative ~= "" then return end -- skip floats
     if vim.bo.buftype == "" then
-      vim.wo.fillchars = "vert: ,eob:~"
+      vim.wo.fillchars = "vert:│,eob:~"
     else
-      vim.wo.fillchars = "vert: ,eob: "
+      vim.wo.fillchars = "vert:│,eob: "
     end
   end,
   desc = "eob tilde only in file buffers",
