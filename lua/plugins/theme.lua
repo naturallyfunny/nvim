@@ -34,6 +34,7 @@ return {
           if type(component) == "table" and type(component[1]) == "function" and component.color then
             component.color = function()
               local ll = spec()
+              if not ll then return {} end
               return { fg = ll.directory or ll.filename, bg = ll.c_bg, gui = "bold" }
             end
           end
@@ -62,6 +63,7 @@ return {
           if type(component) == "table" and component[1] == lazy_status.updates then
             component.color = function()
               local ll = spec()
+              if not ll then return {} end
               return { fg = ll.lazy_updates, bg = ll.c_bg }
             end
           end
