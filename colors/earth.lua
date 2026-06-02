@@ -223,7 +223,7 @@ set_hl({
     "VertSplit",
     "NeoTreeWinSeparator",
     "SnacksWinSeparator",
-}, { fg = c.keyword, bg = "NONE" })
+}, { fg = c.comment, bg = "NONE" })
 
 vim.api.nvim_set_hl(0, "FloatermBorder", { bg = "NONE", fg = c.keyword })
 vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = c.keyword })
@@ -305,8 +305,8 @@ vim.api.nvim_set_hl(0, "SnacksInputNormal", { fg = c.var, bg = "NONE" })
 vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.keyword, bg = "NONE" })
 vim.api.nvim_set_hl(0, "SnacksInputTitle", { fg = c.utype, bg = "NONE" })
 vim.api.nvim_set_hl(0, "SnacksInputIcon", { fg = c.utype, bg = "NONE" })
-vim.api.nvim_set_hl(0, "SnacksIndent", { fg = c.keyword })
-vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = c.module })
+vim.api.nvim_set_hl(0, "SnacksIndent", { fg = c.comment })
+vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = c.var })
 vim.api.nvim_set_hl(0, "WinBar", { fg = c.grey, bg = "NONE" })
 vim.api.nvim_set_hl(0, "WinBarNC", { fg = c.grey, bg = "NONE" })
 vim.api.nvim_set_hl(0, "Bold", { fg = c.fg, bold = true })
@@ -556,6 +556,7 @@ local function reapply()
     vim.api.nvim_set_hl(0, "SnacksNotifierIconWarn", { fg = c.n_warn, bg = nb })
     vim.api.nvim_set_hl(0, "SnacksNotifierIconError", { fg = c.n_error, bg = nb })
     vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = accent, bold = true })
+    vim.api.nvim_set_hl(0, "SnacksWinSeparator", { fg = c.comment, bg = "NONE" })
 end
 
 -- ── Lualine registration ──────────────────────────────────────────────────────
