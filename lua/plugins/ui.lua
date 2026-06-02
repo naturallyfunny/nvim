@@ -30,10 +30,11 @@ return {
           explorer = {
             hidden = true,
             ignored = true,
+            auto_close = true,
             layout = {
               layout = {
-                position = "right",
-                width = 40,
+                width = 0,
+                height = 0,
                 border = "none",
                 box = "vertical",
                 { win = "list" },
