@@ -30,6 +30,17 @@ return {
         o.options.section_separators   = { left = "\xee\x82\xb0", right = "\xee\x82\xb2" }
         o.options.component_separators = { left = "\xee\x82\xb1", right = "\xee\x82\xb3" }
 
+        if not o._vim_logo_added then
+          o.sections = o.sections or {}
+          o.sections.lualine_a = o.sections.lualine_a or { "mode" }
+          table.insert(o.sections.lualine_a, 1, {
+            function() return "\xee\x98\xab" end,
+            padding = { left = 1, right = 1 },
+            separator = { right = "" },
+          })
+          o._vim_logo_added = true
+        end
+
         for _, component in ipairs((o.sections or {}).lualine_c or {}) do
           if type(component) == "table" and type(component[1]) == "function" and component.color then
             component.color = function()
