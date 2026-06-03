@@ -18,8 +18,8 @@ local c = {
     fg = "#FFFFFF", -- default text, operators
 
     -- Syntax: semantic roles
-    keyword = "#2e553a", -- keywords (dark forest green)
-    module = "#328c45", -- namespaces, structural green
+    keyword = "#328c45", -- keywords (structural green)
+    module = "#5a7f52", -- namespaces (mid green, same as special)
     vivid = "#3ec85c", -- dashboard header accent (brighter saturated green)
     special = "#5a7f52", -- special keywords, attributes (mid green)
     string = "#785e3b", -- string literals (warm brown)
@@ -225,11 +225,11 @@ set_hl({
     "SnacksWinSeparator",
 }, { fg = c.comment, bg = "NONE" })
 
-vim.api.nvim_set_hl(0, "FloatermBorder", { bg = "NONE", fg = c.keyword })
-vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = c.keyword })
-vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { fg = c.keyword, bg = "NONE" })
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = c.keyword, bg = "NONE" })
-vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = c.keyword, bg = "NONE" })
+vim.api.nvim_set_hl(0, "FloatermBorder", { bg = "NONE", fg = c.type })
+vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = c.type })
+vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { fg = c.type, bg = "NONE" })
+vim.api.nvim_set_hl(0, "FloatBorder", { fg = c.type, bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = c.type, bg = "NONE" })
 vim.api.nvim_set_hl(0, "NoiceCmdlinePopupTitle", { fg = c.utype, bg = "NONE" })
 vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { link = "NoiceCmdlineIconSearch" })
 
@@ -242,7 +242,7 @@ vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = c.string, bg = "NONE" })
 vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = c.string, bg = "NONE" })
 
 vim.api.nvim_set_hl(0, "NoiceConfirm", { fg = c.var, bg = "NONE" })
-vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.keyword, bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.type, bg = "NONE" })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirm", { bg = c.surf_navy, fg = c.var })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = c.const, fg = c.fg, bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.bright_green, bold = true })
@@ -268,7 +268,7 @@ for _, level in ipairs({ "Info", "Hint", "Trace", "Debug" }) do
         vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. level, { fg = c.string, bg = "NONE" })
     end
     local up = level:upper()
-    vim.api.nvim_set_hl(0, "Notify" .. up .. "Border", { fg = c.keyword, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "Notify" .. up .. "Border", { fg = c.type, bg = "NONE" })
     vim.api.nvim_set_hl(0, "Notify" .. up .. "Title", { fg = c.utype, bg = "NONE" })
     vim.api.nvim_set_hl(0, "Notify" .. up .. "Icon", { fg = c.utype, bg = "NONE" })
     vim.api.nvim_set_hl(0, "Notify" .. up .. "Body", { fg = c.string, bg = "NONE" })
@@ -302,7 +302,7 @@ vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { fg = c.grey })
 vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = c.grey })
 vim.api.nvim_set_hl(0, "SnacksPickerGitStatusIgnored", { fg = c.grey })
 vim.api.nvim_set_hl(0, "SnacksInputNormal", { fg = c.var, bg = "NONE" })
-vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.keyword, bg = "NONE" })
+vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.type, bg = "NONE" })
 vim.api.nvim_set_hl(0, "SnacksInputTitle", { fg = c.utype, bg = "NONE" })
 vim.api.nvim_set_hl(0, "SnacksInputIcon", { fg = c.utype, bg = "NONE" })
 vim.api.nvim_set_hl(0, "SnacksIndent", { fg = c.comment })
@@ -523,7 +523,7 @@ set_hl({ "markdownRule" }, { fg = c.border })
 -- ── Plugin re-application ─────────────────────────────────────────────────────
 -- noice/snacks re-apply their own defaults on ColorScheme events, clobbering the
 -- groups below. reapply() is invoked from lua/config/autocmds.lua after they run.
-local accent = c.keyword
+local accent = c.type
 
 local function reapply()
     vim.api.nvim_set_hl(0, "SnacksPickerRule", { fg = c.bg })
