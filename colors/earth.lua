@@ -323,8 +323,8 @@ set_hl({ "DashboardIcon", "SnacksDashboardIcon" }, { fg = c.const })
 set_hl({ "DashboardKey", "SnacksDashboardKey", "DashboardShortCut" }, { fg = c.var })
 set_hl({ "DashboardDesc", "SnacksDashboardDesc", "DashboardCenter" }, { fg = c.fg })
 set_hl({ "SnacksDashboardFile", "SnacksDashboardDir" }, { fg = c.type })
-set_hl({ "SnacksDashboardSpecial" }, { fg = c.keyword })
-set_hl({ "DashboardFooter", "SnacksDashboardFooter" }, { fg = c.string })
+set_hl({ "SnacksDashboardSpecial" }, { fg = c.fg })
+set_hl({ "DashboardFooter", "SnacksDashboardFooter" }, { fg = c.const })
 
 -- ── Diff & git signs ──────────────────────────────────────────────────────────
 
