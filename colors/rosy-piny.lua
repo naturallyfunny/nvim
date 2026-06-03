@@ -452,11 +452,11 @@ require("config.theme_registry").register("rosy-piny", {
   reapply = reapply,
   lualine = {
     theme = {
-      normal   = mode_section(rp.rose, rp.rose),
-      insert   = mode_section(rp.foam, rp.foam),
+      command   = mode_section(rp.rose, rp.rose),
+      normal   = mode_section(rp.foam, rp.foam),
       visual   = mode_section(rp.iris, rp.iris),
       replace  = mode_section(rp.pine, rp.pine),
-      command  = mode_section(rp.love, rp.love),
+      insert  = mode_section(rp.love, rp.love),
       inactive = {
         a = { bg = c_bg, fg = rp.muted, gui = "bold" },
         b = { bg = c_bg, fg = rp.muted },
