@@ -30,7 +30,6 @@ return {
           input = {
             keys = {
               ["<S-CR>"]    = { function() vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false) end, mode = { "i", "n" }, desc = "Escape" },
-              ["<S-Space>"] = { function() vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false) end, mode = { "i", "n" }, desc = "Escape" },
             },
           },
         },
