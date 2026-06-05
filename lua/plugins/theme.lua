@@ -34,8 +34,8 @@ return {
           o.sections = o.sections or {}
           o.sections.lualine_a = o.sections.lualine_a or { "mode" }
           table.insert(o.sections.lualine_a, 1, {
-            function() return "\xee\x98\xab" end,
-            padding = { left = 1, right = 1 },
+            function() return "\xee\x9a\xae" end,
+            padding = { left = 1, right = 0 },
             separator = { right = "" },
           })
           o._vim_logo_added = true
