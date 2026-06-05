@@ -37,10 +37,11 @@ local c = {
   bg9 = "#404040",  -- visual selection, lualine visual mode a_bg
 
   -- UI greys
-  dim   = "#3a3a3a",  -- git Untracked
-  grey  = "#505050",  -- picker borders, git delete, darkest syntax
-  muted = "#4a4a4a",  -- lualine inactive fg
-  mid   = "#6a6a6a",  -- lualine c fg, snacks notifier info titles
+  dim    = "#3a3a3a",  -- git Untracked
+  gutter = "#4a4a4a",  -- LineNr (non-scope gutter)
+  grey   = "#505050",  -- picker borders, git delete, darkest syntax
+  muted  = "#4a4a4a",  -- lualine inactive fg
+  mid    = "#6a6a6a",  -- lualine c fg, snacks notifier info titles
 
   -- Bright accents
   scope  = "#e8e8e8",  -- CursorLineNr, SnacksIndentScope
@@ -163,9 +164,9 @@ vim.api.nvim_set_hl(0, "NoiceConfirmBorder",        { fg = c.s2,     bg = "NONE"
 vim.api.nvim_set_hl(0, "NoiceFormatConfirm",        { bg = c.bg6,    fg = c.white })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = c.s5,     fg = c.black, bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch",        { fg = c.s3 })
-vim.api.nvim_set_hl(0, "LineNr",                    { fg = c.s2 })
-vim.api.nvim_set_hl(0, "LineNrAbove",               { fg = c.s2 })
-vim.api.nvim_set_hl(0, "LineNrBelow",               { fg = c.s2 })
+vim.api.nvim_set_hl(0, "LineNr",                    { fg = c.gutter })
+vim.api.nvim_set_hl(0, "LineNrAbove",               { fg = c.gutter })
+vim.api.nvim_set_hl(0, "LineNrBelow",               { fg = c.gutter })
 vim.api.nvim_set_hl(0, "CursorLineNr",              { fg = c.scope, bold = true })
 vim.api.nvim_set_hl(0, "CursorLine",                { bg = "NONE" })
 vim.api.nvim_set_hl(0, "Comment",                   { fg = c.bg3 })
