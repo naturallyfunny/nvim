@@ -165,7 +165,16 @@ return {
         hint_diagnostic_selected    = diag.selected,
       }
 
-      opts.highlights = vim.tbl_deep_extend("force", opts.highlights or {}, groups)
+      -- Other specs (e.g. LazyVim's catppuccin integration) may set
+      -- opts.highlights to a function that lazily builds the table. Resolve
+      -- it to a table before merging so tbl_deep_extend doesn't choke, then
+      -- force our mono groups on top.
+      local base = opts.highlights
+      if type(base) == "function" then
+        local ok, resolved = pcall(base)
+        base = ok and resolved or {}
+      end
+      opts.highlights = vim.tbl_deep_extend("force", base or {}, groups)
       return opts
     end,
     config = function(_, opts)
