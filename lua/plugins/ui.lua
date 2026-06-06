@@ -185,6 +185,17 @@ return {
       local bg = "NONE"
       local fg_selected = "#FFFFFF"
       local apply = function()
+        -- A plugin colorscheme's bufferline integration re-sets BufferLine*
+        -- groups with solid backgrounds on ColorScheme; strip every bg so the
+        -- tabline stays transparent (foregrounds are kept).
+        for group in pairs(vim.api.nvim_get_hl(0, {})) do
+          if group:find("^BufferLine") then
+            local h = vim.api.nvim_get_hl(0, { name = group, link = false })
+            h.bg, h.ctermbg = nil, nil
+            vim.api.nvim_set_hl(0, group, h)
+          end
+        end
+        -- re-assert the indicator/fill that integrations like to recolor
         vim.api.nvim_set_hl(0, "BufferLineIndicatorSelected", { bg = bg, fg = fg_selected })
         vim.api.nvim_set_hl(0, "BufferLineIndicatorVisible",  { bg = bg, fg = bg })
         vim.api.nvim_set_hl(0, "BufferLineFill",              { bg = bg })

@@ -45,7 +45,9 @@ return {
           if type(component) == "table" and type(component[1]) == "function" and component.color then
             component.color = function()
               local ll = spec()
-              if not ll then return {} end
+              -- plugin schemes register only a theme name (no palette); let them
+              -- keep the bundled lualine theme's own component colors.
+              if not ll or not ll.c_bg then return {} end
               return { fg = ll.directory or ll.filename, bg = ll.c_bg, gui = "bold" }
             end
           end
@@ -74,11 +76,11 @@ return {
           if type(component) == "table" and component[1] == lazy_status.updates then
             component.color = function()
               local ll = spec()
-              if not ll then return {} end
+              if not ll or not ll.c_bg then return {} end
               return { fg = ll.lazy_updates, bg = ll.c_bg }
             end
           end
-          if type(component) == "table" and component[1] == "diff" then
+          if type(component) == "table" and component[1] == "diff" and l.diff then
             component.diff_color = {
               added    = { fg = l.diff.added },
               modified = { fg = l.diff.modified },
