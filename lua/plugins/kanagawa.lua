@@ -7,16 +7,23 @@ return {
   priority = 1000,
   config = function()
     local t = require("util.transparent")
-    require("kanagawa").setup({
-      theme = "wave",
-      transparent = true,
-      commentStyle = { italic = false },
-      keywordStyle = { italic = false },
-      overrides = t.overrides,
-    })
+    local function setup()
+      require("kanagawa").setup({
+        theme = "wave",
+        transparent = t.enabled(),
+        commentStyle = { italic = false },
+        keywordStyle = { italic = false },
+        overrides = t.overrides,
+      })
+    end
+    setup()
     require("config.theme_registry").register("kanagawa", {
       reapply = t.reapply,
       lualine = t.lualine("kanagawa"),
+      reload = function()
+        setup()
+        vim.cmd.colorscheme("kanagawa")
+      end,
     })
   end,
 }

@@ -93,6 +93,27 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   desc = "Reset CommentLight state on colorscheme change",
 })
 
+-- Toggle background transparency for every colorscheme. `vim.g.transparent`
+-- (see lua/util/transparent.lua) is the single switch all schemes read; this
+-- flips it at runtime and re-applies the active theme.
+--   :Transparency        → toggle
+--   :Transparency on/off  → force a state
+vim.api.nvim_create_user_command("Transparency", function(opts)
+  local t = require("util.transparent")
+  if opts.args == "on" then
+    t.set(true)
+  elseif opts.args == "off" then
+    t.set(false)
+  else
+    t.toggle()
+  end
+  vim.notify("Transparency " .. (t.enabled() and "on" or "off"))
+end, {
+  nargs = "?",
+  complete = function() return { "on", "off", "toggle" } end,
+  desc = "Toggle background transparency (on|off|toggle)",
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown" },
   callback = function()

@@ -1,21 +1,61 @@
--- Shared transparency helper for the plugin-based colorschemes
--- (kanagawa / catppuccin / rose-pine).
+-- Shared transparency helper for every colorscheme — the plugin-based ones
+-- (kanagawa / catppuccin / rose-pine) AND the hand-built ones (mono / earth).
 --
--- Each of those plugins has its own `transparent` flag, but they all only clear
--- a handful of base groups — floats, statusline, gutter, pmenu, signs, etc. stay
--- solid. This module holds the ONE list of leftover groups and clears just their
--- backgrounds (foregrounds are kept: every plugin merges overrides per-group, so
--- `{ bg = "none" }` only touches the background). No colors are invented here —
--- the look stays 100% the plugin's own.
+-- Transparency is a single toggle (`vim.g.transparent`, ON by default) that all
+-- schemes read, so the see-through look isn't baked into any one colorscheme:
+-- flip it off and every scheme renders solid backgrounds instead.
+--
+--   * Plugin schemes pass their native flag = enabled() and overrides()/reapply()
+--     as their override option — these no-op when transparency is off, leaving
+--     the plugin's own solid background.
+--   * Hand-built schemes define solid backgrounds and use bg() in place of a
+--     literal "NONE" so each surface follows the toggle.
+--
+-- Foregrounds are never touched here; only backgrounds switch between the
+-- scheme's solid color and "none".
 --
 -- Usage from a plugin spec's config:
 --   local t = require("util.transparent")
---   require("<plugin>").setup({ <native transparent flag>, <override opt> = t.overrides })
+--   require("<plugin>").setup({ <native flag> = t.enabled(), <override opt> = t.overrides })
 --   require("config.theme_registry").register("<colors_name>", {
 --     reapply = t.reapply, lualine = t.lualine("<bundled lualine theme>"),
 --   })
 
 local M = {}
+
+-- The one switch. Transparent by default; set `vim.g.transparent = false` in
+-- your config for solid backgrounds across all schemes.
+function M.enabled()
+  return vim.g.transparent ~= false
+end
+
+-- Background value for a surface: "none" when transparent, else the scheme's own
+-- solid `bg`. Hand-built schemes use this wherever they'd otherwise write "NONE".
+function M.bg(solid)
+  return M.enabled() and "none" or solid
+end
+
+-- Flip transparency at runtime and re-apply the active scheme. Hand-built schemes
+-- (colors/*.lua) recompute their surfaces when re-sourced; plugin schemes read
+-- their flag only at setup(), so each registers a `reload` in the theme_registry
+-- that re-runs setup with the new value.
+function M.set(on)
+  vim.g.transparent = on and true or false
+  local name = vim.g.colors_name
+  if not name then
+    return
+  end
+  local spec = require("config.theme_registry").schemes[name]
+  if spec and spec.reload then
+    spec.reload()
+  else
+    vim.cmd.colorscheme(name)
+  end
+end
+
+function M.toggle()
+  M.set(not M.enabled())
+end
 
 -- Backgrounds the plugins' own `transparent` flag leaves solid. Cleared once at
 -- colorscheme load via each plugin's override option.
@@ -47,14 +87,20 @@ M.plugins = {
 -- that want a table (rose-pine `highlight_groups`).
 function M.overrides()
   local o = {}
-  for _, g in ipairs(M.editor) do
-    o[g] = { bg = "none" }
+  if M.enabled() then
+    for _, g in ipairs(M.editor) do
+      o[g] = { bg = "none" }
+    end
   end
   return o
 end
 
 -- reapply for theme_registry: clear bg on snacks/noice surfaces, keep their fg.
+-- No-op when transparency is off, so the plugin's own solid surfaces survive.
 function M.reapply()
+  if not M.enabled() then
+    return
+  end
   for _, g in ipairs(M.plugins) do
     local h = vim.api.nvim_get_hl(0, { name = g, link = false })
     h.bg, h.ctermbg = nil, nil

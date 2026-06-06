@@ -7,13 +7,20 @@ return {
   priority = 1000,
   config = function()
     local t = require("util.transparent")
-    require("rose-pine").setup({
-      styles = { transparency = true, italic = false },
-      highlight_groups = t.overrides(),
-    })
+    local function setup()
+      require("rose-pine").setup({
+        styles = { transparency = t.enabled(), italic = false },
+        highlight_groups = t.overrides(),
+      })
+    end
+    setup()
     require("config.theme_registry").register("rose-pine", {
       reapply = t.reapply,
       lualine = t.lualine("rose-pine"),
+      reload = function()
+        setup()
+        vim.cmd.colorscheme("rose-pine")
+      end,
     })
   end,
 }

@@ -14,7 +14,7 @@ end
 
 local c = {
     -- Editor base
-    bg = "#0B0D18", -- near-black navy
+    bg = "#13141F", -- editor background (solid, non-transparent)
     fg = "#FFFFFF", -- default text, operators
 
     -- Syntax: semantic roles
@@ -72,6 +72,11 @@ local c = {
     -- Brights
     bright_green = "#5abf5a", -- BlinkCmpLabelMatch
 }
+
+-- Surface background: "none" when transparency is on (the default), else the
+-- solid editor bg. Used everywhere a UI surface would otherwise be hardcoded
+-- transparent, so `vim.g.transparent = false` makes the whole scheme opaque.
+local surface = require("util.transparent").bg(c.bg)
 
 -- lualine section b bg.
 local b_bg = c.surf_lift
@@ -178,7 +183,6 @@ set_hl({ "@string.delimiter" }, { fg = c.fg })
 -- ── UI: transparent / bg-matched backgrounds ──────────────────────────────────
 
 set_hl({
-    "NormalNC",
     "Terminal",
     "TermNormal",
     "NeoTreeNormal",
@@ -214,35 +218,35 @@ set_hl({
     "PmenuSel",
     "PmenuSbar",
     "PmenuThumb",
-}, { bg = "NONE" })
+}, { bg = surface })
 
-vim.api.nvim_set_hl(0, "Normal", { fg = c.fg, bg = "NONE" })
+set_hl({ "Normal", "NormalNC" }, { fg = c.fg, bg = surface })
 
 set_hl({
     "WinSeparator",
     "VertSplit",
     "NeoTreeWinSeparator",
     "SnacksWinSeparator",
-}, { fg = c.comment, bg = "NONE" })
+}, { fg = c.comment, bg = surface })
 
-vim.api.nvim_set_hl(0, "FloatermBorder", { bg = "NONE", fg = c.type })
+vim.api.nvim_set_hl(0, "FloatermBorder", { bg = surface, fg = c.type })
 vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = c.type })
-vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { fg = c.type, bg = "NONE" })
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = c.type, bg = "NONE" })
-vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = c.type, bg = "NONE" })
-vim.api.nvim_set_hl(0, "NoiceCmdlinePopupTitle", { fg = c.utype, bg = "NONE" })
+vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { fg = c.type, bg = surface })
+vim.api.nvim_set_hl(0, "FloatBorder", { fg = c.type, bg = surface })
+vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = c.type, bg = surface })
+vim.api.nvim_set_hl(0, "NoiceCmdlinePopupTitle", { fg = c.utype, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { link = "NoiceCmdlineIconSearch" })
 
 for _, name in ipairs({ "Cmdline", "Lua", "Help", "Input", "Filter", "Search_up", "Search_down" }) do
     vim.api.nvim_set_hl(0, "NoiceCmdlineIcon" .. name, { link = "NoiceCmdlineIconSearch" })
 end
 
-vim.api.nvim_set_hl(0, "MsgArea", { fg = c.string, bg = "NONE" })
-vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = c.string, bg = "NONE" })
-vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = c.string, bg = "NONE" })
+vim.api.nvim_set_hl(0, "MsgArea", { fg = c.string, bg = surface })
+vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = c.string, bg = surface })
+vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = c.string, bg = surface })
 
-vim.api.nvim_set_hl(0, "NoiceConfirm", { fg = c.var, bg = "NONE" })
-vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.type, bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceConfirm", { fg = c.var, bg = surface })
+vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.type, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirm", { bg = c.surf_navy, fg = c.var })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = c.const, fg = c.fg, bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.bright_green, bold = true })
@@ -252,7 +256,7 @@ vim.api.nvim_set_hl(0, "LineNr", { fg = c.comment })
 vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.comment })
 vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.comment })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.var, bold = true })
-vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "CursorLine", { bg = surface })
 vim.api.nvim_set_hl(0, "Comment", { fg = c.comment })
 vim.api.nvim_set_hl(0, "MatchParen", { fg = c.fg, bold = true })
 vim.api.nvim_set_hl(0, "DiagnosticError", { fg = c.d_error })
@@ -262,37 +266,37 @@ vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = c.d_info })
 
 for _, level in ipairs({ "Info", "Hint", "Trace", "Debug" }) do
     for _, part in ipairs({ "Border", "Title", "Icon" }) do
-        vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. level, { fg = c.utype, bg = "NONE" })
+        vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. level, { fg = c.utype, bg = surface })
     end
     for _, part in ipairs({ "", "Footer", "History" }) do
-        vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. level, { fg = c.string, bg = "NONE" })
+        vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. level, { fg = c.string, bg = surface })
     end
     local up = level:upper()
-    vim.api.nvim_set_hl(0, "Notify" .. up .. "Border", { fg = c.type, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "Notify" .. up .. "Title", { fg = c.utype, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "Notify" .. up .. "Icon", { fg = c.utype, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "Notify" .. up .. "Body", { fg = c.string, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "NoiceFormatLevel" .. level, { fg = c.utype, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "Notify" .. up .. "Border", { fg = c.type, bg = surface })
+    vim.api.nvim_set_hl(0, "Notify" .. up .. "Title", { fg = c.utype, bg = surface })
+    vim.api.nvim_set_hl(0, "Notify" .. up .. "Icon", { fg = c.utype, bg = surface })
+    vim.api.nvim_set_hl(0, "Notify" .. up .. "Body", { fg = c.string, bg = surface })
+    vim.api.nvim_set_hl(0, "NoiceFormatLevel" .. level, { fg = c.utype, bg = surface })
 end
 
 for _, part in ipairs({ "", "Border", "Title", "Icon", "Footer", "History" }) do
-    vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. "Warn", { fg = c.d_warn, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. "Error", { fg = c.d_error, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. "Warn", { fg = c.d_warn, bg = surface })
+    vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. "Error", { fg = c.d_error, bg = surface })
 end
 for _, part in ipairs({ "Border", "Title", "Icon", "Body" }) do
-    vim.api.nvim_set_hl(0, "NotifyWARN" .. part, { fg = c.d_warn, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "NotifyERROR" .. part, { fg = c.d_error, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NotifyWARN" .. part, { fg = c.d_warn, bg = surface })
+    vim.api.nvim_set_hl(0, "NotifyERROR" .. part, { fg = c.d_error, bg = surface })
 end
-vim.api.nvim_set_hl(0, "NoiceFormatLevelWarn", { fg = c.d_warn, bg = "NONE" })
-vim.api.nvim_set_hl(0, "NoiceFormatLevelError", { fg = c.d_error, bg = "NONE" })
-vim.api.nvim_set_hl(0, "NoiceMini", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceFormatLevelWarn", { fg = c.d_warn, bg = surface })
+vim.api.nvim_set_hl(0, "NoiceFormatLevelError", { fg = c.d_error, bg = surface })
+vim.api.nvim_set_hl(0, "NoiceMini", { bg = surface })
 vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = c.comment })
 vim.api.nvim_set_hl(0, "Directory", { fg = c.var })
 vim.api.nvim_set_hl(0, "SnacksPickerFile", { fg = c.fg })
 vim.api.nvim_set_hl(0, "MiniIconsAzure", { fg = c.special })
 vim.api.nvim_set_hl(0, "FloatTitle", { fg = c.utype })
 vim.api.nvim_set_hl(0, "SnacksTitle", { fg = c.utype })
-vim.api.nvim_set_hl(0, "SnacksPickerToggle", { fg = c.fg, bg = "NONE" })
+vim.api.nvim_set_hl(0, "SnacksPickerToggle", { fg = c.fg, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksPickerPrompt", { fg = c.fg })
 vim.api.nvim_set_hl(0, "SnacksPickerRule", { fg = c.bg })
 vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = c.utype, bold = true })
@@ -301,14 +305,14 @@ vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = c.grey })
 vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { fg = c.grey })
 vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = c.grey })
 vim.api.nvim_set_hl(0, "SnacksPickerGitStatusIgnored", { fg = c.grey })
-vim.api.nvim_set_hl(0, "SnacksInputNormal", { fg = c.var, bg = "NONE" })
-vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.type, bg = "NONE" })
-vim.api.nvim_set_hl(0, "SnacksInputTitle", { fg = c.utype, bg = "NONE" })
-vim.api.nvim_set_hl(0, "SnacksInputIcon", { fg = c.utype, bg = "NONE" })
+vim.api.nvim_set_hl(0, "SnacksInputNormal", { fg = c.var, bg = surface })
+vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.type, bg = surface })
+vim.api.nvim_set_hl(0, "SnacksInputTitle", { fg = c.utype, bg = surface })
+vim.api.nvim_set_hl(0, "SnacksInputIcon", { fg = c.utype, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksIndent", { fg = c.comment })
 vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = c.var })
-vim.api.nvim_set_hl(0, "WinBar", { fg = c.grey, bg = "NONE" })
-vim.api.nvim_set_hl(0, "WinBarNC", { fg = c.grey, bg = "NONE" })
+vim.api.nvim_set_hl(0, "WinBar", { fg = c.grey, bg = surface })
+vim.api.nvim_set_hl(0, "WinBarNC", { fg = c.grey, bg = surface })
 vim.api.nvim_set_hl(0, "Bold", { fg = c.fg, bold = true })
 vim.api.nvim_set_hl(0, "WhichKey", { fg = c.var })
 vim.api.nvim_set_hl(0, "WhichKeyDesc", { fg = c.fg })
@@ -365,17 +369,17 @@ local diag = {
     Unnecessary = c.comment,
 }
 for sev, color in pairs(diag) do
-    vim.api.nvim_set_hl(0, "DiagnosticVirtualText" .. sev, { fg = color, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "DiagnosticFloating" .. sev, { fg = color, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "DiagnosticSign" .. sev, { fg = color, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualText" .. sev, { fg = color, bg = surface })
+    vim.api.nvim_set_hl(0, "DiagnosticFloating" .. sev, { fg = color, bg = surface })
+    vim.api.nvim_set_hl(0, "DiagnosticSign" .. sev, { fg = color, bg = surface })
 end
 
 -- ── Completion menu ───────────────────────────────────────────────────────────
 
-vim.api.nvim_set_hl(0, "PmenuKind", { fg = c.type, bg = "NONE" })
-vim.api.nvim_set_hl(0, "PmenuKindSel", { fg = c.fg, bg = "NONE" })
-vim.api.nvim_set_hl(0, "PmenuExtra", { fg = c.grey, bg = "NONE" })
-vim.api.nvim_set_hl(0, "PmenuExtraSel", { fg = c.type, bg = "NONE" })
+vim.api.nvim_set_hl(0, "PmenuKind", { fg = c.type, bg = surface })
+vim.api.nvim_set_hl(0, "PmenuKindSel", { fg = c.fg, bg = surface })
+vim.api.nvim_set_hl(0, "PmenuExtra", { fg = c.grey, bg = surface })
+vim.api.nvim_set_hl(0, "PmenuExtraSel", { fg = c.type, bg = surface })
 
 -- ── Telescope ─────────────────────────────────────────────────────────────────
 
@@ -395,7 +399,7 @@ vim.api.nvim_set_hl(0, "FlashBackdrop", { fg = c.comment })
 
 -- ── Lazy.nvim ─────────────────────────────────────────────────────────────────
 
-vim.api.nvim_set_hl(0, "LazyNormal", { bg = "NONE", fg = c.fg })
+vim.api.nvim_set_hl(0, "LazyNormal", { bg = surface, fg = c.fg })
 vim.api.nvim_set_hl(0, "LazyButton", { bg = c.surf_navy, fg = c.type })
 vim.api.nvim_set_hl(0, "LazyButtonActive", { bg = c.surf_lift, fg = c.fg, bold = true })
 vim.api.nvim_set_hl(0, "LazyH1", { fg = c.fg, bold = true })
@@ -420,7 +424,7 @@ vim.api.nvim_set_hl(0, "Substitute", { bg = c.sel, fg = c.fg })
 vim.api.nvim_set_hl(0, "WildMenu", { bg = c.sel, fg = c.fg })
 vim.api.nvim_set_hl(0, "QuickFixLine", { bg = c.surf_navy, fg = c.fg })
 vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", { bg = c.sel, fg = c.fg, bold = true })
-vim.api.nvim_set_hl(0, "Folded", { fg = c.grey, bg = "NONE" })
+vim.api.nvim_set_hl(0, "Folded", { fg = c.grey, bg = surface })
 vim.api.nvim_set_hl(0, "LspReferenceText", { bg = c.surf_teal, fg = c.fg })
 vim.api.nvim_set_hl(0, "LspReferenceRead", { bg = c.surf_teal, fg = c.fg })
 vim.api.nvim_set_hl(0, "LspReferenceWrite", { bg = c.surf_teal, fg = c.fg })
@@ -431,25 +435,25 @@ set_hl({
     "@markup.heading.1",
     "@markup.heading.1.markdown",
     "markdownH1",
-}, { fg = c.utype, bold = true, bg = "NONE" })
+}, { fg = c.utype, bold = true, bg = surface })
 
 set_hl({
     "@markup.heading.2",
     "@markup.heading.2.markdown",
     "markdownH2",
-}, { fg = c.module, bold = true, bg = "NONE" })
+}, { fg = c.module, bold = true, bg = surface })
 
 set_hl({
     "@markup.heading.3",
     "@markup.heading.3.markdown",
     "markdownH3",
-}, { fg = c.special, bold = true, bg = "NONE" })
+}, { fg = c.special, bold = true, bg = surface })
 
 set_hl({
     "@markup.heading.4",
     "@markup.heading.4.markdown",
     "markdownH4",
-}, { fg = c.var, bold = true, bg = "NONE" })
+}, { fg = c.var, bold = true, bg = surface })
 
 set_hl({
     "@markup.heading",
@@ -460,7 +464,7 @@ set_hl({
     "@markup.heading.6",
     "@markup.heading.6.markdown",
     "markdownH6",
-}, { fg = c.type, bold = true, bg = "NONE" })
+}, { fg = c.type, bold = true, bg = surface })
 
 set_hl({
     "@markup.heading.1.marker.markdown",
@@ -477,7 +481,7 @@ set_hl({
     "markdownH5Delimiter",
     "markdownH6Delimiter",
     "markdownHeadingDelimiter",
-}, { fg = c.grey, bold = false, bg = "NONE" })
+}, { fg = c.grey, bold = false, bg = surface })
 
 set_hl({
     "@markup.raw",
@@ -487,7 +491,7 @@ set_hl({
     "markdownCodeDelimiter",
     "@markup.raw.block.markdown",
     "markdownCodeBlock",
-}, { fg = c.const, bg = "NONE" })
+}, { fg = c.const, bg = surface })
 
 set_hl({ "@markup.strong", "@markup.strong.markdown_inline", "markdownBold" }, { fg = c.string, bold = true })
 
@@ -499,13 +503,13 @@ set_hl({
     "@markup.link.label.markdown_inline",
     "markdownLinkText",
     "markdownLink",
-}, { fg = c.const, bg = "NONE", underline = false })
+}, { fg = c.const, bg = surface, underline = false })
 
 set_hl({
     "@markup.link.url",
     "@markup.link.url.markdown_inline",
     "markdownUrl",
-}, { fg = c.string, bg = "NONE", underline = false })
+}, { fg = c.string, bg = surface, underline = false })
 
 set_hl({ "markdownLinkDelimiter", "markdownLinkTextDelimiter" }, { fg = c.grey })
 
@@ -530,21 +534,21 @@ local function reapply()
     vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = c.fg })
     vim.api.nvim_set_hl(0, "SnacksPickerTotals", { fg = c.fg })
     vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = c.grey })
-    vim.api.nvim_set_hl(0, "SnacksPickerToggle", { fg = c.fg, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = accent, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = accent, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = c.fg, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = accent, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "SnacksPickerToggle", { fg = c.fg, bg = surface })
+    vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = accent, bg = surface })
+    vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = accent, bg = surface })
+    vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = c.fg, bg = surface })
+    vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = accent, bg = surface })
     for _, suffix in ipairs({ "", "Search", "Filter", "Lua", "Help", "Input", "Cmdline" }) do
-        vim.api.nvim_set_hl(0, "NoiceCmdlineIcon" .. suffix, { fg = c.fg, bg = "NONE" })
+        vim.api.nvim_set_hl(0, "NoiceCmdlineIcon" .. suffix, { fg = c.fg, bg = surface })
     end
-    vim.api.nvim_set_hl(0, "NoiceNotificationBorder", { fg = accent, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "NoicePopupmenu", { fg = c.fg, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "NoicePopupmenuBorder", { fg = c.comment, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NoiceNotificationBorder", { fg = accent, bg = surface })
+    vim.api.nvim_set_hl(0, "NoicePopupmenu", { fg = c.fg, bg = surface })
+    vim.api.nvim_set_hl(0, "NoicePopupmenuBorder", { fg = c.comment, bg = surface })
     vim.api.nvim_set_hl(0, "NoicePopupmenuSelected", { fg = c.fg, bg = c.surf_navy, bold = true })
-    vim.api.nvim_set_hl(0, "NoicePopupmenuMatch", { fg = accent, bg = "NONE", bold = true })
-    vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = c.fg, bg = "NONE" })
-    local nb = "NONE"
+    vim.api.nvim_set_hl(0, "NoicePopupmenuMatch", { fg = accent, bg = surface, bold = true })
+    vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = c.fg, bg = surface })
+    local nb = surface
     for _, lvl in ipairs({ "Info", "Warn", "Error", "Debug", "Trace" }) do
         vim.api.nvim_set_hl(0, "SnacksNotifierBorder" .. lvl, { fg = accent, bg = nb })
         vim.api.nvim_set_hl(0, "SnacksNotifier" .. lvl, { fg = c.fg, bg = nb })
@@ -556,7 +560,7 @@ local function reapply()
     vim.api.nvim_set_hl(0, "SnacksNotifierIconWarn", { fg = c.n_warn, bg = nb })
     vim.api.nvim_set_hl(0, "SnacksNotifierIconError", { fg = c.n_error, bg = nb })
     vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = accent, bold = true })
-    vim.api.nvim_set_hl(0, "SnacksWinSeparator", { fg = c.comment, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "SnacksWinSeparator", { fg = c.comment, bg = surface })
 end
 
 -- ── Lualine registration ──────────────────────────────────────────────────────
