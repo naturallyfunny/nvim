@@ -1,3 +1,11 @@
+-- Override on top of the LazyVim extra `editor.harpoon2` (enabled in
+-- lazyvim.json). The extra installs the plugin + sane opts (save_on_toggle,
+-- menu width) and the <leader>1..9 jump keys. This file only re-applies my
+-- personal extras the extra doesn't have:
+--   * <leader>a  add file, WITH a notification ("added X" / "already marked")
+--   * <leader>H  toggle the quick menu (overrides the extra's <leader>H = add)
+--   * dd inside the menu prints which file was removed
+-- and drops the extra's duplicate <leader>h menu binding.
 return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",
@@ -19,10 +27,7 @@ return {
       desc = "Harpoon: add file",
     },
     { "<leader>H", function() local h = require("harpoon"); h.ui:toggle_quick_menu(h:list()) end, desc = "Harpoon: menu" },
-    { "<leader>1", function() require("harpoon"):list():select(1) end, desc = "Harpoon: file 1" },
-    { "<leader>2", function() require("harpoon"):list():select(2) end, desc = "Harpoon: file 2" },
-    { "<leader>3", function() require("harpoon"):list():select(3) end, desc = "Harpoon: file 3" },
-    { "<leader>4", function() require("harpoon"):list():select(4) end, desc = "Harpoon: file 4" },
+    { "<leader>h", false }, -- drop the extra's duplicate menu binding (we use <leader>H)
   },
   config = function(_, opts)
     local harpoon = require("harpoon")
