@@ -25,10 +25,12 @@ local c = {
     s4 = "#aaaaaa", -- operators, punctuation, markdown markers
     s5 = "#c4c4c4", -- user-defined types (@type, struct, interface)
     string = "#95bdb7", -- venom strings
-    const = "#ab8fae", -- venom constants
-    ret = "#908d88", -- venom return keyword
-    builtin = "#92b3f4", -- venom built-in functions/methods
-    utype = "#cfd6f1", -- venom custom/user-defined types (cool silver)
+    const  = "#ab8fae", -- venom constants
+    ret    = "#908d88", -- venom return keyword
+    module = "#505050", -- venom modules/namespaces
+    ptype  = "#5c5f6f", -- venom primitive/built-in types (italic)
+    utype  = "#cfd6f1", -- venom custom/user-defined types (cool silver)
+    comment = "#202020", -- venom comments (near-invisible)
 
     -- Surfaces (near-black backgrounds, ordered light → dark within each band)
     bg0 = "#101010", -- [c_bg] lualine c
@@ -95,7 +97,7 @@ set_hl({
 set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.s4 })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keywords so @keyword.return.go can fire
 
-set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = "#505050" })
+set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = c.module })
 
 set_hl({
     "Constant",
@@ -114,7 +116,7 @@ set_hl({
     "@lsp.type.builtinType",
     "@lsp.typemod.type.defaultLibrary",
     "@lsp.typemod.builtin.defaultLibrary",
-}, { fg = "#5c5f6f", italic = true })
+}, { fg = c.ptype, italic = true })
 
 set_hl({
     "@type",
@@ -242,7 +244,7 @@ vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.gutter })
 vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.gutter })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.scope, bold = true })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = surface })
-vim.api.nvim_set_hl(0, "Comment", { fg = "#202020" })
+vim.api.nvim_set_hl(0, "Comment", { fg = c.comment })
 vim.api.nvim_set_hl(0, "MatchParen", { fg = c.white, bold = true })
 vim.api.nvim_set_hl(0, "DiagnosticError", { fg = c.d_error })
 vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = c.d_warn })
