@@ -80,7 +80,7 @@ local _comments_lit = false
 vim.api.nvim_create_user_command("CommentLight", function()
   _comments_lit = not _comments_lit
   if _comments_lit then
-    vim.api.nvim_set_hl(0, "Comment", { fg = "#4d78b8" })
+    vim.api.nvim_set_hl(0, "Comment", { fg = "#b0b38d" })
     vim.api.nvim_set_hl(0, "@comment", { link = "Comment" })
   else
     vim.cmd("colorscheme " .. vim.g.colors_name)
