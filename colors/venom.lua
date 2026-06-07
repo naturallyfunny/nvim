@@ -25,7 +25,8 @@ local c = {
     s4 = "#aaaaaa", -- operators, punctuation, markdown markers
     s5 = "#c4c4c4", -- user-defined types (@type, struct, interface)
     string = "#95bdb7", -- venom strings
-    const  = "#ab8fae", -- venom constants
+    const  = "#8fa8d4", -- venom user-defined constants
+    bconst = "#ab8fae", -- venom language built-in constants (nil, true, self…)
     ret    = "#908d88", -- venom return keyword
     module = "#505050", -- venom modules/namespaces
     ptype  = "#5c5f6f", -- venom primitive/built-in types (italic)
@@ -99,14 +100,8 @@ vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keyw
 
 set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = c.module })
 
-set_hl({
-    "Constant",
-    "@constant.builtin",
-    "@variable.builtin",
-    "@constant",
-    "@lsp.typemod.variable.readonly",
-    "@lsp.typemod.variable.defaultLibrary",
-}, { fg = c.const })
+set_hl({ "Constant", "@constant.builtin", "@variable.builtin", "@lsp.typemod.variable.defaultLibrary" }, { fg = c.bconst })
+set_hl({ "@constant", "@lsp.typemod.variable.readonly" }, { fg = c.const })
 
 set_hl({ "String", "Character", "@string", "@string.escape", "@character" }, { fg = c.string })
 
