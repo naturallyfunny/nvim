@@ -30,5 +30,12 @@ vim.opt.sidescrolloff = 0
 
 -- Reserve a dedicated bottom line for the command-line (: / ? ! etc.)
 -- so it no longer overwrites the lualine statusline (which sits above it).
+-- Fixed at 1 (not auto-growing): lualine never shifts; messages longer than
+-- one line trigger a brief "Press ENTER" prompt, then the cmdline clears.
 vim.opt.cmdheight = 1
+
+-- Quieter command-line: suppress routine messages so the bottom line stays
+-- empty most of the time. W = no "written" on save (autosave noise),
+-- I = no intro, c = no ins-completion messages.
+vim.opt.shortmess:append("WIc")
 
