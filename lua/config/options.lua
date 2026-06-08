@@ -28,3 +28,7 @@ vim.opt.winblend = 0
 vim.opt.scrolloff = 0
 vim.opt.sidescrolloff = 0
 
+-- Reserve a dedicated bottom line for the command-line (: / ? ! etc.)
+-- so it no longer overwrites the lualine statusline (which sits above it).
+vim.opt.cmdheight = 1
+

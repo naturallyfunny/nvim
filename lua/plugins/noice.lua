@@ -1,5 +1,12 @@
 return {
   "folke/noice.nvim",
+  -- Disabled to keep the true old-school NATIVE command-line.
+  -- Noice externalizes messages (ext_messages), which forces cmdheight=0 and
+  -- removes the dedicated command-line row, causing : / ? to overlap the
+  -- lualine statusline. With Noice off, cmdheight=1 (see config/options.lua)
+  -- gives the native cmdline its own line below lualine. The opts below are
+  -- kept dormant so Noice can be re-enabled later by removing this line.
+  enabled = false,
   opts = {
     lsp = {
       override = {
@@ -22,20 +29,15 @@ return {
       },
     },
     presets = {
-      command_palette = true,
       long_message_to_split = true,
     },
+    -- Hand the command-line back to Neovim's native bottom line.
+    -- Noice's bottom "cmdline" view is actually a floating popup anchored at
+    -- the editor's bottom edge, which overlaps the lualine statusline while you
+    -- type. Disabling it gives the true old-school native cmdline, which lives
+    -- on its own reserved line (cmdheight=1) below lualine and never covers it.
     cmdline = {
-      view = "cmdline_popup",
-      format = {
-        cmdline     = { icon = ":", lang = false },
-        search_down = { icon = "/", lang = false },
-        search_up   = { icon = "?", lang = false },
-        filter      = { icon = "!", lang = false },
-        lua         = { icon = ":", lang = false },
-        help        = { icon = "?", lang = false },
-        input       = { icon = ">" },
-      },
+      enabled = false,
     },
     views = {
       cmdline_popup = {
