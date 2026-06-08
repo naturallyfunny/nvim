@@ -3,7 +3,7 @@ return {
     "LazyVim/LazyVim",
     opts = function()
       local f = vim.fn.stdpath("state") .. "/colorscheme"
-      local saved = vim.fn.filereadable(f) == 1 and vim.fn.readfile(f)[1] or "earth"
+      local saved = vim.fn.filereadable(f) == 1 and vim.fn.readfile(f)[1]
       return { colorscheme = saved }
     end,
   },

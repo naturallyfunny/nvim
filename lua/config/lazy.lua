@@ -52,5 +52,6 @@ require("lazy").setup({
   },
   ui = {
     backdrop = 0,
+    border = "single",
   },
 })
