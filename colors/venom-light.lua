@@ -228,6 +228,12 @@ for _, name in ipairs({ "Cmdline", "Lua", "Help", "Input", "Filter", "Search_up"
 end
 
 vim.api.nvim_set_hl(0, "MsgArea", { fg = c.black, bg = surface })
+-- Native message-area groups (Noice off → these drive the bottom line).
+vim.api.nvim_set_hl(0, "Question", { fg = c.black })
+vim.api.nvim_set_hl(0, "MoreMsg", { fg = c.black })
+vim.api.nvim_set_hl(0, "ModeMsg", { fg = c.black })
+vim.api.nvim_set_hl(0, "ErrorMsg", { fg = c.n_error })
+vim.api.nvim_set_hl(0, "WarningMsg", { fg = c.n_warn })
 vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = c.black, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = c.black, bg = surface })
 
