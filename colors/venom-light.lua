@@ -502,6 +502,37 @@ set_hl({ "@markup.quote", "@markup.quote.markdown", "markdownBlockquote" }, { fg
 
 set_hl({ "markdownRule" }, { fg = c.s3 })
 
+-- ── Bufferline ────────────────────────────────────────────────────────────────
+local function apply_bufferline()
+    local dim, vis, sel = c.mid, c.s4, c.black
+    for _, name in ipairs({ "Background", "CloseButton", "Modified", "Numbers", "Diagnostic",
+        "ErrorDiagnostic", "WarningDiagnostic", "InfoDiagnostic", "HintDiagnostic" }) do
+        vim.api.nvim_set_hl(0, "BufferLine" .. name,              { bg = "NONE", fg = dim })
+        vim.api.nvim_set_hl(0, "BufferLine" .. name .. "Visible",  { bg = "NONE", fg = vis })
+        vim.api.nvim_set_hl(0, "BufferLine" .. name .. "Selected", { bg = "NONE", fg = sel })
+    end
+    for _, sev in ipairs({ "Error", "Warning", "Info", "Hint" }) do
+        vim.api.nvim_set_hl(0, "BufferLine" .. sev,               { bg = "NONE", fg = dim })
+        vim.api.nvim_set_hl(0, "BufferLine" .. sev .. "Visible",  { bg = "NONE", fg = vis })
+        vim.api.nvim_set_hl(0, "BufferLine" .. sev .. "Selected", { bg = "NONE", fg = sel, bold = true })
+    end
+    vim.api.nvim_set_hl(0, "BufferLineDuplicate",         { bg = "NONE", fg = dim, italic = true })
+    vim.api.nvim_set_hl(0, "BufferLineDuplicateVisible",  { bg = "NONE", fg = vis, italic = true })
+    vim.api.nvim_set_hl(0, "BufferLineDuplicateSelected", { bg = "NONE", fg = sel, italic = true })
+    vim.api.nvim_set_hl(0, "BufferLinePick",              { bg = "NONE", fg = dim, bold = true })
+    vim.api.nvim_set_hl(0, "BufferLinePickVisible",       { bg = "NONE", fg = vis, bold = true })
+    vim.api.nvim_set_hl(0, "BufferLinePickSelected",      { bg = "NONE", fg = sel, bold = true })
+    vim.api.nvim_set_hl(0, "BufferLineBufferVisible",     { bg = "NONE", fg = vis })
+    vim.api.nvim_set_hl(0, "BufferLineBufferSelected",    { bg = "NONE", fg = sel, bold = true })
+    for _, g in ipairs({ "Separator", "SeparatorVisible", "SeparatorSelected", "OffsetSeparator" }) do
+        vim.api.nvim_set_hl(0, "BufferLine" .. g, { bg = "NONE", fg = "NONE" })
+    end
+    vim.api.nvim_set_hl(0, "BufferLineIndicatorVisible",  { bg = "NONE", fg = "NONE" })
+    vim.api.nvim_set_hl(0, "BufferLineIndicatorSelected", { bg = "NONE", fg = sel })
+    vim.api.nvim_set_hl(0, "BufferLineFill",              { bg = "NONE" })
+end
+apply_bufferline()
+
 -- ── Plugin re-application ─────────────────────────────────────────────────────
 
 local function reapply()
@@ -536,6 +567,7 @@ local function reapply()
     vim.api.nvim_set_hl(0, "SnacksNotifierIconWarn", { fg = c.n_warn, bg = nb })
     vim.api.nvim_set_hl(0, "SnacksNotifierIconError", { fg = c.n_error, bg = nb })
     vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.s3 })
+    apply_bufferline()
 end
 
 -- ── Lualine registration ──────────────────────────────────────────────────────
