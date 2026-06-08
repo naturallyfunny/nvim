@@ -95,6 +95,7 @@ set_hl({
 
 set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.s4 })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {})
+vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
 
 set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = c.module })
 
