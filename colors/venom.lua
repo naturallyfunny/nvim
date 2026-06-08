@@ -25,13 +25,13 @@ local c = {
     s4 = "#aaaaaa", -- operators, punctuation, markdown markers
     s5 = "#c4c4c4", -- user-defined types (@type, struct, interface)
     string = "#95bdb7", -- venom strings
-    const  = "#8fa8d4", -- venom user-defined constants
+    const = "#8fa8d4", -- venom user-defined constants
     bconst = "#ab8fae", -- venom language built-in constants (nil, true, self…)
-    ret    = "#908d88", -- venom return keyword
+    ret = "#908d88", -- venom return keyword
     module = "#505050", -- venom modules/namespaces
-    ptype  = "#5c5f6f", -- venom primitive/built-in types (italic)
-    utype  = "#cfd6f1", -- venom custom/user-defined types (cool silver)
-    comment = "#22241E", -- venom comments (near-invisible)
+    ptype = "#5c5f6f", -- venom primitive/built-in types (italic)
+    utype = "#cfd6f1", -- venom custom/user-defined types (cool silver)
+    comment = "#21221D", -- venom comments (near-invisible)
 
     -- Surfaces (near-black backgrounds, ordered light → dark within each band)
     bg0 = "#101010", -- [c_bg] lualine c
@@ -48,7 +48,7 @@ local c = {
     -- UI greys
     dim = "#3a3a3a", -- git Untracked
     gutter = "#4a4a4a", -- LineNr (non-scope gutter)
-    grey = "#606060", -- picker borders, git delete, darkest syntax
+    grey = "#5A5A5A", -- picker borders, git delete, darkest syntax
     muted = "#4a4a4a", -- lualine inactive fg
     mid = "#6a6a6a", -- lualine c fg, snacks notifier info titles
 
@@ -93,15 +93,18 @@ set_hl({
     "@include",
 }, { fg = c.grey, italic = false })
 
-set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.ret })
-set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.ret, italic = true })
+set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.ret, italic = true })
+set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.grey })
 set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keywords so @keyword.return.go can fire
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
 
 set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = c.module })
 
-set_hl({ "Constant", "@constant.builtin", "@variable.builtin", "@lsp.typemod.variable.defaultLibrary" }, { fg = c.bconst })
+set_hl(
+    { "Constant", "@constant.builtin", "@variable.builtin", "@lsp.typemod.variable.defaultLibrary" },
+    { fg = c.bconst }
+)
 set_hl({ "@constant", "@lsp.typemod.variable.readonly" }, { fg = c.const })
 
 set_hl({ "String", "Character", "@string", "@string.escape", "@character" }, { fg = c.string })
@@ -229,7 +232,7 @@ end
 vim.api.nvim_set_hl(0, "MsgArea", { fg = c.white, bg = surface })
 -- Native message-area groups (Noice off → these drive the bottom line).
 -- Routine prompts stay white/calm; only real errors & warnings get color.
-vim.api.nvim_set_hl(0, "Question", { fg = c.white })   -- "Save changes?" confirm prompt
+vim.api.nvim_set_hl(0, "Question", { fg = c.white }) -- "Save changes?" confirm prompt
 vim.api.nvim_set_hl(0, "MoreMsg", { fg = c.white })
 vim.api.nvim_set_hl(0, "ModeMsg", { fg = c.white })
 vim.api.nvim_set_hl(0, "ErrorMsg", { fg = c.n_error })
