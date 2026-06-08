@@ -93,7 +93,8 @@ set_hl({
     "@include",
 }, { fg = c.grey, italic = false })
 
-set_hl({ "Conditional", "Repeat", "@keyword.conditional", "@keyword.repeat" }, { fg = c.ret })
+set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.ret })
+set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.ret, italic = true })
 set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keywords so @keyword.return.go can fire
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
@@ -507,31 +508,40 @@ set_hl({ "markdownRule" }, { fg = c.s3 })
 -- ── Bufferline ────────────────────────────────────────────────────────────────
 local function apply_bufferline()
     local dim, vis, sel = c.mid, c.s4, c.white
-    for _, name in ipairs({ "Background", "CloseButton", "Modified", "Numbers", "Diagnostic",
-        "ErrorDiagnostic", "WarningDiagnostic", "InfoDiagnostic", "HintDiagnostic" }) do
-        vim.api.nvim_set_hl(0, "BufferLine" .. name,              { bg = "NONE", fg = dim })
-        vim.api.nvim_set_hl(0, "BufferLine" .. name .. "Visible",  { bg = "NONE", fg = vis })
+    for _, name in ipairs({
+        "Background",
+        "CloseButton",
+        "Modified",
+        "Numbers",
+        "Diagnostic",
+        "ErrorDiagnostic",
+        "WarningDiagnostic",
+        "InfoDiagnostic",
+        "HintDiagnostic",
+    }) do
+        vim.api.nvim_set_hl(0, "BufferLine" .. name, { bg = "NONE", fg = dim })
+        vim.api.nvim_set_hl(0, "BufferLine" .. name .. "Visible", { bg = "NONE", fg = vis })
         vim.api.nvim_set_hl(0, "BufferLine" .. name .. "Selected", { bg = "NONE", fg = sel })
     end
     for _, sev in ipairs({ "Error", "Warning", "Info", "Hint" }) do
-        vim.api.nvim_set_hl(0, "BufferLine" .. sev,               { bg = "NONE", fg = dim })
-        vim.api.nvim_set_hl(0, "BufferLine" .. sev .. "Visible",  { bg = "NONE", fg = vis })
+        vim.api.nvim_set_hl(0, "BufferLine" .. sev, { bg = "NONE", fg = dim })
+        vim.api.nvim_set_hl(0, "BufferLine" .. sev .. "Visible", { bg = "NONE", fg = vis })
         vim.api.nvim_set_hl(0, "BufferLine" .. sev .. "Selected", { bg = "NONE", fg = sel, bold = true })
     end
-    vim.api.nvim_set_hl(0, "BufferLineDuplicate",         { bg = "NONE", fg = dim, italic = true })
-    vim.api.nvim_set_hl(0, "BufferLineDuplicateVisible",  { bg = "NONE", fg = vis, italic = true })
+    vim.api.nvim_set_hl(0, "BufferLineDuplicate", { bg = "NONE", fg = dim, italic = true })
+    vim.api.nvim_set_hl(0, "BufferLineDuplicateVisible", { bg = "NONE", fg = vis, italic = true })
     vim.api.nvim_set_hl(0, "BufferLineDuplicateSelected", { bg = "NONE", fg = sel, italic = true })
-    vim.api.nvim_set_hl(0, "BufferLinePick",              { bg = "NONE", fg = dim, bold = true })
-    vim.api.nvim_set_hl(0, "BufferLinePickVisible",       { bg = "NONE", fg = vis, bold = true })
-    vim.api.nvim_set_hl(0, "BufferLinePickSelected",      { bg = "NONE", fg = sel, bold = true })
-    vim.api.nvim_set_hl(0, "BufferLineBufferVisible",     { bg = "NONE", fg = vis })
-    vim.api.nvim_set_hl(0, "BufferLineBufferSelected",    { bg = "NONE", fg = sel, bold = true })
+    vim.api.nvim_set_hl(0, "BufferLinePick", { bg = "NONE", fg = dim, bold = true })
+    vim.api.nvim_set_hl(0, "BufferLinePickVisible", { bg = "NONE", fg = vis, bold = true })
+    vim.api.nvim_set_hl(0, "BufferLinePickSelected", { bg = "NONE", fg = sel, bold = true })
+    vim.api.nvim_set_hl(0, "BufferLineBufferVisible", { bg = "NONE", fg = vis })
+    vim.api.nvim_set_hl(0, "BufferLineBufferSelected", { bg = "NONE", fg = sel, bold = true })
     for _, g in ipairs({ "Separator", "SeparatorVisible", "SeparatorSelected", "OffsetSeparator" }) do
         vim.api.nvim_set_hl(0, "BufferLine" .. g, { bg = "NONE", fg = "NONE" })
     end
-    vim.api.nvim_set_hl(0, "BufferLineIndicatorVisible",  { bg = "NONE", fg = "NONE" })
+    vim.api.nvim_set_hl(0, "BufferLineIndicatorVisible", { bg = "NONE", fg = "NONE" })
     vim.api.nvim_set_hl(0, "BufferLineIndicatorSelected", { bg = "NONE", fg = sel })
-    vim.api.nvim_set_hl(0, "BufferLineFill",              { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "BufferLineFill", { bg = "NONE" })
 end
 apply_bufferline()
 

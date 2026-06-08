@@ -51,7 +51,7 @@ local c = {
     -- Lualine palette
     bar = "#181826", -- [c_bg] lualine section c bg (dark step above editor bg)
     deep = "#222335", -- lualine a fg for normal/visual (dark navy text)
-    sage = "#9AB09A", -- lualine visual a_bg, Visual selection (soft sage)
+    sage  "9AB09A", -- lualine visual a_bg, Visual selection (soft sage)
     cyan_l = "#5bc8e8", -- lualine replace a_bg (bright cyan)
     cream = "#f3d6b8", -- lualine filename, replace a_fg (warm parchment)
     gold = "#b89868", -- lualine lazy_updates (golden brown)

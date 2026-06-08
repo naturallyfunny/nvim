@@ -15,9 +15,9 @@ end
 local c = {
     -- Anchors
     black = "#010101",
-    ink   = "#000000", -- pure black
-    white = "#FFFFFF",
-    bg    = "#D0D0D0", -- editor background (matches ghostty bg)
+    ink = "#000000", -- pure black
+    white = "#F7FAFE",
+    bg = "#D0D0D0", -- editor background (matches ghostty bg)
 
     -- Syntax scale: darker = more prominent on #D0D0D0 bg
     s2 = "#aaaaaa", -- borders
@@ -25,13 +25,13 @@ local c = {
     s4 = "#666666", -- operators, brackets, specials, return
     s5 = "#2a2a2a", -- user-defined types
 
-    string  = "#2e7d78", -- venom-light strings (dark teal)
-    const   = "#3a6ea8", -- venom-light user-defined constants (dark blue)
-    bconst  = "#7d4f80", -- venom-light language built-in constants (dark pinky)
-    ret     = "#404040", -- venom-light return/conditional control flow
-    module  = "#777777", -- venom-light modules/namespaces
-    ptype   = "#4a4d5c", -- venom-light primitive/built-in types (italic)
-    utype   = "#3d4a7a", -- venom-light custom/user-defined types
+    string = "#2e7d78", -- venom-light strings (dark teal)
+    const = "#3a6ea8", -- venom-light user-defined constants (dark blue)
+    bconst = "#7d4f80", -- venom-light language built-in constants (dark pinky)
+    ret = "#404040", -- venom-light return/conditional control flow
+    module = "#777777", -- venom-light modules/namespaces
+    ptype = "#4a4d5c", -- venom-light primitive/built-in types (italic)
+    utype = "#3d4a7a", -- venom-light custom/user-defined types
     comment = "#7a7d5e", -- venom-light comments (dark olive)
 
     -- Surfaces (darker than #D0D0D0 so highlights are visible)
@@ -47,24 +47,24 @@ local c = {
     bg9 = "#909090", -- visual selection, lualine visual mode a_bg
 
     -- UI greys
-    dim    = "#aaaaaa", -- git Untracked
-    gutter = "#888888", -- LineNr (non-scope gutter)
-    grey   = "#555555", -- keywords
-    muted  = "#888888", -- lualine inactive fg
-    mid    = "#777777", -- lualine c fg, snacks notifier info titles
+    dim = "#aaaaaa", -- git Untracked
+    gutter = "#8A8A8A", -- LineNr (non-scope gutter)
+    grey = "#555555", -- keywords
+    muted = "#888888", -- lualine inactive fg
+    mid = "#777777", -- lualine c fg, snacks notifier info titles
 
     -- Dark accents
-    scope  = "#111111", -- CursorLineNr, SnacksIndentScope
+    scope = "#111111", -- CursorLineNr, SnacksIndentScope
     border = "#1a1a1a", -- FloatermBorder
 
     -- Diagnostics
     d_error = "#8b2020",
-    d_warn  = "#8a6010",
-    d_hint  = "#3a6a3a",
-    d_info  = "#5a4444",
+    d_warn = "#8a6010",
+    d_hint = "#3a6a3a",
+    d_info = "#5a4444",
 
     -- Notification severity accents
-    n_warn  = "#8a6010",
+    n_warn = "#8a6010",
     n_error = "#c04040",
 }
 
@@ -91,14 +91,18 @@ set_hl({
     "@include",
 }, { fg = c.grey, italic = false })
 
-set_hl({ "Conditional", "Repeat", "@keyword.conditional", "@keyword.repeat" }, { fg = c.ret })
-set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret })
+set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.white })
+set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.ret, italic = true })
+set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.white })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {})
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
 
 set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = c.module })
 
-set_hl({ "Constant", "@constant.builtin", "@variable.builtin", "@lsp.typemod.variable.defaultLibrary" }, { fg = c.bconst })
+set_hl(
+    { "Constant", "@constant.builtin", "@variable.builtin", "@lsp.typemod.variable.defaultLibrary" },
+    { fg = c.bconst }
+)
 set_hl({ "@constant", "@lsp.typemod.variable.readonly" }, { fg = c.const })
 
 set_hl({ "String", "Character", "@string", "@string.escape", "@character" }, { fg = c.string })
@@ -232,9 +236,9 @@ vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.s2, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirm", { bg = c.bg6, fg = c.black })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = c.s5, fg = c.white, bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.s3 })
-vim.api.nvim_set_hl(0, "LineNr", { fg = "#8A8A8A" })
-vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#8A8A8A" })
-vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#8A8A8A" })
+vim.api.nvim_set_hl(0, "LineNr", { fg = c.gutter })
+vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.gutter })
+vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.gutter })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.ink, bold = true })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = c.bg3 })
 vim.api.nvim_set_hl(0, "Comment", { fg = c.comment })
@@ -288,7 +292,7 @@ vim.api.nvim_set_hl(0, "SnacksInputNormal", { fg = c.black, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.s2, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputTitle", { fg = c.black, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputIcon", { fg = c.black, bg = surface })
-vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#8A8A8A" })
+vim.api.nvim_set_hl(0, "SnacksIndent", { fg = c.gutter })
 vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = c.ink })
 vim.api.nvim_set_hl(0, "WinBar", { fg = c.s3, bg = surface })
 vim.api.nvim_set_hl(0, "WinBarNC", { fg = c.s3, bg = surface })
@@ -328,11 +332,11 @@ vim.api.nvim_set_hl(0, "DiffDelete", { bg = c.bg2, fg = c.grey })
 vim.api.nvim_set_hl(0, "DiffText", { bg = c.bg6, fg = c.black })
 
 local gs = {
-    Add          = c.s5,
-    Change       = c.s3,
-    Delete       = c.grey,
-    Untracked    = c.dim,
-    Topdelete    = c.grey,
+    Add = c.s5,
+    Change = c.s3,
+    Delete = c.grey,
+    Untracked = c.dim,
+    Topdelete = c.grey,
     Changedelete = c.s2,
 }
 for kind, color in pairs(gs) do
@@ -352,10 +356,10 @@ vim.api.nvim_set_hl(0, "ColorColumn", { bg = c.bg1, fg = "NONE" })
 -- ── Diagnostics: virtual text, float, sign column ─────────────────────────────
 
 local diag = {
-    Error       = c.d_error,
-    Warn        = c.d_warn,
-    Hint        = c.d_hint,
-    Info        = c.d_info,
+    Error = c.d_error,
+    Warn = c.d_warn,
+    Hint = c.d_hint,
+    Info = c.d_info,
     Unnecessary = c.d_info,
 }
 for sev, color in pairs(diag) do
@@ -505,31 +509,40 @@ set_hl({ "markdownRule" }, { fg = c.s3 })
 -- ── Bufferline ────────────────────────────────────────────────────────────────
 local function apply_bufferline()
     local dim, vis, sel = c.mid, c.s4, c.black
-    for _, name in ipairs({ "Background", "CloseButton", "Modified", "Numbers", "Diagnostic",
-        "ErrorDiagnostic", "WarningDiagnostic", "InfoDiagnostic", "HintDiagnostic" }) do
-        vim.api.nvim_set_hl(0, "BufferLine" .. name,              { bg = "NONE", fg = dim })
-        vim.api.nvim_set_hl(0, "BufferLine" .. name .. "Visible",  { bg = "NONE", fg = vis })
+    for _, name in ipairs({
+        "Background",
+        "CloseButton",
+        "Modified",
+        "Numbers",
+        "Diagnostic",
+        "ErrorDiagnostic",
+        "WarningDiagnostic",
+        "InfoDiagnostic",
+        "HintDiagnostic",
+    }) do
+        vim.api.nvim_set_hl(0, "BufferLine" .. name, { bg = "NONE", fg = dim })
+        vim.api.nvim_set_hl(0, "BufferLine" .. name .. "Visible", { bg = "NONE", fg = vis })
         vim.api.nvim_set_hl(0, "BufferLine" .. name .. "Selected", { bg = "NONE", fg = sel })
     end
     for _, sev in ipairs({ "Error", "Warning", "Info", "Hint" }) do
-        vim.api.nvim_set_hl(0, "BufferLine" .. sev,               { bg = "NONE", fg = dim })
-        vim.api.nvim_set_hl(0, "BufferLine" .. sev .. "Visible",  { bg = "NONE", fg = vis })
+        vim.api.nvim_set_hl(0, "BufferLine" .. sev, { bg = "NONE", fg = dim })
+        vim.api.nvim_set_hl(0, "BufferLine" .. sev .. "Visible", { bg = "NONE", fg = vis })
         vim.api.nvim_set_hl(0, "BufferLine" .. sev .. "Selected", { bg = "NONE", fg = sel, bold = true })
     end
-    vim.api.nvim_set_hl(0, "BufferLineDuplicate",         { bg = "NONE", fg = dim, italic = true })
-    vim.api.nvim_set_hl(0, "BufferLineDuplicateVisible",  { bg = "NONE", fg = vis, italic = true })
+    vim.api.nvim_set_hl(0, "BufferLineDuplicate", { bg = "NONE", fg = dim, italic = true })
+    vim.api.nvim_set_hl(0, "BufferLineDuplicateVisible", { bg = "NONE", fg = vis, italic = true })
     vim.api.nvim_set_hl(0, "BufferLineDuplicateSelected", { bg = "NONE", fg = sel, italic = true })
-    vim.api.nvim_set_hl(0, "BufferLinePick",              { bg = "NONE", fg = dim, bold = true })
-    vim.api.nvim_set_hl(0, "BufferLinePickVisible",       { bg = "NONE", fg = vis, bold = true })
-    vim.api.nvim_set_hl(0, "BufferLinePickSelected",      { bg = "NONE", fg = sel, bold = true })
-    vim.api.nvim_set_hl(0, "BufferLineBufferVisible",     { bg = "NONE", fg = vis })
-    vim.api.nvim_set_hl(0, "BufferLineBufferSelected",    { bg = "NONE", fg = sel, bold = true })
+    vim.api.nvim_set_hl(0, "BufferLinePick", { bg = "NONE", fg = dim, bold = true })
+    vim.api.nvim_set_hl(0, "BufferLinePickVisible", { bg = "NONE", fg = vis, bold = true })
+    vim.api.nvim_set_hl(0, "BufferLinePickSelected", { bg = "NONE", fg = sel, bold = true })
+    vim.api.nvim_set_hl(0, "BufferLineBufferVisible", { bg = "NONE", fg = vis })
+    vim.api.nvim_set_hl(0, "BufferLineBufferSelected", { bg = "NONE", fg = sel, bold = true })
     for _, g in ipairs({ "Separator", "SeparatorVisible", "SeparatorSelected", "OffsetSeparator" }) do
         vim.api.nvim_set_hl(0, "BufferLine" .. g, { bg = "NONE", fg = "NONE" })
     end
-    vim.api.nvim_set_hl(0, "BufferLineIndicatorVisible",  { bg = "NONE", fg = "NONE" })
+    vim.api.nvim_set_hl(0, "BufferLineIndicatorVisible", { bg = "NONE", fg = "NONE" })
     vim.api.nvim_set_hl(0, "BufferLineIndicatorSelected", { bg = "NONE", fg = sel })
-    vim.api.nvim_set_hl(0, "BufferLineFill",              { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "BufferLineFill", { bg = "NONE" })
 end
 apply_bufferline()
 
@@ -586,9 +599,9 @@ require("config.theme_registry").register("venom-light", {
     reapply = reapply,
     lualine = {
         theme = {
-            normal  = mode_section(c.black, c.white),
-            insert  = mode_section(c_bg, c.black),
-            visual  = mode_section(c.bg9, c.black),
+            normal = mode_section(c.black, c.white),
+            insert = mode_section(c_bg, c.black),
+            visual = mode_section(c.bg9, c.black),
             replace = mode_section(c_bg, c.black),
             command = mode_section(c.black, c.white),
             inactive = {
@@ -597,9 +610,9 @@ require("config.theme_registry").register("venom-light", {
                 c = { bg = c_bg, fg = c.muted },
             },
         },
-        c_bg       = c_bg,
-        filename   = c.black,
-        directory  = c.mid,
+        c_bg = c_bg,
+        filename = c.black,
+        directory = c.mid,
         lazy_updates = c.black,
         diff = { added = c.black, modified = c.black, removed = c.black },
     },
