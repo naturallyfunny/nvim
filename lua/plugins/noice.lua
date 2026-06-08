@@ -40,16 +40,16 @@ return {
     views = {
       cmdline_popup = {
         position = {
-          row = "50%",
+          row = "90%",
           col = "50%",
         },
         border = {
-          style = "single",
+          style = "rounded",
           padding = { 0, 1 },
         },
         size = { width = 64, height = "auto" },
         win_options = {
-          winhighlight = "Normal:NoiceCmdlinePopup,FloatBorder:NoiceCmdlinePopupBorder",
+          winhighlight = "Normal:NoiceCmdlinePopup,FloatBorder:NoiceCmdlinePopupBorder,FloatTitle:NoiceCmdlinePopupTitle",
         },
       },
       popupmenu = {
@@ -63,24 +63,24 @@ return {
       },
       notify = {
         border = {
-          style = "single",
+          style = "rounded",
           padding = { 0, 1 },
         },
         win_options = {
-          winhighlight = "Normal:NoiceNotification,FloatBorder:NoiceNotificationBorder",
+          winhighlight = "Normal:NoiceNotification,FloatBorder:NoiceNotificationBorder,FloatTitle:NoiceNotificationTitle",
         },
       },
       mini = {
         position = {
           row = -2,
-          col = "100%",
+          col = 0,
         },
         border = {
-          style = "single",
+          style = "rounded",
           padding = { 0, 1 },
         },
         win_options = {
-          winhighlight = "Normal:NoiceNotification,FloatBorder:NoiceNotificationBorder",
+          winhighlight = "Normal:NoiceNotification,FloatBorder:NoiceNotificationBorder,FloatTitle:NoiceNotificationTitle",
         },
       },
     },

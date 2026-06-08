@@ -8,11 +8,11 @@ return {
       -- Border hl groups are set in autocmds.lua so all levels use the same grey box.
       styles = {
         notification = {
-          border = "single",
+          border = "rounded",
           wo = { winhighlight = "" },
         },
         input = {
-          border = "single",
+          border = "rounded",
         },
       },
       notifier = {
