@@ -15,7 +15,7 @@ end
 local c = {
     -- Anchors
     black = "#010101",
-    white = "#FFFFFF",
+    white = "#FDFDFD",
     bg = "#000000", -- editor background (solid, non-transparent)
 
     -- Syntax scale: 5 named steps between black and white
@@ -234,10 +234,10 @@ vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.s2, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirm", { bg = c.bg6, fg = c.white })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = c.s5, fg = c.black, bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.s3 })
-vim.api.nvim_set_hl(0, "LineNr", { fg = c.gutter })
-vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.gutter })
-vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.gutter })
-vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.scope, bold = true })
+vim.api.nvim_set_hl(0, "LineNr", { fg = c.dim })
+vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.dim })
+vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.dim })
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.white, bold = true })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = surface })
 vim.api.nvim_set_hl(0, "Comment", { fg = c.comment })
 vim.api.nvim_set_hl(0, "MatchParen", { fg = c.white, bold = true })
@@ -290,7 +290,7 @@ vim.api.nvim_set_hl(0, "SnacksInputNormal", { fg = c.white, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.s2, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputTitle", { fg = c.white, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputIcon", { fg = c.white, bg = surface })
-vim.api.nvim_set_hl(0, "SnacksIndent", { fg = c.bg9 })
+vim.api.nvim_set_hl(0, "SnacksIndent", { fg = c.dim })
 vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = c.white })
 vim.api.nvim_set_hl(0, "WinBar", { fg = c.s3, bg = surface })
 vim.api.nvim_set_hl(0, "WinBarNC", { fg = c.s3, bg = surface })
@@ -348,7 +348,7 @@ end
 vim.api.nvim_set_hl(0, "NonText", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "SpecialKey", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "Whitespace", { fg = c.bg2 })
-vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.grey })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.white })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = c.bg1, fg = "NONE" })
 
 -- ── Diagnostics: virtual text, float, sign column ─────────────────────────────
@@ -406,16 +406,16 @@ vim.api.nvim_set_hl(0, "LazyLocal", { fg = c.grey })
 
 -- ── Visual selection & search ─────────────────────────────────────────────────
 
-vim.api.nvim_set_hl(0, "Visual", { bg = c.bg9, fg = c.white })
+vim.api.nvim_set_hl(0, "Visual", { bg = c.dim, fg = c.white })
 vim.api.nvim_set_hl(0, "VisualNOS", { bg = c.bg4, fg = c.s4 })
 vim.api.nvim_set_hl(0, "Search", { bg = c.bg6, fg = c.white })
 vim.api.nvim_set_hl(0, "CurSearch", { bg = c.s5, fg = c.black })
 vim.api.nvim_set_hl(0, "IncSearch", { bg = c.white, fg = c.black })
 
-vim.api.nvim_set_hl(0, "Substitute", { bg = c.bg7, fg = c.white })
-vim.api.nvim_set_hl(0, "WildMenu", { bg = c.bg7, fg = c.white })
+vim.api.nvim_set_hl(0, "Substitute", { bg = c.dim, fg = c.white })
+vim.api.nvim_set_hl(0, "WildMenu", { bg = c.dim, fg = c.white })
 vim.api.nvim_set_hl(0, "QuickFixLine", { bg = c.bg5, fg = c.white })
-vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", { bg = c.bg7, fg = c.white, bold = true })
+vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", { bg = c.dim, fg = c.white, bold = true })
 vim.api.nvim_set_hl(0, "Folded", { fg = c.s2, bg = surface })
 vim.api.nvim_set_hl(0, "LspReferenceText", { bg = c.bg6, fg = c.white })
 vim.api.nvim_set_hl(0, "LspReferenceRead", { bg = c.bg6, fg = c.white })
@@ -591,7 +591,7 @@ require("config.theme_registry").register("venom", {
         theme = {
             normal = mode_section(c.white, c_bg),
             insert = mode_section(c_bg, c.white),
-            visual = mode_section(c.bg9, c.white),
+            visual = mode_section(c.dim, c.white),
             replace = mode_section(c_bg, c.white),
             command = mode_section(c.white, c_bg),
             inactive = {
