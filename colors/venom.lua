@@ -82,8 +82,6 @@ local c_bg = c.bg0
 set_hl({
     "Keyword",
     "Statement",
-    "Conditional",
-    "Repeat",
     "Include",
     "Structure",
     "Define",
@@ -95,7 +93,8 @@ set_hl({
     "@include",
 }, { fg = c.grey, italic = false })
 
-set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.s4 })
+set_hl({ "Conditional", "Repeat", "@keyword.conditional", "@keyword.repeat" }, { fg = c.ret })
+set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keywords so @keyword.return.go can fire
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
 
@@ -123,7 +122,7 @@ set_hl({
     "@lsp.type.type",
 }, { fg = c.utype })
 
-set_hl({ "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = c.ret })
+set_hl({ "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = c.s4 })
 set_hl({
     "@function.builtin",
     "@lsp.typemod.function.defaultLibrary",
