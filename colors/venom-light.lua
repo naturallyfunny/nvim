@@ -28,7 +28,7 @@ local c = {
     string  = "#2e7d78", -- venom-light strings (dark teal)
     const   = "#3a6ea8", -- venom-light user-defined constants (dark blue)
     bconst  = "#7d4f80", -- venom-light language built-in constants (dark pinky)
-    ret     = "#666666", -- venom-light operators (same zone as s4)
+    ret     = "#404040", -- venom-light return/conditional control flow
     module  = "#777777", -- venom-light modules/namespaces
     ptype   = "#4a4d5c", -- venom-light primitive/built-in types (italic)
     utype   = "#3d4a7a", -- venom-light custom/user-defined types
@@ -80,8 +80,6 @@ local c_bg = c.bg0
 set_hl({
     "Keyword",
     "Statement",
-    "Conditional",
-    "Repeat",
     "Include",
     "Structure",
     "Define",
@@ -93,7 +91,8 @@ set_hl({
     "@include",
 }, { fg = c.grey, italic = false })
 
-set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.s4 })
+set_hl({ "Conditional", "Repeat", "@keyword.conditional", "@keyword.repeat" }, { fg = c.ret })
+set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {})
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
 
@@ -233,10 +232,10 @@ vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.s2, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirm", { bg = c.bg6, fg = c.black })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = c.s5, fg = c.white, bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.s3 })
-vim.api.nvim_set_hl(0, "LineNr", { fg = c.gutter })
-vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.gutter })
-vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.gutter })
-vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.scope, bold = true })
+vim.api.nvim_set_hl(0, "LineNr", { fg = "#8A8A8A" })
+vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#8A8A8A" })
+vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#8A8A8A" })
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.ink, bold = true })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = c.bg3 })
 vim.api.nvim_set_hl(0, "Comment", { fg = c.comment })
 vim.api.nvim_set_hl(0, "MatchParen", { fg = c.black, bold = true })
@@ -289,7 +288,7 @@ vim.api.nvim_set_hl(0, "SnacksInputNormal", { fg = c.black, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.s2, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputTitle", { fg = c.black, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputIcon", { fg = c.black, bg = surface })
-vim.api.nvim_set_hl(0, "SnacksIndent", { fg = c.bg7 })
+vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#8A8A8A" })
 vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = c.ink })
 vim.api.nvim_set_hl(0, "WinBar", { fg = c.s3, bg = surface })
 vim.api.nvim_set_hl(0, "WinBarNC", { fg = c.s3, bg = surface })
@@ -347,7 +346,7 @@ end
 vim.api.nvim_set_hl(0, "NonText", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "SpecialKey", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "Whitespace", { fg = c.bg2 })
-vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.grey })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.black })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = c.bg1, fg = "NONE" })
 
 -- ── Diagnostics: virtual text, float, sign column ─────────────────────────────
@@ -558,7 +557,7 @@ local function reapply()
     vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = c.black, bg = surface })
     local nb = surface
     for _, lvl in ipairs({ "Info", "Warn", "Error", "Debug", "Trace" }) do
-        vim.api.nvim_set_hl(0, "SnacksNotifierBorder" .. lvl, { fg = c.gutter, bg = nb })
+        vim.api.nvim_set_hl(0, "SnacksNotifierBorder" .. lvl, { fg = c.mid, bg = nb })
         vim.api.nvim_set_hl(0, "SnacksNotifier" .. lvl, { fg = c.black, bg = nb })
     end
     vim.api.nvim_set_hl(0, "SnacksNotifierTitleInfo", { fg = c.mid, bg = nb })
