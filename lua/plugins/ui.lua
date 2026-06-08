@@ -60,7 +60,7 @@ return {
         },
       },
       indent = {
-        enabled = true,
+        enabled = false,
       },
       dim = {
         enabled = false,

@@ -31,13 +31,13 @@ local c = {
     module = "#505050", -- venom modules/namespaces
     ptype  = "#5c5f6f", -- venom primitive/built-in types (italic)
     utype  = "#cfd6f1", -- venom custom/user-defined types (cool silver)
-    comment = "#202020", -- venom comments (near-invisible)
+    comment = "#22241E", -- venom comments (near-invisible)
 
     -- Surfaces (near-black backgrounds, ordered light → dark within each band)
     bg0 = "#101010", -- [c_bg] lualine c
     bg1 = "#1a1a1a", -- color column
     bg2 = "#1c1c1c", -- diff hunk bg, lazy button bg
-    bg3 = "#1e1e1e", -- comment fg, noice popupmenu selected bg
+    bg3 = "#1e1e1e", -- noice popupmenu selected bg
     bg4 = "#202020", -- VisualNOS bg
     bg5 = "#252525", -- quickfix line bg
     bg6 = "#2a2a2a", -- [b_bg] lualine b, search, diff text, LspReference
