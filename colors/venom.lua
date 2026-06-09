@@ -115,7 +115,7 @@ set_hl({
     "@lsp.type.builtinType",
     "@lsp.typemod.type.defaultLibrary",
     "@lsp.typemod.builtin.defaultLibrary",
-}, { fg = c.ptype, italic = true })
+}, { fg = c.ptype })
 
 set_hl({
     "@type",
@@ -131,7 +131,7 @@ set_hl({
     "@function.builtin",
     "@lsp.typemod.function.defaultLibrary",
     "@lsp.typemod.method.defaultLibrary",
-}, { fg = c.white, italic = true })
+}, { fg = c.ptype })
 
 set_hl({
     "Special",
