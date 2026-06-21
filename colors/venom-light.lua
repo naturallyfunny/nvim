@@ -48,7 +48,7 @@ local c = {
 
     -- UI greys
     dim = "#aaaaaa", -- git Untracked
-    gutter = "#8A8A8A", -- LineNr (non-scope gutter)
+    gutter = "#808080", -- LineNr (non-scope gutter)
     grey = "#555555", -- keywords
     muted = "#888888", -- lualine inactive fg
     mid = "#777777", -- lualine c fg, snacks notifier info titles
@@ -242,9 +242,9 @@ vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.border, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirm", { bg = c.bg6, fg = c.black })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = c.s5, fg = c.white, bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.s3 })
-vim.api.nvim_set_hl(0, "LineNr", { fg = c.dim })
-vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.dim })
-vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.dim })
+vim.api.nvim_set_hl(0, "LineNr", { fg = c.gutter })
+vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.gutter })
+vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.gutter })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.ink, bold = true })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = c.bg3 })
 vim.api.nvim_set_hl(0, "Comment", { fg = c.comment })

@@ -114,6 +114,20 @@ end, {
   desc = "Toggle background transparency (on|off|toggle)",
 })
 
+-- Copy current buffer as sanitized .env (all values cleared) to system clipboard.
+vim.api.nvim_create_user_command("EnvEx", function()
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local result = {}
+  for _, line in ipairs(lines) do
+    line = line:gsub('="[^"]*"', '=""')
+    line = line:gsub("='[^']*'", "=''")
+    line = line:gsub("=([^\"'][^%s#]*)", "=")
+    table.insert(result, line)
+  end
+  vim.fn.setreg("+", table.concat(result, "\n"))
+  vim.notify("EnvEx: sanitized .env copied to clipboard")
+end, { desc = "Copy sanitized .env (values cleared) to clipboard" })
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown" },
   callback = function()
