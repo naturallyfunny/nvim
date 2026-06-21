@@ -95,7 +95,7 @@ set_hl({
 
 set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.ret, italic = true })
 set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.grey })
-set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret })
+set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret, italic = true })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keywords so @keyword.return.go can fire
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
 
@@ -294,9 +294,10 @@ vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = c.bg8 })
 vim.api.nvim_set_hl(0, "SnacksPickerTree", { fg = c.s2 })
 vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = c.border, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = c.border, bg = surface })
-vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { fg = c.grey })
-vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = c.grey })
-vim.api.nvim_set_hl(0, "SnacksPickerGitStatusIgnored", { fg = c.grey })
+vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { fg = c.dim })
+vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = c.s3 })
+vim.api.nvim_set_hl(0, "SnacksPickerGitStatusIgnored", { fg = c.dim })
+vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { fg = c.s3 })
 vim.api.nvim_set_hl(0, "SnacksInputNormal", { fg = c.white, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.border, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputTitle", { fg = c.white, bg = surface })
@@ -359,7 +360,7 @@ end
 vim.api.nvim_set_hl(0, "NonText", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "SpecialKey", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "Whitespace", { fg = c.bg2 })
-vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.white })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.dim })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = c.bg1, fg = "NONE" })
 
 -- ── Diagnostics: virtual text, float, sign column ─────────────────────────────

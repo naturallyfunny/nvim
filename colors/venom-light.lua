@@ -22,7 +22,7 @@ local c = {
     -- Syntax scale: darker = more prominent on #D0D0D0 bg
     s2 = "#aaaaaa", -- borders
     s3 = "#888888", -- mid (winbar, misc)
-    s4 = "#666666", -- operators, brackets, specials, return
+    s4 = "#555555", -- operators, brackets, specials, return
     s5 = "#2a2a2a", -- user-defined types
 
     string = "#2e7d78", -- venom-light strings (dark teal)
@@ -91,9 +91,9 @@ set_hl({
     "@include",
 }, { fg = c.grey, italic = false })
 
-set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.white, italic = true })
+set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.s4, italic = true })
 set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.grey })
-set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.white })
+set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.s4, italic = true })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {})
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
 
@@ -113,7 +113,7 @@ set_hl({
     "@lsp.type.builtinType",
     "@lsp.typemod.type.defaultLibrary",
     "@lsp.typemod.builtin.defaultLibrary",
-}, { fg = c.ptype, italic = true })
+}, { fg = c.ptype })
 
 set_hl({
     "@type",
@@ -242,9 +242,9 @@ vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.border, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirm", { bg = c.bg6, fg = c.black })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = c.s5, fg = c.white, bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.s3 })
-vim.api.nvim_set_hl(0, "LineNr", { fg = c.gutter })
-vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.gutter })
-vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.gutter })
+vim.api.nvim_set_hl(0, "LineNr", { fg = c.dim })
+vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.dim })
+vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.dim })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.ink, bold = true })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = c.bg3 })
 vim.api.nvim_set_hl(0, "Comment", { fg = c.comment })
@@ -291,14 +291,15 @@ vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = c.bg8 })
 vim.api.nvim_set_hl(0, "SnacksPickerTree", { fg = c.grey })
 vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = c.border, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = c.border, bg = surface })
-vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { fg = c.grey })
-vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = c.grey })
-vim.api.nvim_set_hl(0, "SnacksPickerGitStatusIgnored", { fg = c.grey })
+vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { fg = c.dim })
+vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = c.mid })
+vim.api.nvim_set_hl(0, "SnacksPickerGitStatusIgnored", { fg = c.dim })
+vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { fg = c.mid })
 vim.api.nvim_set_hl(0, "SnacksInputNormal", { fg = c.black, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.border, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputTitle", { fg = c.black, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputIcon", { fg = c.black, bg = surface })
-vim.api.nvim_set_hl(0, "SnacksIndent", { fg = c.gutter })
+vim.api.nvim_set_hl(0, "SnacksIndent", { fg = c.dim })
 vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = c.ink })
 vim.api.nvim_set_hl(0, "WinBar", { fg = c.s3, bg = surface })
 vim.api.nvim_set_hl(0, "WinBarNC", { fg = c.s3, bg = surface })
@@ -356,7 +357,7 @@ end
 vim.api.nvim_set_hl(0, "NonText", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "SpecialKey", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "Whitespace", { fg = c.bg2 })
-vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.black })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.dim })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = c.bg1, fg = "NONE" })
 
 -- ── Diagnostics: virtual text, float, sign column ─────────────────────────────
