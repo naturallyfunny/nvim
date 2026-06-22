@@ -39,3 +39,17 @@ vim.opt.cmdheight = 1
 -- I = no intro, c = no ins-completion messages.
 vim.opt.shortmess:append("WIc")
 
+-- == ROOT DETECTION ORDER ==
+-- LazyVim default is { "lsp", { ".git", "lua" }, "cwd" } — the "lsp" detector
+-- is checked FIRST, so it trusts whatever the active language server reports as
+-- the project root. That breaks for Go workspaces: when a `go.work` file exists,
+-- gopls correctly reports the *workspace* root (the parent folder holding
+-- go.work) instead of the individual module. So opening Snacks explorer
+-- (<leader>E) from a .go file rooted at the parent instead of the module.
+--
+-- Fix: check pattern-based detectors FIRST so the closest folder containing
+-- .git / go.mod / lua wins (i.e. the actual module you're editing). "lsp" stays
+-- as a fallback for projects with no such marker; "cwd" is the final fallback.
+-- "lua" is kept so editing this Neovim config still roots correctly.
+vim.g.root_spec = { { ".git", "go.mod", "lua" }, "lsp", "cwd" }
+
