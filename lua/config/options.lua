@@ -53,3 +53,27 @@ vim.opt.shortmess:append("WIc")
 -- "lua" is kept so editing this Neovim config still roots correctly.
 vim.g.root_spec = { { ".git", "go.mod", "lua" }, "lsp", "cwd" }
 
+-- == SUPPRESS A SINGLE BENIGN LSP WATCHER NOTICE ==
+-- gopls registers a `workspace/didChangeWatchedFiles` watcher on the go.work
+-- root's `vendor/` dir so it can detect a future `go work vendor`. In an
+-- unvendored go.work dev setup that dir legitimately never exists, so Neovim's
+-- file-watcher (vim/_watch.lua) fails to start it and emits a once-per-session
+-- INFO notice: "watch.watch: ENOENT: no such file or directory". It's cosmetic
+-- — file-watching for the real module dirs works fine.
+--
+-- NOTE: _watch.lua emits this via `vim.notify_once`, NOT `vim.notify`. Wrapping
+-- `vim.notify` here does nothing because LazyVim's lazy_notify + Snacks.nvim
+-- replace `vim.notify` AFTER options.lua runs, discarding any wrapper. Nothing
+-- ever replaces `vim.notify_once`, and notify_once delegates to vim.notify
+-- internally — so wrapping notify_once and short-circuiting catches the message
+-- reliably before it reaches Snacks. Filter ONLY this exact message.
+do
+    local orig_notify_once = vim.notify_once
+    vim.notify_once = function(msg, level, opts)
+        if type(msg) == "string" and msg:match("^watch%.watch: ENOENT") then
+            return false
+        end
+        return orig_notify_once(msg, level, opts)
+    end
+end
+

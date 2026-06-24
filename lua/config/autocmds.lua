@@ -128,6 +128,31 @@ vim.api.nvim_create_user_command("EnvEx", function()
   vim.notify("EnvEx: sanitized .env copied to clipboard")
 end, { desc = "Copy sanitized .env (values cleared) to clipboard" })
 
+-- Strip trailing whitespace on manual :w only (skip autosave writes).
+-- markdown: two trailing spaces = intentional line break; diff: context lines.
+local _autosaving = false
+local _no_strip_ft = { markdown = true, diff = true }
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "AutoSaveWritePre",
+  callback = function() _autosaving = true end,
+})
+vim.api.nvim_create_autocmd("User", {
+  pattern = "AutoSaveWritePost",
+  callback = function() _autosaving = false end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    if _autosaving or _no_strip_ft[vim.bo.filetype] then return end
+    local pos = vim.api.nvim_win_get_cursor(0)
+    vim.cmd([[%s/\s\+$//e]])
+    vim.api.nvim_win_set_cursor(0, pos)
+  end,
+  desc = "Remove trailing whitespace on manual :w",
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown" },
   callback = function()
