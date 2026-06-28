@@ -16,7 +16,7 @@ local c = {
     -- Anchors
     black = "#010101",
     ink = "#000000", -- pure black
-    white = "#F7FAFE",
+    white = "#FEFAFE",
     bg = "#D0D0D0", -- editor background (matches ghostty bg)
 
     -- Syntax scale: darker = more prominent on #D0D0D0 bg
@@ -26,8 +26,8 @@ local c = {
     s5 = "#2a2a2a", -- user-defined types
 
     string = "#2e7d78", -- venom-light strings (dark teal)
-    const = "#3a6ea8", -- venom-light user-defined constants (dark blue)
-    bconst = "#7d4f80", -- venom-light language built-in constants (dark pinky)
+    bconst = "#3a6ea8", -- venom-light user-defined constants (dark blue)
+    const = "#7d4f80", -- venom-light language built-in constants (dark pinky)
     ret = "#404040", -- venom-light return/conditional control flow
     module = "#777777", -- venom-light modules/namespaces
     ptype = "#4a4d5c", -- venom-light primitive/built-in types (italic)
@@ -35,7 +35,7 @@ local c = {
     comment = "#7a7d5e", -- venom-light comments (dark olive)
 
     -- Surfaces (darker than #D0D0D0 so highlights are visible)
-    bg0 = "#c8c8c8", -- [c_bg] lualine c
+    bg0 = "#cccccc", -- [c_bg] lualine c
     bg1 = "#c4c4c4", -- color column
     bg2 = "#c0c0c0", -- diff hunk bg, lazy button bg
     bg3 = "#bbbbbb", -- cursor line, noice popupmenu selected bg
@@ -71,7 +71,7 @@ local c = {
 local surface = require("util.transparent").bg(c.bg)
 
 -- lualine section b bg.
-local b_bg = c.bg6
+local b_bg = c.bg7
 -- lualine section c bg.
 local c_bg = c.bg0
 
