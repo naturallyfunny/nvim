@@ -9,7 +9,7 @@
         "description": "Inline function call + err check"
     },
     "env string guard": {
-        "prefix": "senv",
+        "prefix": "lsenv",
         "body": [
             "${1:varName} := os.Getenv(\"${2:ENV_VAR}\")",
             "if $1 == \"\" {",

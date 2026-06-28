@@ -2,7 +2,15 @@ return {
   {
     "saghen/blink.cmp",
     opts = {
+      sources = {
+        providers = {
+          snippets = { score_offset = 100 },
+        },
+      },
       completion = {
+        menu = {
+          direction_priority = { "n", "s" },
+        },
         -- Enable ghost text (inline preview)
         ghost_text = {
           enabled = true,

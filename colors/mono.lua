@@ -149,6 +149,7 @@ set_hl({
   "Floaterm", "NormalFloat",
   "Pmenu", "PmenuSel", "PmenuSbar", "PmenuThumb",
 }, { bg = surface })
+vim.api.nvim_set_hl(0, "PmenuSel", { fg = c.white, bg = c.bg3 })
 
 set_hl({ "WinSeparator", "VertSplit", "NeoTreeWinSeparator", "SnacksWinSeparator" }, { fg = c.s2, bg = surface })
 
