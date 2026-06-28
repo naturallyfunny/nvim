@@ -1,0 +1,21 @@
+{
+    "if err inline func": {
+        "prefix": "ief",
+        "body": [
+            "if err := ${1:funcCall}; err != nil {",
+            "\t${2:log.Println(\"$0\")}",
+            "}"
+        ],
+        "description": "Inline function call + err check"
+    },
+    "env string guard": {
+        "prefix": "senv",
+        "body": [
+            "${1:varName} := os.Getenv(\"${2:ENV_VAR}\")",
+            "if $1 == \"\" {",
+            "\tlog.Fatal(\"fatal: $2 is required\")",
+            "}"
+        ],
+        "description": "Getenv + empty string guard"
+    }
+}

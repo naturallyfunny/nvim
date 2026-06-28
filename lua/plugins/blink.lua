@@ -37,14 +37,14 @@ return {
               return true
             end
             if cmp.snippet_active() then
-              return cmp.accept()
-            else
-              return cmp.select_and_accept()
+              cmp.select_and_accept()
+              return true
             end
+            return cmp.select_and_accept()
           end,
-          "snippet_forward",
           "fallback",
         },
+        ["<C-l>"] = { "snippet_forward", "fallback" },
         ["<S-Tab>"] = { "snippet_backward", "fallback" },
 
         ["<Up>"] = { "select_prev", "fallback" },
