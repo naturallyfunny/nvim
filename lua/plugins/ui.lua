@@ -65,6 +65,9 @@ return {
       dim = {
         enabled = false,
       },
+      statuscolumn = {
+        enabled = false,
+      },
     },
   },
 

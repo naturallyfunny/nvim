@@ -358,7 +358,7 @@ end
 vim.api.nvim_set_hl(0, "NonText", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "SpecialKey", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "Whitespace", { fg = c.bg2 })
-vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.dim })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = "#3c3f4e", bold = true })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = c.bg1, fg = "NONE" })
 
 -- ── Diagnostics: virtual text, float, sign column ─────────────────────────────

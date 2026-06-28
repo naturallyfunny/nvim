@@ -9,11 +9,12 @@
 
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:block-blinkwait700-blinkoff400-blinkon250,r-cr-o:block"
 
--- Disable relative line numbers (use absolute only)
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.numberwidth = 1
-vim.opt.signcolumn = "no"
+vim.opt.signcolumn = "yes:1"
+-- Sign on left, cursor line number left-aligned (+2 pad ensures visible gap), relative numbers right-aligned
+vim.opt.statuscolumn = "%s%{v:relnum==0?printf('%-'.(len(v:lnum)+1).'d',v:lnum):''}%=%{v:relnum>0?v:relnum:''} "
 vim.opt.foldcolumn = "0"
 vim.opt.cursorline = true
 vim.opt.list = false
