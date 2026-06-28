@@ -314,23 +314,14 @@ vim.api.nvim_set_hl(0, "WhichKeyBorder", { fg = c.border, bg = surface })
 
 -- ── Dashboard ─────────────────────────────────────────────────────────────────
 
-set_hl({
-    "DashboardHeader",
-    "DashboardCenter",
-    "DashboardFooter",
-    "DashboardShortCut",
-    "DashboardIcon",
-    "DashboardKey",
-    "DashboardDesc",
-    "SnacksDashboardHeader",
-    "SnacksDashboardIcon",
-    "SnacksDashboardKey",
-    "SnacksDashboardDesc",
-    "SnacksDashboardDir",
-    "SnacksDashboardFile",
-    "SnacksDashboardFooter",
-    "SnacksDashboardSpecial",
-}, { fg = c.black })
+set_hl({ "DashboardHeader", "SnacksDashboardHeader" }, { fg = c.black })
+set_hl({ "DashboardIcon", "SnacksDashboardIcon" }, { fg = c.black })
+set_hl({ "DashboardKey", "DashboardShortCut", "SnacksDashboardKey" }, { fg = c.black })
+set_hl({ "DashboardDesc", "DashboardCenter", "SnacksDashboardDesc" }, { fg = c.s3 })
+set_hl({ "SnacksDashboardFile" }, { fg = c.s4 })
+set_hl({ "SnacksDashboardDir" }, { fg = c.s3 })
+set_hl({ "DashboardFooter", "SnacksDashboardFooter" }, { fg = c.s2 })
+set_hl({ "SnacksDashboardSpecial" }, { fg = c.black })
 
 -- ── Diff & git signs ──────────────────────────────────────────────────────────
 
