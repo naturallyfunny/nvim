@@ -317,10 +317,10 @@ vim.api.nvim_set_hl(0, "WhichKeyBorder", { fg = c.border, bg = surface })
 set_hl({ "DashboardHeader", "SnacksDashboardHeader" }, { fg = c.black })
 set_hl({ "DashboardIcon", "SnacksDashboardIcon" }, { fg = c.black })
 set_hl({ "DashboardKey", "DashboardShortCut", "SnacksDashboardKey" }, { fg = c.black })
-set_hl({ "DashboardDesc", "DashboardCenter", "SnacksDashboardDesc" }, { fg = c.s3 })
+set_hl({ "DashboardDesc", "DashboardCenter", "SnacksDashboardDesc" }, { fg = c.s4 })
 set_hl({ "SnacksDashboardFile" }, { fg = c.s4 })
 set_hl({ "SnacksDashboardDir" }, { fg = c.s3 })
-set_hl({ "DashboardFooter", "SnacksDashboardFooter" }, { fg = c.s2 })
+set_hl({ "DashboardFooter", "SnacksDashboardFooter" }, { fg = c.s3 })
 set_hl({ "SnacksDashboardSpecial" }, { fg = c.black })
 
 -- ── Diff & git signs ──────────────────────────────────────────────────────────
@@ -349,7 +349,7 @@ end
 vim.api.nvim_set_hl(0, "NonText", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "SpecialKey", { fg = c.bg6 })
 vim.api.nvim_set_hl(0, "Whitespace", { fg = c.bg2 })
-vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = "#3c3f4e", bold = true })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = "#808080" })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = c.bg1, fg = "NONE" })
 
 -- ── Diagnostics: virtual text, float, sign column ─────────────────────────────
