@@ -33,6 +33,10 @@ local function apply_hl_overrides()
   if spec and spec.reapply then
     spec.reapply()
   end
+  -- Supermaven inline ghost text follows the active scheme's comment color
+  -- (theme-agnostic, no hardcoded hex). Re-linked here because Supermaven sets
+  -- its own default fg on setup, which the plugin re-application clobbers.
+  vim.api.nvim_set_hl(0, "SupermavenSuggestion", { link = "Comment" })
 end
 
 -- vim.schedule defers to the next event loop tick, after ALL VeryLazy callbacks

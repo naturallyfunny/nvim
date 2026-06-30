@@ -91,7 +91,7 @@ set_hl({
     "@include",
 }, { fg = c.grey, italic = false })
 
-set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.s4, italic = true })
+set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.s4 })
 set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.grey })
 set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.s4, italic = true })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {})

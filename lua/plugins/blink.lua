@@ -4,6 +4,9 @@ return {
     opts = {
       sources = {
         providers = {
+          -- Push snippets (snippets/*.json: `ief`, `lsenv`, ...) to the top of the
+          -- menu so they sit at items[1]; the <Tab> handler below relies on this to
+          -- give snippets priority over Supermaven's ghost text.
           snippets = { score_offset = 100 },
         },
       },
@@ -29,19 +32,41 @@ return {
         ["<C-e>"] = { "hide" },
         ["<C-y>"] = { "select_and_accept" },
 
-        -- Tab logic (VS Code / Copilot style):
-        -- 1. Copilot ghost text showing -> Tab accepts the inline suggestion
-        -- 2. Menu open                  -> Tab accepts the selection (snippet-aware)
-        -- 3. Otherwise                  -> normal indent (fallback)
-        -- Native Copilot (ai.copilot-native) renders suggestions via Neovim's
-        -- built-in LSP inline completion; get() applies the shown suggestion and
-        -- returns true. We must wire it here because preset="none" drops LazyVim's
-        -- default ai_accept binding. pcall-guarded so a tab still indents when the
-        -- inline-completion feature isn't active for the buffer.
+        -- Tab logic (VS Code / Copilot style), in priority order:
+        -- 1. Snippet candidate (e.g. `ief`, `lsenv`) -> always accept the snippet
+        -- 2. Supermaven suggestion showing            -> accept the inline ghost text
+        -- 3. Menu open / snippet active               -> accept the selection
+        -- 4. Otherwise                                -> normal indent (fallback)
+        --
+        -- Snippets win first because Supermaven's ghost text would otherwise steal
+        -- Tab while a snippet is sitting at the top of the menu. A snippet item
+        -- carries source_id == "snippets"; we check the selected item, or the top
+        -- candidate when nothing is selected (preselect = false), and accept by
+        -- index so it fires even without an explicit selection. The high
+        -- score_offset on the snippets provider keeps it as items[1].
+        --
+        -- Supermaven renders AI suggestions as inline ghost text but exposes no
+        -- public accept API, so we reach into its `completion_preview` module.
+        -- pcall-guarded so Tab still indents if the module is missing or the
+        -- plugin renames it on update. on_accept_suggestion() mutates the buffer
+        -- and must run outside the keymap callback (textlock), hence vim.schedule;
+        -- we return true immediately so blink treats the key as handled and skips
+        -- the indent fallback. Wired here because preset="none" drops LazyVim's
+        -- default ai_accept binding.
         ["<Tab>"] = {
           function(cmp)
-            local ok, applied = pcall(vim.lsp.inline_completion.get)
-            if ok and applied then
+            if cmp.is_visible() then
+              local idx = cmp.get_selected_item_idx() or 1
+              local item = cmp.get_selected_item() or cmp.get_items()[1]
+              if item and item.source_id == "snippets" then
+                return cmp.accept({ index = idx })
+              end
+            end
+            local ok, sm = pcall(require, "supermaven-nvim.completion_preview")
+            if ok and sm and sm.has_suggestion() then
+              vim.schedule(function()
+                sm.on_accept_suggestion()
+              end)
               return true
             end
             if cmp.snippet_active() then

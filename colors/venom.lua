@@ -93,9 +93,9 @@ set_hl({
     "@include",
 }, { fg = c.grey, italic = false })
 
-set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.ret, italic = true })
+set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.ret })
 set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.grey })
-set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret, italic = true })
+set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keywords so @keyword.return.go can fire
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
 
