@@ -604,8 +604,8 @@ require("config.theme_registry").register("venom", {
     reapply = reapply,
     lualine = {
         theme = {
-            normal = mode_section(c.white, c_bg),
-            insert = mode_section(c_bg, c.white),
+            normal = mode_section(c_bg, c.bright_grey),
+            insert = mode_section(c.bright_grey, c_bg),
             visual = mode_section(c.dim, c.white),
             replace = mode_section(c_bg, c.white),
             command = mode_section(c.white, c_bg),
