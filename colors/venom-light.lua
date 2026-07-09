@@ -15,19 +15,20 @@ end
 local c = {
     -- Anchors
     black = "#010101",
+    lighter_black = "#303030",
     ink = "#000000", -- pure black
     white = "#FEFAFE",
     bg = "#D0D0D0", -- editor background (matches ghostty bg)
 
     -- Syntax scale: darker = more prominent on #D0D0D0 bg
-    s2 = "#aaaaaa", -- borders
+    s2 = "#aaaaaa", -- Folded, PmenuExtra, @markup.raw/quote, git Changedelete
     s3 = "#888888", -- mid (winbar, misc)
     s4 = "#555555", -- operators, brackets, specials, return
     s5 = "#2a2a2a", -- user-defined types
 
     string = "#2e7d78", -- venom-light strings (dark teal)
-    bconst = "#3a6ea8", -- venom-light user-defined constants (dark blue)
-    const = "#7d4f80", -- venom-light language built-in constants (dark pinky)
+    bconst = "#3a6ea8", -- venom-light builtin constants / variable builtins (nil, true, self…)
+    const = "#7d4f80", -- venom-light user-defined constants, booleans, numbers
     ret = "#404040", -- venom-light return/conditional control flow
     module = "#777777", -- venom-light modules/namespaces
     ptype = "#4a4d5c", -- venom-light primitive/built-in types (italic)
@@ -167,7 +168,7 @@ set_hl({
     "@lsp.typemod.variable.definition",
     "TSVariable",
     "TSVariableBuiltin",
-}, { fg = c.black })
+}, { fg = c.lighter_black })
 
 set_hl({ "@punctuation.bracket", "@string.delimiter" }, { fg = c.s4 })
 

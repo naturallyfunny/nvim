@@ -15,23 +15,24 @@ end
 local c = {
     -- Anchors
     black = "#010101",
-    white = "#FDFDFD",
+    white = "#FFFFFF",
+    bright_grey = "#DDDDDD",
     bg = "#000000", -- editor background (solid, non-transparent)
 
     -- Syntax scale: 5 named steps between black and white
     --   modules → keywords/types → constants/strings → operators → user-types → white
-    s2 = "#6d6d6d", -- keywords, builtin types, folded, LineNr, SnacksIndent, SnacksPickerTree, all borders
+    s2 = "#6d6d6d", -- Folded, SnacksPickerTree, PmenuExtra, @markup.raw/quote, git Changedelete
     s3 = "#8a8a8a", -- constants, strings, numbers
     s4 = "#aaaaaa", -- operators, punctuation, markdown markers
     s5 = "#c4c4c4", -- user-defined types (@type, struct, interface)
     string = "#95bdb7", -- venom strings
-    bconst = "#8fa8d4", -- venom user-defined constants
-    const = "#336088", -- venom language built-in constants (nil, true, self…)
+    bconst = "#8fa8d4", -- venom builtin constants / variable builtins (nil, true, self…)
+    const = "#336088", -- venom user-defined constants, booleans, numbers
     ret = "#908d88", -- venom return keyword
-    module = "#505050", -- venom modules/namespaces
+    module = "#555555", -- venom modules/namespaces
     ptype = "#5c5f6f", -- venom primitive/built-in types (italic)
     utype = "#cfd6f1", -- venom custom/user-defined types (cool silver)
-    comment = "#21221D", -- venom comments (near-invisible)
+    comment = "#31321D", -- venom comments (near-invisible)
 
     -- Surfaces (near-black backgrounds, ordered light → dark within each band)
     bg0 = "#101010", -- [c_bg] lualine c
@@ -46,9 +47,9 @@ local c = {
     bg9 = "#404040", -- visual selection, lualine visual mode a_bg
 
     -- UI greys
-    dim = "#3a3a3a", -- git Untracked
+    dim = "#4A4A4A", -- git Untracked
     gutter = "#4a4a4a", -- LineNr (non-scope gutter)
-    grey = "#5A5A5A", -- picker borders, git delete, darkest syntax
+    grey = "#5c5c5c", -- picker borders, git delete, darkest syntax
     muted = "#4a4a4a", -- lualine inactive fg
     mid = "#6a6a6a", -- lualine c fg, snacks notifier info titles
 
@@ -99,7 +100,7 @@ set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keywords so @keyword.return.go can fire
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
 
-set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = c.module })
+set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = c.grey, italic = true })
 
 set_hl(
     { "Constant", "@constant.builtin", "@variable.builtin", "@lsp.typemod.variable.defaultLibrary" },
@@ -169,7 +170,7 @@ set_hl({
     "@lsp.typemod.variable.definition",
     "TSVariable",
     "TSVariableBuiltin",
-}, { fg = c.white })
+}, { fg = c.bright_grey })
 
 set_hl({ "@punctuation.bracket", "@string.delimiter" }, { fg = c.s4 })
 
