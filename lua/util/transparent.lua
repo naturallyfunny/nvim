@@ -1,5 +1,5 @@
 -- Shared transparency helper for every colorscheme — the plugin-based ones
--- (kanagawa / catppuccin / rose-pine) AND the hand-built ones (mono / earth).
+-- (rose-pine) AND the hand-built ones (mono / earth).
 --
 -- Transparency is a single toggle (`vim.g.transparent`, ON by default) that all
 -- schemes read, so the see-through look isn't baked into any one colorscheme:
@@ -81,10 +81,9 @@ M.plugins = {
   "NoiceCmdlinePopupBorder", "NoiceConfirmBorder", "NoicePopupmenuBorder", "NoiceNotificationBorder",
 }
 
--- Override table (bg = none per group) for a plugin's override option.
 -- It's a function so it can be passed straight to plugins that expect one
--- (kanagawa `overrides`, catppuccin `custom_highlights`); call it for plugins
--- that want a table (rose-pine `highlight_groups`).
+-- (like overrides/custom_highlights); call it for plugins that want a table
+-- (rose-pine `highlight_groups`).
 function M.overrides()
   local o = {}
   if M.enabled() then
@@ -109,7 +108,7 @@ function M.reapply()
 end
 
 -- lualine spec for theme_registry. We return the bundled lualine theme by NAME
--- (a string, e.g. "kanagawa", "catppuccin-mocha", "rose-pine"); lualine resolves
+-- (a string, e.g. "rose-pine"); lualine resolves
 -- it at its own setup — after the colorscheme has loaded — which avoids the
 -- require-loop you hit if you pull the theme table during the plugin's config.
 -- No palette fields, so the statusline stays exactly the plugin's own (the

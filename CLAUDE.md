@@ -33,7 +33,7 @@ Everything unusual in this config orbits a single design goal: **zero hardcoded 
 
 **Default scheme persistence:** every `ColorScheme` event writes `vim.g.colors_name` to `stdpath("state")/colorscheme`; `theme.lua` reads it back on startup so the last-used scheme restores.
 
-**External plugin schemes** (kanagawa, rose-pine, catppuccin) load `lazy = false, priority = 1000` and do *not* register with the theme_registry — they use `util.transparent`'s helpers (`overrides()`, `lualine(name)`) for the transparency hook only.
+**External plugin schemes** (rose-pine) load `lazy = false, priority = 1000` and do *not* register with the theme_registry — they use `util.transparent`'s helpers (`overrides()`, `lualine(name)`) for the transparency hook only.
 
 ## Config layout
 

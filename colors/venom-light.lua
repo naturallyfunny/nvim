@@ -600,11 +600,11 @@ require("config.theme_registry").register("venom-light", {
     reapply = reapply,
     lualine = {
         theme = {
-            normal = mode_section(c.black, c.white),
-            insert = mode_section(c_bg, c.black),
+            normal = mode_section(c_bg, c.black),
+            insert = mode_section(c.black, c.white),
             visual = mode_section(c.bg9, c.black),
             replace = mode_section(c_bg, c.black),
-            command = mode_section(c.black, c.white),
+            command = mode_section(c_bg, c.black),
             inactive = {
                 a = { bg = c_bg, fg = c.muted, gui = "bold" },
                 b = { bg = c_bg, fg = c.muted },

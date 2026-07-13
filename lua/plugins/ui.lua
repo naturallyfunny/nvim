@@ -68,6 +68,9 @@ return {
       statuscolumn = {
         enabled = false,
       },
+      image = {
+        enabled = true,
+      },
     },
   },
 

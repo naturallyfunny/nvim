@@ -14,9 +14,9 @@ end
 
 local c = {
     -- Anchors
-    black = "#010101",
+    black = "#000000",
     white = "#FFFFFF",
-    bright_grey = "#DDDDDD",
+    soft_white = "#FAFAFA",
     bg = "#000000", -- editor background (solid, non-transparent)
 
     -- Syntax scale: 5 named steps between black and white
@@ -74,7 +74,7 @@ local c = {
 local surface = require("util.transparent").bg(c.bg)
 
 -- lualine section b bg.
-local b_bg = c.bg6
+local b_bg = c.bg5
 -- lualine section c bg.
 local c_bg = c.bg0
 
@@ -170,7 +170,7 @@ set_hl({
     "@lsp.typemod.variable.definition",
     "TSVariable",
     "TSVariableBuiltin",
-}, { fg = c.bright_grey })
+}, { fg = c.soft_white })
 
 set_hl({ "@punctuation.bracket", "@string.delimiter" }, { fg = c.s4 })
 
@@ -605,10 +605,10 @@ require("config.theme_registry").register("venom", {
     lualine = {
         theme = {
             normal = mode_section(c_bg, c.white),
-            insert = mode_section(c.white, c_bg),
+            insert = mode_section(c.soft_white, c_bg),
             visual = mode_section(c.dim, c.white),
             replace = mode_section(c_bg, c.white),
-            command = mode_section(c.white, c_bg),
+            command = mode_section(c_bg, c.white),
             inactive = {
                 a = { bg = c_bg, fg = c.muted, gui = "bold" },
                 b = { bg = c_bg, fg = c.muted },

@@ -1,4 +1,6 @@
 return {
+  { "catppuccin/nvim", enabled = false },
+
   {
     "LazyVim/LazyVim",
     opts = function()
@@ -7,6 +9,7 @@ return {
       return { colorscheme = saved }
     end,
   },
+
 
   {
     "nvim-lualine/lualine.nvim",
