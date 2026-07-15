@@ -11,7 +11,9 @@ return {
         live_grep = {
           -- For live_grep, we can use ripgrep with similar flags
           grep_open_files = false,
-          find_command = { "rg", "--files", "--hidden", "--no-ignore" },
+          additional_args = function()
+            return { "--hidden", "--no-ignore" }
+          end,
         },
       },
     },

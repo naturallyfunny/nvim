@@ -42,8 +42,8 @@ local c = {
     bg3 = "#bbbbbb", -- cursor line, noice popupmenu selected bg
     bg4 = "#b8b8b8", -- VisualNOS bg
     bg5 = "#b0b0b0", -- quickfix line bg
-    bg6 = "#a8a8a8", -- [b_bg] lualine b, search, diff text, LspReference
-    bg7 = "#a0a0a0", -- substitute, wildmenu, LspSignatureActiveParameter
+    bg6 = "#a8a8a8", -- search, diff text, LspReference
+    bg7 = "#a0a0a0", -- [b_bg] lualine b, substitute, wildmenu, LspSignatureActiveParameter
     bg8 = "#989898", -- flash backdrop, snacks picker dir label
     bg9 = "#909090", -- visual selection, lualine visual mode a_bg
 

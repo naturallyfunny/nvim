@@ -581,8 +581,8 @@ require("config.theme_registry").register("earth", {
     reapply = reapply,
     lualine = {
         theme = {
-            normal = mode_section(c.type, c.deep),
-            insert = mode_section(c.deep, c.type),
+            normal = mode_section(c.deep, c.type),
+            insert = mode_section(c.type, c.deep),
             visual = mode_section(c.sage, c.deep),
             replace = mode_section(c.deep, c.type),
             command = mode_section(c.type, c.deep),

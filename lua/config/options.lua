@@ -5,7 +5,7 @@
 -- n-v-c-sm:block  -> Normal, Visual, Command, Showmatch mode = BLOCK (steady)
 -- i-ci-ve:block   -> Insert, Command-insert, Visual-exclude = BLOCK
 -- blinkwait700... -> Controls blink speed
--- r               -> Replace mode = Horizontal Bar (block in all modes)
+-- r-cr-o          -> Replace, Command-line replace, Operator-pending = BLOCK
 
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:block-blinkwait700-blinkoff400-blinkon250,r-cr-o:block"
 

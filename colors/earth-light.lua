@@ -46,7 +46,7 @@ local c = {
     surf_navy = "#d0d4e0", -- LazyButton panel
     surf_teal = "#c4dcd4", -- LspReference bg
     surf_mid = "#c0d4bc", -- VisualNOS bg
-    surf_lift = "#b4cab0", -- [b_bg] lualine b (warm sage panel)
+    surf_lift = "#b4cab0", -- warm sage panel
 
     -- bg scale: progressively darker for highlights (all shadowing below bg)
     bg0 = "#dedad0", -- [c_bg] lualine c

@@ -78,7 +78,7 @@ vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
   desc = "eob tilde only in file buffers",
 })
 
--- Toggle comments between scheme-native dark and a readable dark blue.
+-- Toggle comments between scheme-native dark and a readable light sand/olive color.
 -- State resets automatically on ColorScheme so theme swaps always start fresh.
 local _comments_lit = false
 vim.api.nvim_create_user_command("CommentLight", function()

@@ -40,15 +40,15 @@ local c = {
     bg2 = "#1c1c1c", -- diff hunk bg, lazy button bg
     bg3 = "#1e1e1e", -- noice popupmenu selected bg
     bg4 = "#202020", -- VisualNOS bg
-    bg5 = "#252525", -- quickfix line bg
-    bg6 = "#2a2a2a", -- [b_bg] lualine b, search, diff text, LspReference
+    bg5 = "#252525", -- [b_bg] lualine b, quickfix line bg
+    bg6 = "#2a2a2a", -- search, diff text, LspReference
     bg7 = "#303030", -- substitute, wildmenu, LspSignatureActiveParameter
     bg8 = "#383838", -- flash backdrop, snacks picker dir label
     bg9 = "#404040", -- visual selection, lualine visual mode a_bg
 
     -- UI greys
     dim = "#4A4A4A", -- git Untracked
-    gutter = "#4a4a4a", -- LineNr (non-scope gutter)
+    gutter = "#404040", -- LineNr (non-scope gutter)
     grey = "#5c5c5c", -- picker borders, git delete, darkest syntax
     muted = "#4a4a4a", -- lualine inactive fg
     mid = "#6a6a6a", -- lualine c fg, snacks notifier info titles
@@ -247,9 +247,9 @@ vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.border, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirm", { bg = c.bg6, fg = c.white })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = c.s5, fg = c.black, bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.s3 })
-vim.api.nvim_set_hl(0, "LineNr", { fg = c.dim })
-vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.dim })
-vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.dim })
+vim.api.nvim_set_hl(0, "LineNr", { fg = c.gutter })
+vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.gutter })
+vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.gutter })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.white, bold = true })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = surface })
 vim.api.nvim_set_hl(0, "Comment", { fg = c.comment })
