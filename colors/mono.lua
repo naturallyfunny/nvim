@@ -16,6 +16,7 @@ local c = {
   -- Anchors
   black  = "#010101",
   white  = "#FFFFFF",
+  soft_white = "#FAFAFA",
   bg     = "#000000",  -- editor background (solid, non-transparent)
 
   -- Syntax scale: 5 named steps between black and white
@@ -31,8 +32,8 @@ local c = {
   bg2 = "#1c1c1c",  -- diff hunk bg, lazy button bg
   bg3 = "#1e1e1e",  -- comment fg, noice popupmenu selected bg
   bg4 = "#202020",  -- VisualNOS bg
-  bg5 = "#252525",  -- quickfix line bg
-  bg6 = "#2a2a2a",  -- [b_bg] lualine b, search, diff text, LspReference
+  bg5 = "#252525",  -- [b_bg] lualine b, quickfix line bg
+  bg6 = "#2a2a2a",  -- search, diff text, LspReference
   bg7 = "#303030",  -- substitute, wildmenu, LspSignatureActiveParameter
   bg8 = "#383838",  -- flash backdrop, snacks picker dir label
   bg9 = "#404040",  -- visual selection, lualine visual mode a_bg
@@ -65,7 +66,7 @@ local c = {
 local surface = require("util.transparent").bg(c.bg)
 
 -- lualine section b bg.
-local b_bg = c.bg6
+local b_bg = c.bg5
 -- lualine section c bg.
 local c_bg = c.bg0
 
@@ -486,11 +487,11 @@ require("config.theme_registry").register("mono", {
   reapply = reapply,
   lualine = {
     theme = {
-      normal   = mode_section(c.white, c_bg),
-      insert   = mode_section(c_bg, c.white),
-      visual   = mode_section(c.bg9, c.white),
+      normal   = mode_section(c_bg, c.white),
+      insert   = mode_section(c.soft_white, c_bg),
+      visual   = mode_section(c.dim, c.white),
       replace  = mode_section(c_bg, c.white),
-      command  = mode_section(c.white, c_bg),
+      command  = mode_section(c_bg, c.white),
       inactive = {
         a = { bg = c_bg, fg = c.muted, gui = "bold" },
         b = { bg = c_bg, fg = c.muted },

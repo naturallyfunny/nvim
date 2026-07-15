@@ -22,17 +22,18 @@ local c = {
     -- Syntax scale: 5 named steps between black and white
     --   modules → keywords/types → constants/strings → operators → user-types → white
     s2 = "#6d6d6d", -- Folded, SnacksPickerTree, PmenuExtra, @markup.raw/quote, git Changedelete
-    s3 = "#8a8a8a", -- constants, strings, numbers
+    s3 = "#8a8a8a", -- winbar, git change, dashboard desc
     s4 = "#aaaaaa", -- operators, punctuation, markdown markers
-    s5 = "#c4c4c4", -- user-defined types (@type, struct, interface)
-    string = "#95bdb7", -- venom strings
-    bconst = "#8fa8d4", -- venom builtin constants / variable builtins (nil, true, self…)
-    const = "#336088", -- venom user-defined constants, booleans, numbers
-    ret = "#908d88", -- venom return keyword
-    module = "#555555", -- venom modules/namespaces
-    ptype = "#5c5f6f", -- venom primitive/built-in types (italic)
-    utype = "#cfd6f1", -- venom custom/user-defined types (cool silver)
-    comment = "#31321D", -- venom comments (near-invisible)
+    s5 = "#c4c4c4", -- git add, search highlights, popup confirm bg
+    string = "#8dc0bc", -- strings
+    bconst = "#8eaada", -- builtin constants / variable builtins (nil, true, self…)
+    const = "#336088", -- user-defined constants, booleans, numbers
+    keyword = "#585858", -- keywords
+    ret = "#908d88", -- return keyword
+    module = "#555555", -- modules/namespaces
+    ptype = "#5c5f6f", -- primitive/built-in types (italic)
+    utype = "#cfd6f1", -- custom/user-defined types (cool silver)
+    comment = "#31321D", -- comments (near-invisible)
 
     -- Surfaces (near-black backgrounds, ordered light → dark within each band)
     bg0 = "#101010", -- [c_bg] lualine c
@@ -49,7 +50,7 @@ local c = {
     -- UI greys
     dim = "#4A4A4A", -- git Untracked
     gutter = "#404040", -- LineNr (non-scope gutter)
-    grey = "#5c5c5c", -- picker borders, git delete, darkest syntax
+    grey = "#5c5c5c", -- git delete, modules, darkest syntax
     muted = "#4a4a4a", -- lualine inactive fg
     mid = "#6a6a6a", -- lualine c fg, snacks notifier info titles
 
@@ -92,15 +93,15 @@ set_hl({
     "@keyword.function",
     "@keyword.import",
     "@include",
-}, { fg = c.grey, italic = false })
+}, { fg = c.keyword, italic = false })
 
 set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.ret })
-set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.grey })
+set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.keyword })
 set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keywords so @keyword.return.go can fire
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
 
-set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = c.grey, italic = true })
+set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = c.module, italic = true })
 
 set_hl(
     { "Constant", "@constant.builtin", "@variable.builtin", "@lsp.typemod.variable.defaultLibrary" },

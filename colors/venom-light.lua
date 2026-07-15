@@ -22,18 +22,19 @@ local c = {
 
     -- Syntax scale: darker = more prominent on #D0D0D0 bg
     s2 = "#aaaaaa", -- Folded, PmenuExtra, @markup.raw/quote, git Changedelete
-    s3 = "#888888", -- mid (winbar, misc)
-    s4 = "#555555", -- operators, brackets, specials, return
-    s5 = "#2a2a2a", -- user-defined types
+    s3 = "#888888", -- winbar, git change, dashboard desc
+    s4 = "#555555", -- return/conditional control flow, delimiters
+    s5 = "#2a2a2a", -- git add, search highlights, popup confirm bg
 
-    string = "#2e7d78", -- venom-light strings (dark teal)
-    bconst = "#3a6ea8", -- venom-light builtin constants / variable builtins (nil, true, self…)
-    const = "#7d4f80", -- venom-light user-defined constants, booleans, numbers
-    ret = "#404040", -- venom-light return/conditional control flow
-    module = "#777777", -- venom-light modules/namespaces
-    ptype = "#4a4d5c", -- venom-light primitive/built-in types (italic)
-    utype = "#3d4a7a", -- venom-light custom/user-defined types
-    comment = "#7a7d5e", -- venom-light comments (dark olive)
+    string = "#2e7d78", -- strings (dark teal)
+    bconst = "#3a6ea8", -- builtin constants / variable builtins (nil, true, self…)
+    const = "#7d4f80", -- user-defined constants, booleans, numbers
+    keyword = "#555555", -- keywords
+    ret = "#404040", -- operators, punctuation
+    module = "#777777", -- modules/namespaces
+    ptype = "#4a4d5c", -- primitive/built-in types (italic)
+    utype = "#3d4a7a", -- custom/user-defined types
+    comment = "#7a7d5e", -- comments (dark olive)
 
     -- Surfaces (darker than #D0D0D0 so highlights are visible)
     bg0 = "#cccccc", -- [c_bg] lualine c
@@ -50,7 +51,7 @@ local c = {
     -- UI greys
     dim = "#aaaaaa", -- git Untracked
     gutter = "#808080", -- LineNr (non-scope gutter)
-    grey = "#555555", -- keywords
+    grey = "#555555", -- git delete, UI grey
     muted = "#888888", -- lualine inactive fg
     mid = "#777777", -- lualine c fg, snacks notifier info titles
 
@@ -90,10 +91,10 @@ set_hl({
     "@keyword.function",
     "@keyword.import",
     "@include",
-}, { fg = c.grey, italic = false })
+}, { fg = c.keyword, italic = false })
 
 set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.s4 })
-set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.grey })
+set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.keyword })
 set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.s4, italic = true })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {})
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary

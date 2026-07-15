@@ -70,6 +70,7 @@ vim.g.root_spec = { { ".git", "go.mod", "lua" }, "lsp", "cwd" }
 -- reliably before it reaches Snacks. Filter ONLY this exact message.
 do
     local orig_notify_once = vim.notify_once
+    ---@diagnostic disable-next-line: duplicate-set-field
     vim.notify_once = function(msg, level, opts)
         if type(msg) == "string" and msg:match("^watch%.watch: ENOENT") then
             return false

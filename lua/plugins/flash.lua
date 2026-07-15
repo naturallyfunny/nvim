@@ -9,6 +9,7 @@ return {
     -- Wrap char.new to always force FlashCurrent on the jump target.
     local char = require("flash.plugins.char")
     local orig_new = char.new
+    ---@diagnostic disable-next-line: duplicate-set-field
     char.new = function()
       local state = orig_new()
       state.opts.highlight.groups.current = "FlashCurrent"

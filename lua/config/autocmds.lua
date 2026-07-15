@@ -170,12 +170,13 @@ vim.api.nvim_create_autocmd({ "WinNew", "WinClosed", "BufWinEnter" }, {
   group = vim.api.nvim_create_augroup("ForceOpaqueMainWindows", { clear = true }),
   callback = function()
     for _, winid in ipairs(vim.api.nvim_list_wins()) do
-      local buftype = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(winid), "buftype")
-      local is_float = vim.api.nvim_win_get_config(winid).float
+      local buf = vim.api.nvim_win_get_buf(winid)
+      local buftype = vim.bo[buf].buftype
+      local is_float = vim.api.nvim_win_get_config(winid).relative ~= ""
 
       -- Only set winblend for normal buffer windows, not floating windows
       if buftype == "" and not is_float then
-        vim.api.nvim_win_set_option(winid, "winblend", 0)
+        vim.wo[winid].winblend = 0
       end
     end
   end,
