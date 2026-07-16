@@ -23,6 +23,21 @@ return {
                             or util.root_pattern(".git")(fname)
                     end,
                 },
+                lua_ls = {
+                    settings = {
+                        Lua = {
+                            runtime = {
+                                version = "LuaJIT",
+                            },
+                            diagnostics = {
+                                globals = { "vim" },
+                            },
+                            workspace = {
+                                checkThirdParty = false,
+                            },
+                        },
+                    },
+                },
             },
         },
     },
