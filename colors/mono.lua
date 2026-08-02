@@ -21,7 +21,7 @@ local c = {
 
   -- Syntax scale: 5 named steps between black and white
   --   modules → keywords/types → constants/strings → operators → user-types → white
-  s2 = "#6d6d6d",   -- keywords, builtin types, folded, LineNr, SnacksIndent, SnacksPickerTree, all borders
+  s2 = "#6d6d6d",   -- keywords, builtin types, folded, SnacksIndent, SnacksPickerTree, all borders
   s3 = "#8a8a8a",   -- constants, strings, numbers
   s4 = "#aaaaaa",   -- operators, punctuation, markdown markers
   s5 = "#c4c4c4",   -- user-defined types (@type, struct, interface)
@@ -36,12 +36,12 @@ local c = {
   bg6 = "#2a2a2a",  -- search, diff text, LspReference
   bg7 = "#303030",  -- substitute, wildmenu, LspSignatureActiveParameter
   bg8 = "#383838",  -- flash backdrop, snacks picker dir label
-  bg9 = "#404040",  -- visual selection, lualine visual mode a_bg
+  bg9 = "#404040",  -- visual selection
 
   -- UI greys
-  dim    = "#3a3a3a",  -- git Untracked
+  dim    = "#3a3a3a",  -- lualine visual mode a_bg, git Untracked
   gutter = "#4a4a4a",  -- LineNr (non-scope gutter)
-  grey   = "#505050",  -- picker borders, git delete, darkest syntax
+  grey   = "#505050",  -- git delete, darkest syntax
   muted  = "#4a4a4a",  -- lualine inactive fg
   mid    = "#6a6a6a",  -- lualine c fg, snacks notifier info titles
 

@@ -33,7 +33,7 @@ local c = {
     grey = "#888076", -- line numbers, muted chrome
     dim = "#b0ac9c", -- indent guides, non-text
     border = "#9a9488", -- borders
-    sel = "#bad4b6", -- selections, lualine command fg
+    sel = "#bad4b6", -- selections (PmenuSel, DiffText, Substitute)
     indent = "#d4e8cc", -- SnacksIndent (very pale green)
 
     -- Tinted light surfaces (lighter tints over parchment for diff, search, panels)
@@ -55,7 +55,7 @@ local c = {
     bg3 = "#cac5b8", -- cursor line, noice popupmenu selected bg
     bg4 = "#c4bfb0",
     bg5 = "#bdb8a8",
-    bg6 = "#b5b0a0", -- [b_bg] lualine b, search, LspReference
+    bg6 = "#b5b0a0", -- [b_bg] lualine b
     bg7 = "#aaa498",
     bg8 = "#a29e90", -- flash backdrop
     bg9 = "#989280", -- visual selection
@@ -64,7 +64,7 @@ local c = {
     bar = "#dedad0", -- [c_bg] lualine section c bg
     deep = "#1a1610", -- lualine a fg (matches fg)
     sage = "#8ab880", -- lualine visual a_bg, Visual selection (sage green)
-    cyan_l = "#4ab0d0", -- lualine replace a_bg
+    cyan_l = "#4ab0d0", -- unused
     cream = "#3d3020", -- lualine filename (dark warm brown)
     gold = "#8a6820", -- lualine lazy_updates (golden brown)
     muted = "#7a7868", -- lualine inactive fg
@@ -571,7 +571,7 @@ local function reapply()
     vim.api.nvim_set_hl(0, "SnacksNotifierIconInfo", { fg = c.n_info, bg = nb })
     vim.api.nvim_set_hl(0, "SnacksNotifierIconWarn", { fg = c.n_warn, bg = nb })
     vim.api.nvim_set_hl(0, "SnacksNotifierIconError", { fg = c.n_error, bg = nb })
-    vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = accent, bold = true })
+    vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.bright_green, bold = true })
     vim.api.nvim_set_hl(0, "SnacksWinSeparator", { fg = c.comment, bg = surface })
 end
 

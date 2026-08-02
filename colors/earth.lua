@@ -33,7 +33,7 @@ local c = {
     grey = "#585860", -- line numbers, muted chrome
     dim = "#2d3048", -- indent guides, non-text
     border = "#404558", -- borders, inactive lualine fg
-    sel = "#35484e", -- selections, lualine command fg
+    sel = "#35484e", -- selections (PmenuSel, DiffText, Substitute)
     indent = "#1e3828", -- SnacksIndent (dark forest, just above bg)
 
     -- Tinted dark surfaces (backgrounds for diff, search, UI panels)
@@ -52,11 +52,11 @@ local c = {
     bar = "#181826", -- [c_bg] lualine section c bg (dark step above editor bg)
     deep = "#222335", -- lualine a fg for normal/visual (dark navy text)
     sage = "#9AB09A", -- lualine visual a_bg, Visual selection (soft sage)
-    cyan_l = "#5bc8e8", -- lualine replace a_bg (bright cyan)
-    cream = "#f3d6b8", -- lualine filename, replace a_fg (warm parchment)
+    cyan_l = "#5bc8e8", -- unused
+    cream = "#f3d6b8", -- lualine filename (warm parchment)
     gold = "#b89868", -- lualine lazy_updates (golden brown)
-    muted = "#7a8078", -- lualine b fg (sage-grey)
-    mid = "#505060", -- lualine c fg, inactive fg, directory (muted blue-grey)
+    muted = "#7a8078", -- SnacksPicker hidden/untracked (sage-grey)
+    mid = "#505060", -- lualine c fg, directory (muted blue-grey)
 
     -- Diagnostics
     d_error = "#8b4040",

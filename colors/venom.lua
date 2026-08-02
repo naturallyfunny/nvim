@@ -25,11 +25,11 @@ local c = {
     s3 = "#8a8a8a", -- winbar, git change, dashboard desc
     s4 = "#aaaaaa", -- operators, punctuation, markdown markers
     s5 = "#c4c4c4", -- git add, search highlights, popup confirm bg
-    string = "#8dc0bc", -- strings
+    string = "#4b5f5c", -- strings
     bconst = "#8eaada", -- builtin constants / variable builtins (nil, true, self…)
     const = "#336088", -- user-defined constants, booleans, numbers
     keyword = "#585858", -- keywords
-    ret = "#908d88", -- return keyword
+    ret = "#908d88", -- return & conditional keywords
     module = "#555555", -- modules/namespaces
     ptype = "#5c5f6f", -- primitive/built-in types (italic)
     utype = "#cfd6f1", -- custom/user-defined types (cool silver)
@@ -48,15 +48,15 @@ local c = {
     bg9 = "#404040", -- visual selection, lualine visual mode a_bg
 
     -- UI greys
-    dim = "#4A4A4A", -- git Untracked
+    dim = "#4A4A4A", -- git Untracked, SnacksIndent
     gutter = "#404040", -- LineNr (non-scope gutter)
-    grey = "#5c5c5c", -- git delete, modules, darkest syntax
+    grey = "#5c5c5c", -- git delete, darkest syntax
     muted = "#4a4a4a", -- lualine inactive fg
     mid = "#6a6a6a", -- lualine c fg, snacks notifier info titles
 
     -- Bright accents
     scope = "#e8e8e8", -- CursorLineNr, SnacksIndentScope
-    border = "#C0C0C0", -- all borders, separators, indent lines
+    border = "#C0C0C0", -- all borders, separators
 
     -- Diagnostics
     d_error = "#8b3a3a",

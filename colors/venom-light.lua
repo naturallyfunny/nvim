@@ -23,10 +23,10 @@ local c = {
     -- Syntax scale: darker = more prominent on #D0D0D0 bg
     s2 = "#aaaaaa", -- Folded, PmenuExtra, @markup.raw/quote, git Changedelete
     s3 = "#888888", -- winbar, git change, dashboard desc
-    s4 = "#555555", -- return/conditional control flow, delimiters
+    s4 = "#555555", -- return/conditional control flow, special
     s5 = "#2a2a2a", -- git add, search highlights, popup confirm bg
 
-    string = "#2e7d78", -- strings (dark teal)
+    string = "#828dba", -- strings
     bconst = "#3a6ea8", -- builtin constants / variable builtins (nil, true, self…)
     const = "#7d4f80", -- user-defined constants, booleans, numbers
     keyword = "#555555", -- keywords
@@ -49,7 +49,7 @@ local c = {
     bg9 = "#909090", -- visual selection, lualine visual mode a_bg
 
     -- UI greys
-    dim = "#aaaaaa", -- git Untracked
+    dim = "#aaaaaa", -- git Untracked, SnacksIndent
     gutter = "#808080", -- LineNr (non-scope gutter)
     grey = "#555555", -- git delete, UI grey
     muted = "#888888", -- lualine inactive fg
@@ -57,7 +57,7 @@ local c = {
 
     -- Dark accents
     scope = "#111111", -- CursorLineNr, SnacksIndentScope
-    border = "#555555", -- all borders, separators, indent lines
+    border = "#555555", -- all borders, separators
 
     -- Diagnostics
     d_error = "#8b2020",
