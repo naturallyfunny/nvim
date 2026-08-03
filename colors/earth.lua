@@ -4,6 +4,9 @@ if vim.fn.exists("syntax_on") ~= 0 then
 end
 vim.g.colors_name = "earth"
 
+local hl = require("util.highlights")
+local g = hl.groups
+
 local function set_hl(groups, opts)
     for _, group in ipairs(groups) do
         vim.api.nvim_set_hl(0, group, opts)
@@ -13,50 +16,49 @@ end
 -- ── Palette ──────────────────────────────────────────────────────────────────
 
 local c = {
-    -- Editor base
-    bg = "#13141F", -- editor background (solid, non-transparent)
-    fg = "#FFFFFF", -- default text, operators
+    -- Anchors
+    bg = "#13141F", -- solid fallback when transparency is off
+    fg = "#FFFFFF",
+    on_accent = "#222335", -- text drawn on top of a bright fill
 
-    -- Syntax: semantic roles
-    keyword = "#328c45", -- keywords (structural green)
-    module = "#5a7f52", -- namespaces (mid green, same as special)
-    vivid = "#3ec85c", -- dashboard header accent (brighter saturated green)
-    special = "#5a7f52", -- special keywords, attributes (mid green)
-    string = "#785e3b", -- string literals (warm brown)
-    const = "#69bdd6", -- constants, numbers (sky cyan)
-    type = "#afaba0", -- builtin types (warm grey)
-    utype = "#99b77b", -- user-defined types: struct, interface, enum (sage)
-    var = "#e9e0cf", -- variables, parameters (warm cream)
+    -- Syntax
+    keyword = "#328c45",
+    module = "#5a7f52", -- deliberately the same green as `special`
+    special = "#5a7f52",
+    header = "#3ec85c",
+    string = "#785e3b",
+    const = "#69bdd6",
+    ptype = "#afaba0",
+    utype = "#99b77b",
+    var = "#e9e0cf",
+    comment = "#374a50",
 
     -- UI chrome
-    comment = "#374a50", -- comments
-    grey = "#585860", -- line numbers, muted chrome
-    dim = "#2d3048", -- indent guides, non-text
-    border = "#404558", -- borders, inactive lualine fg
-    sel = "#35484e", -- selections (PmenuSel, DiffText, Substitute)
-    indent = "#1e3828", -- SnacksIndent (dark forest, just above bg)
+    grey = "#585860",
+    subtle = "#7a8078",
+    nontext = "#2d3048",
+    border = "#404558",
+    sel = "#35484e",
+    visual = "#9AB09A",
+    match = "#5abf5a",
 
-    -- Tinted dark surfaces (backgrounds for diff, search, UI panels)
-    surf_green = "#1a2820", -- DiffAdd, FlashMatch bg (dark forest tint)
-    surf_blue = "#1e2030", -- DiffChange bg (dark navy tint)
-    surf_red = "#281820", -- DiffDelete bg (dark wine tint)
-    surf_earth = "#241c0e", -- Search bg (dark sepia)
-    surf_ghost = "#272a3a", -- Whitespace (very dark blue-grey)
-    surf_col = "#282b40", -- ColorColumn bg
-    surf_navy = "#2a2d40", -- LazyButton (dark navy panel)
-    surf_teal = "#2a3840", -- LspReference bg (dark teal)
-    surf_mid = "#2d3d44", -- VisualNOS bg (dark teal-grey)
-    surf_lift = "#333650", -- [b_bg] lualine b, LazyButtonActive bg (lifted navy)
+    -- Tinted surfaces, one hue per job.
+    surf_green = "#1a2820",
+    surf_blue = "#1e2030",
+    surf_red = "#281820",
+    surf_earth = "#241c0e",
+    surf_ghost = "#272a3a",
+    surf_col = "#282b40",
+    surf_navy = "#2a2d40",
+    surf_teal = "#2a3840",
+    surf_mid = "#2d3d44",
+    surf_lift = "#333650",
 
-    -- Lualine palette
-    bar = "#181826", -- [c_bg] lualine section c bg (dark step above editor bg)
-    deep = "#222335", -- lualine a fg for normal/visual (dark navy text)
-    sage = "#9AB09A", -- lualine visual a_bg, Visual selection (soft sage)
-    cyan_l = "#5bc8e8", -- unused
-    cream = "#f3d6b8", -- lualine filename (warm parchment)
-    gold = "#b89868", -- lualine lazy_updates (golden brown)
-    muted = "#7a8078", -- SnacksPicker hidden/untracked (sage-grey)
-    mid = "#505060", -- lualine c fg, directory (muted blue-grey)
+    -- Statusline
+    bar_bg = "#181826",
+    bar_fg = "#505060",
+    bar_file = "#f3d6b8",
+    bar_updates = "#b89868",
 
     -- Diagnostics
     d_error = "#8b4040",
@@ -68,9 +70,6 @@ local c = {
     n_warn = "#e5c07b",
     n_error = "#e06c75",
     n_info = "#6a6a6a",
-
-    -- Brights
-    bright_green = "#5abf5a", -- BlinkCmpLabelMatch
 }
 
 -- Surface background: "none" when transparency is on (the default), else the
@@ -81,7 +80,7 @@ local surface = require("util.transparent").bg(c.bg)
 -- lualine section b bg.
 local b_bg = c.surf_lift
 -- lualine section c bg, also reused for inactive mode sections.
-local c_bg = c.bar
+local c_bg = c.bar_bg
 
 -- ── Syntax ───────────────────────────────────────────────────────────────────
 
@@ -104,7 +103,7 @@ set_hl({
 set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.fg })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keywords so @keyword.return.go can fire
 
-set_hl({ "@module", "@module.builtin", "@namespace", "@lsp.type.namespace" }, { fg = c.module })
+set_hl(g.module, { fg = c.module })
 
 set_hl({
     "Constant",
@@ -115,42 +114,20 @@ set_hl({
     "@lsp.typemod.variable.defaultLibrary",
 }, { fg = c.const })
 
-set_hl({ "String", "Character", "@string", "@string.escape", "@character" }, { fg = c.string })
+set_hl(g.string, { fg = c.string })
 
-set_hl({
-    "Type",
-    "@type.builtin",
-    "@lsp.type.builtinType",
-    "@lsp.typemod.type.defaultLibrary",
-    "@lsp.typemod.builtin.defaultLibrary",
-}, { fg = c.type, italic = true })
+set_hl(g.ptype, { fg = c.ptype, italic = true })
 
-set_hl({
-    "@type",
-    "@type.definition",
-    "@lsp.type.struct",
-    "@lsp.type.interface",
-    "@lsp.type.enum",
-    "@lsp.type.type",
-}, { fg = c.utype })
+set_hl(g.utype, { fg = c.utype })
 
-set_hl({ "Operator", "@operator", "Delimiter", "@punctuation.delimiter" }, { fg = c.fg })
+set_hl(g.operator, { fg = c.fg })
 set_hl({ "@function.builtin" }, { fg = c.fg })
 
 set_hl({ "@keyword.conditional", "@keyword.repeat" }, { fg = c.keyword })
 
-set_hl({
-    "Special",
-    "SpecialChar",
-    "@keyword.operator",
-    "@keyword.modifier",
-    "@keyword.directive",
-    "@attribute",
-    "@string.special",
-    "@string.special.url",
-}, { fg = c.special })
+set_hl(g.special, { fg = c.special })
 
-set_hl({ "@boolean", "Boolean", "@number", "@number.float", "@float", "Number", "Float" }, { fg = c.const })
+set_hl(g.number, { fg = c.const })
 
 set_hl({
     "Function",
@@ -162,79 +139,23 @@ set_hl({
     "@lsp.typemod.namespace.declaration",
 }, { fg = c.fg })
 
-set_hl({
-    "Identifier",
-    "@variable",
-    "@variable.parameter",
-    "@field",
-    "@property",
-    "@variable.member",
-    "@lsp.type.property",
-    "@lsp.type.variable",
-    "@lsp.type.parameter",
-    "@lsp.typemod.variable.definition",
-    "TSVariable",
-    "TSVariableBuiltin",
-}, { fg = c.var })
+set_hl(g.variable, { fg = c.var })
 
 set_hl({ "@punctuation.bracket" }, { fg = c.fg })
 set_hl({ "@string.delimiter" }, { fg = c.fg })
 
 -- ── UI: transparent / bg-matched backgrounds ──────────────────────────────────
 
-set_hl({
-    "Terminal",
-    "TermNormal",
-    "NeoTreeNormal",
-    "NeoTreeNormalNC",
-    "SideBar",
-    "SideBarNC",
-    "SnacksNormal",
-    "SnacksNormalNC",
-    "SnacksPickerNormal",
-    "SnacksPickerNormalNC",
-    "SnacksPickerList",
-    "SnacksPickerPreview",
-    "SnacksLayoutNormal",
-    "SnacksDashboardNormal",
-    "SnacksTerminal",
-    "SnacksTerminalNormal",
-    "SnacksExplorer",
-    "SnacksExplorerNormal",
-    "NvimTreeNormal",
-    "NvimTreeNormalNC",
-    "NetrwNormal",
-    "NetrwNormalNC",
-    "NormalSB",
-    "SignColumnSB",
-    "StatusLine",
-    "StatusLineNC",
-    "WhichKeyNormal",
-    "WhichKeyFloat",
-    "TelescopeNormal",
-    "Floaterm",
-    "NormalFloat",
-    "Pmenu",
-    "PmenuSel",
-    "PmenuSbar",
-    "PmenuThumb",
-}, { bg = surface })
+set_hl(g.surfaces, { bg = surface })
 vim.api.nvim_set_hl(0, "PmenuSel", { fg = c.fg, bg = c.sel })
 
 set_hl({ "Normal", "NormalNC" }, { fg = c.fg, bg = surface })
 
-set_hl({
-    "WinSeparator",
-    "VertSplit",
-    "NeoTreeWinSeparator",
-    "SnacksWinSeparator",
-}, { fg = c.comment, bg = surface })
+set_hl(g.separators, { fg = c.comment, bg = surface })
 
-vim.api.nvim_set_hl(0, "FloatermBorder", { bg = surface, fg = c.type })
-vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = c.type })
-vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { fg = c.type, bg = surface })
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = c.type, bg = surface })
-vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = c.type, bg = surface })
+vim.api.nvim_set_hl(0, "FloatermBorder", { bg = surface, fg = c.ptype })
+vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = c.ptype })
+set_hl({ "NeoTreeFloatBorder", "FloatBorder", "NoiceCmdlinePopupBorder" }, { fg = c.ptype, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceCmdlinePopupTitle", { fg = c.utype, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceCmdlineIcon", { link = "NoiceCmdlineIconSearch" })
 
@@ -242,20 +163,16 @@ for _, name in ipairs({ "Cmdline", "Lua", "Help", "Input", "Filter", "Search_up"
     vim.api.nvim_set_hl(0, "NoiceCmdlineIcon" .. name, { link = "NoiceCmdlineIconSearch" })
 end
 
-vim.api.nvim_set_hl(0, "MsgArea", { fg = c.string, bg = surface })
-vim.api.nvim_set_hl(0, "NoiceCmdline", { fg = c.string, bg = surface })
-vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { fg = c.string, bg = surface })
+set_hl({ "MsgArea", "NoiceCmdline", "NoiceCmdlinePopup" }, { fg = c.string, bg = surface })
 
 vim.api.nvim_set_hl(0, "NoiceConfirm", { fg = c.var, bg = surface })
-vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.type, bg = surface })
+vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = c.ptype, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirm", { bg = c.surf_navy, fg = c.var })
 vim.api.nvim_set_hl(0, "NoiceFormatConfirmDefault", { bg = c.const, fg = c.fg, bold = true })
-vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.bright_green, bold = true })
-vim.api.nvim_set_hl(0, "BlinkCmpLabelMatchFuzzy", { fg = c.bright_green, bold = true })
+vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = c.match, bold = true })
+vim.api.nvim_set_hl(0, "BlinkCmpLabelMatchFuzzy", { fg = c.match, bold = true })
 vim.api.nvim_set_hl(0, "NoicePopupmenuMatch", { fg = c.utype, bold = true })
-vim.api.nvim_set_hl(0, "LineNr", { fg = c.comment })
-vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.comment })
-vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.comment })
+set_hl({ "LineNr", "LineNrAbove", "LineNrBelow" }, { fg = c.comment })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.var, bold = true })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = surface })
 vim.api.nvim_set_hl(0, "Comment", { fg = c.comment })
@@ -265,31 +182,30 @@ vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = c.d_warn })
 vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = c.d_hint })
 vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = c.d_info })
 
-for _, level in ipairs({ "Info", "Hint", "Trace", "Debug" }) do
+-- Notification severity → color. Unlike the mono/venom schemes this one tints
+-- a notification with three roles, so each severity carries all three.
+for _, lv in ipairs({
+    { level = "Info", border = c.ptype, accent = c.utype, body = c.string },
+    { level = "Hint", border = c.ptype, accent = c.utype, body = c.string },
+    { level = "Trace", border = c.ptype, accent = c.utype, body = c.string },
+    { level = "Debug", border = c.ptype, accent = c.utype, body = c.string },
+    { level = "Warn", border = c.d_warn, accent = c.d_warn, body = c.d_warn },
+    { level = "Error", border = c.d_error, accent = c.d_error, body = c.d_error },
+}) do
+    local up = lv.level:upper()
     for _, part in ipairs({ "Border", "Title", "Icon" }) do
-        vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. level, { fg = c.utype, bg = surface })
+        vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. lv.level, { fg = lv.accent, bg = surface })
     end
     for _, part in ipairs({ "", "Footer", "History" }) do
-        vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. level, { fg = c.string, bg = surface })
+        vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. lv.level, { fg = lv.body, bg = surface })
     end
-    local up = level:upper()
-    vim.api.nvim_set_hl(0, "Notify" .. up .. "Border", { fg = c.type, bg = surface })
-    vim.api.nvim_set_hl(0, "Notify" .. up .. "Title", { fg = c.utype, bg = surface })
-    vim.api.nvim_set_hl(0, "Notify" .. up .. "Icon", { fg = c.utype, bg = surface })
-    vim.api.nvim_set_hl(0, "Notify" .. up .. "Body", { fg = c.string, bg = surface })
-    vim.api.nvim_set_hl(0, "NoiceFormatLevel" .. level, { fg = c.utype, bg = surface })
+    -- nvim-notify's border is the one part that does not follow snacks'.
+    vim.api.nvim_set_hl(0, "Notify" .. up .. "Border", { fg = lv.border, bg = surface })
+    vim.api.nvim_set_hl(0, "Notify" .. up .. "Title", { fg = lv.accent, bg = surface })
+    vim.api.nvim_set_hl(0, "Notify" .. up .. "Icon", { fg = lv.accent, bg = surface })
+    vim.api.nvim_set_hl(0, "Notify" .. up .. "Body", { fg = lv.body, bg = surface })
+    vim.api.nvim_set_hl(0, "NoiceFormatLevel" .. lv.level, { fg = lv.accent, bg = surface })
 end
-
-for _, part in ipairs({ "", "Border", "Title", "Icon", "Footer", "History" }) do
-    vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. "Warn", { fg = c.d_warn, bg = surface })
-    vim.api.nvim_set_hl(0, "SnacksNotifier" .. part .. "Error", { fg = c.d_error, bg = surface })
-end
-for _, part in ipairs({ "Border", "Title", "Icon", "Body" }) do
-    vim.api.nvim_set_hl(0, "NotifyWARN" .. part, { fg = c.d_warn, bg = surface })
-    vim.api.nvim_set_hl(0, "NotifyERROR" .. part, { fg = c.d_error, bg = surface })
-end
-vim.api.nvim_set_hl(0, "NoiceFormatLevelWarn", { fg = c.d_warn, bg = surface })
-vim.api.nvim_set_hl(0, "NoiceFormatLevelError", { fg = c.d_error, bg = surface })
 vim.api.nvim_set_hl(0, "NoiceMini", { bg = surface })
 vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = c.comment })
 vim.api.nvim_set_hl(0, "Directory", { fg = c.var })
@@ -304,11 +220,11 @@ vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = c.utype, bold = true })
 vim.api.nvim_set_hl(0, "SnacksPickerTotals", { fg = c.fg })
 vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = c.grey })
 vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { fg = c.grey })
-vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = c.muted })
+vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = c.subtle })
 vim.api.nvim_set_hl(0, "SnacksPickerGitStatusIgnored", { fg = c.grey })
-vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { fg = c.muted })
+vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { fg = c.subtle })
 vim.api.nvim_set_hl(0, "SnacksInputNormal", { fg = c.var, bg = surface })
-vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.type, bg = surface })
+vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = c.ptype, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputTitle", { fg = c.utype, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksInputIcon", { fg = c.utype, bg = surface })
 vim.api.nvim_set_hl(0, "SnacksIndent", { fg = c.comment })
@@ -320,15 +236,15 @@ vim.api.nvim_set_hl(0, "WhichKey", { fg = c.var })
 vim.api.nvim_set_hl(0, "WhichKeyDesc", { fg = c.fg })
 vim.api.nvim_set_hl(0, "WhichKeyGroup", { fg = c.keyword })
 vim.api.nvim_set_hl(0, "WhichKeySeparator", { fg = c.grey })
-vim.api.nvim_set_hl(0, "WhichKeyValue", { fg = c.type })
+vim.api.nvim_set_hl(0, "WhichKeyValue", { fg = c.ptype })
 
 -- ── Dashboard ─────────────────────────────────────────────────────────────────
 
-set_hl({ "DashboardHeader", "SnacksDashboardHeader" }, { fg = c.vivid })
+set_hl({ "DashboardHeader", "SnacksDashboardHeader" }, { fg = c.header })
 set_hl({ "DashboardIcon", "SnacksDashboardIcon" }, { fg = c.const })
 set_hl({ "DashboardKey", "SnacksDashboardKey", "DashboardShortCut" }, { fg = c.var })
 set_hl({ "DashboardDesc", "SnacksDashboardDesc", "DashboardCenter" }, { fg = c.fg })
-set_hl({ "SnacksDashboardFile", "SnacksDashboardDir" }, { fg = c.type })
+set_hl({ "SnacksDashboardFile", "SnacksDashboardDir" }, { fg = c.ptype })
 set_hl({ "SnacksDashboardSpecial" }, { fg = c.fg })
 set_hl({ "DashboardFooter", "SnacksDashboardFooter" }, { fg = c.const })
 
@@ -355,8 +271,8 @@ end
 
 -- ── Phantom / whitespace ──────────────────────────────────────────────────────
 
-vim.api.nvim_set_hl(0, "NonText", { fg = c.dim })
-vim.api.nvim_set_hl(0, "SpecialKey", { fg = c.dim })
+vim.api.nvim_set_hl(0, "NonText", { fg = c.nontext })
+vim.api.nvim_set_hl(0, "SpecialKey", { fg = c.nontext })
 vim.api.nvim_set_hl(0, "Whitespace", { fg = c.surf_ghost })
 vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.comment })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = c.surf_col, fg = "NONE" })
@@ -378,18 +294,16 @@ end
 
 -- ── Completion menu ───────────────────────────────────────────────────────────
 
-vim.api.nvim_set_hl(0, "PmenuKind", { fg = c.type, bg = surface })
+vim.api.nvim_set_hl(0, "PmenuKind", { fg = c.ptype, bg = surface })
 vim.api.nvim_set_hl(0, "PmenuKindSel", { fg = c.fg, bg = surface })
 vim.api.nvim_set_hl(0, "PmenuExtra", { fg = c.grey, bg = surface })
-vim.api.nvim_set_hl(0, "PmenuExtraSel", { fg = c.type, bg = surface })
+vim.api.nvim_set_hl(0, "PmenuExtraSel", { fg = c.ptype, bg = surface })
 
 -- ── Telescope ─────────────────────────────────────────────────────────────────
 
 vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = c.utype, bold = true })
 vim.api.nvim_set_hl(0, "TelescopePromptCounter", { fg = c.grey })
-vim.api.nvim_set_hl(0, "TelescopeResultsTitle", { fg = c.fg })
-vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = c.fg })
-vim.api.nvim_set_hl(0, "TelescopePromptTitle", { fg = c.fg })
+set_hl({ "TelescopeResultsTitle", "TelescopePreviewTitle", "TelescopePromptTitle" }, { fg = c.fg })
 vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = c.var })
 
 -- ── Flash.nvim ────────────────────────────────────────────────────────────────
@@ -402,10 +316,10 @@ vim.api.nvim_set_hl(0, "FlashBackdrop", { fg = c.comment })
 -- ── Lazy.nvim ─────────────────────────────────────────────────────────────────
 
 vim.api.nvim_set_hl(0, "LazyNormal", { bg = surface, fg = c.fg })
-vim.api.nvim_set_hl(0, "LazyButton", { bg = c.surf_navy, fg = c.type })
+vim.api.nvim_set_hl(0, "LazyButton", { bg = c.surf_navy, fg = c.ptype })
 vim.api.nvim_set_hl(0, "LazyButtonActive", { bg = c.surf_lift, fg = c.fg, bold = true })
 vim.api.nvim_set_hl(0, "LazyH1", { fg = c.fg, bold = true })
-vim.api.nvim_set_hl(0, "LazyH2", { fg = c.type, bold = true })
+vim.api.nvim_set_hl(0, "LazyH2", { fg = c.ptype, bold = true })
 vim.api.nvim_set_hl(0, "LazySpecial", { fg = c.var })
 vim.api.nvim_set_hl(0, "LazyCommit", { fg = c.grey })
 vim.api.nvim_set_hl(0, "LazyCommitType", { fg = c.special })
@@ -416,8 +330,8 @@ vim.api.nvim_set_hl(0, "LazyLocal", { fg = c.grey })
 
 -- ── Visual selection & search ─────────────────────────────────────────────────
 
-vim.api.nvim_set_hl(0, "Visual", { bg = c.sage, fg = c.deep })
-vim.api.nvim_set_hl(0, "VisualNOS", { bg = c.surf_mid, fg = c.type })
+vim.api.nvim_set_hl(0, "Visual", { bg = c.visual, fg = c.on_accent })
+vim.api.nvim_set_hl(0, "VisualNOS", { bg = c.surf_mid, fg = c.ptype })
 vim.api.nvim_set_hl(0, "Search", { bg = c.surf_earth, fg = c.fg })
 vim.api.nvim_set_hl(0, "CurSearch", { bg = c.keyword, fg = c.fg })
 vim.api.nvim_set_hl(0, "IncSearch", { bg = c.var, fg = c.bg })
@@ -427,9 +341,7 @@ vim.api.nvim_set_hl(0, "WildMenu", { bg = c.sel, fg = c.fg })
 vim.api.nvim_set_hl(0, "QuickFixLine", { bg = c.surf_navy, fg = c.fg })
 vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", { bg = c.sel, fg = c.fg, bold = true })
 vim.api.nvim_set_hl(0, "Folded", { fg = c.grey, bg = surface })
-vim.api.nvim_set_hl(0, "LspReferenceText", { bg = c.surf_teal, fg = c.fg })
-vim.api.nvim_set_hl(0, "LspReferenceRead", { bg = c.surf_teal, fg = c.fg })
-vim.api.nvim_set_hl(0, "LspReferenceWrite", { bg = c.surf_teal, fg = c.fg })
+set_hl({ "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }, { bg = c.surf_teal, fg = c.fg })
 
 -- ── Markdown ──────────────────────────────────────────────────────────────────
 
@@ -466,46 +378,17 @@ set_hl({
     "@markup.heading.6",
     "@markup.heading.6.markdown",
     "markdownH6",
-}, { fg = c.type, bold = true, bg = surface })
+}, { fg = c.ptype, bold = true, bg = surface })
 
-set_hl({
-    "@markup.heading.1.marker.markdown",
-    "@markup.heading.2.marker.markdown",
-    "@markup.heading.3.marker.markdown",
-    "@markup.heading.4.marker.markdown",
-    "@markup.heading.5.marker.markdown",
-    "@markup.heading.6.marker.markdown",
-    "@punctuation.special.markdown",
-    "markdownH1Delimiter",
-    "markdownH2Delimiter",
-    "markdownH3Delimiter",
-    "markdownH4Delimiter",
-    "markdownH5Delimiter",
-    "markdownH6Delimiter",
-    "markdownHeadingDelimiter",
-}, { fg = c.grey, bold = false, bg = surface })
+set_hl(g.md_heading_marker, { fg = c.grey, bold = false, bg = surface })
 
-set_hl({
-    "@markup.raw",
-    "@markup.raw.markdown",
-    "@markup.raw.markdown_inline",
-    "markdownCode",
-    "markdownCodeDelimiter",
-    "@markup.raw.block.markdown",
-    "markdownCodeBlock",
-}, { fg = c.const, bg = surface })
+set_hl(g.md_raw, { fg = c.const, bg = surface })
 
 set_hl({ "@markup.strong", "@markup.strong.markdown_inline", "markdownBold" }, { fg = c.string, bold = true })
 
 set_hl({ "@markup.italic", "@markup.italic.markdown_inline", "markdownItalic" }, { fg = c.var, italic = true })
 
-set_hl({
-    "@markup.link",
-    "@markup.link.label",
-    "@markup.link.label.markdown_inline",
-    "markdownLinkText",
-    "markdownLink",
-}, { fg = c.const, bg = surface, underline = false })
+set_hl(g.md_link, { fg = c.const, bg = surface, underline = false })
 
 set_hl({
     "@markup.link.url",
@@ -515,21 +398,22 @@ set_hl({
 
 set_hl({ "markdownLinkDelimiter", "markdownLinkTextDelimiter" }, { fg = c.grey })
 
-set_hl({
-    "@markup.list",
-    "@markup.list.markdown",
-    "markdownListMarker",
-    "markdownOrderedListMarker",
-}, { fg = c.module })
+set_hl(g.md_list, { fg = c.module })
 
 set_hl({ "@markup.quote", "@markup.quote.markdown", "markdownBlockquote" }, { fg = c.string, italic = true })
 
 set_hl({ "markdownRule" }, { fg = c.border })
 
+-- ── Bufferline ────────────────────────────────────────────────────────────────
+local function apply_bufferline()
+    hl.bufferline(c.grey, c.subtle, c.fg) -- inactive, visible, selected
+end
+apply_bufferline()
+
 -- ── Plugin re-application ─────────────────────────────────────────────────────
 -- noice/snacks re-apply their own defaults on ColorScheme events, clobbering the
 -- groups below. reapply() is invoked from lua/config/autocmds.lua after they run.
-local accent = c.type
+local accent = c.ptype
 
 local function reapply()
     vim.api.nvim_set_hl(0, "SnacksPickerRule", { fg = c.bg })
@@ -563,17 +447,16 @@ local function reapply()
     vim.api.nvim_set_hl(0, "SnacksNotifierIconError", { fg = c.n_error, bg = nb })
     vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = accent, bold = true })
     vim.api.nvim_set_hl(0, "SnacksWinSeparator", { fg = c.comment, bg = surface })
+    apply_bufferline()
 end
 
 -- ── Lualine registration ──────────────────────────────────────────────────────
 
-local b_fg = c.fg
-local c_fg = c.mid
 local function mode_section(a_bg, a_fg)
     return {
         a = { bg = a_bg, fg = a_fg, gui = "bold" },
-        b = { bg = b_bg, fg = b_fg },
-        c = { bg = c_bg, fg = c_fg },
+        b = { bg = b_bg, fg = c.fg },
+        c = { bg = c_bg, fg = c.bar_fg },
     }
 end
 
@@ -581,11 +464,11 @@ require("config.theme_registry").register("earth", {
     reapply = reapply,
     lualine = {
         theme = {
-            normal = mode_section(c.deep, c.type),
-            insert = mode_section(c.type, c.deep),
-            visual = mode_section(c.sage, c.deep),
-            replace = mode_section(c.deep, c.type),
-            command = mode_section(c.type, c.deep),
+            normal = mode_section(c.on_accent, c.ptype),
+            insert = mode_section(c.ptype, c.on_accent),
+            visual = mode_section(c.visual, c.on_accent),
+            replace = mode_section(c.on_accent, c.ptype),
+            command = mode_section(c.ptype, c.on_accent),
             inactive = {
                 a = { bg = c_bg, fg = c.border, gui = "bold" },
                 b = { bg = c_bg, fg = c.border },
@@ -593,9 +476,9 @@ require("config.theme_registry").register("earth", {
             },
         },
         c_bg = c_bg,
-        filename = c.cream,
-        directory = c.mid,
-        lazy_updates = c.gold,
-        diff = { added = c.cream, modified = c.module, removed = c.d_error },
+        filename = c.bar_file,
+        directory = c.bar_fg,
+        lazy_updates = c.bar_updates,
+        diff = { added = c.bar_file, modified = c.module, removed = c.d_error },
     },
 })
