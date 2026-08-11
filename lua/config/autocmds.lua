@@ -119,7 +119,7 @@ end, {
 })
 
 -- Copy current buffer as sanitized .env (all values cleared) to system clipboard.
-vim.api.nvim_create_user_command("EnvEx", function()
+vim.api.nvim_create_user_command("Envx", function()
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
   local result = {}
   for _, line in ipairs(lines) do
@@ -129,7 +129,7 @@ vim.api.nvim_create_user_command("EnvEx", function()
     table.insert(result, line)
   end
   vim.fn.setreg("+", table.concat(result, "\n"))
-  vim.notify("EnvEx: sanitized .env copied to clipboard")
+  vim.notify("Envx: sanitized .env copied to clipboard")
 end, { desc = "Copy sanitized .env (values cleared) to clipboard" })
 
 -- Strip trailing whitespace on manual :w only (skip autosave writes).
