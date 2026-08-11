@@ -26,7 +26,7 @@ local c = {
     keyword = "#585858",
     ret = "#908d88", -- return and conditional keywords
     module = "#555555",
-    string = "#7b998c",
+    string = "#95bdb7",
     bconst = "#8eaada", -- builtin constants: nil, true, self…
     const = "#336088",
     ptype = "#5c5f6f", -- primitive/builtin types, rendered italic
@@ -97,7 +97,13 @@ set_hl({ "Conditional", "@keyword.conditional" }, { fg = c.ret })
 set_hl({ "Repeat", "@keyword.repeat" }, { fg = c.keyword })
 set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.ret })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keywords so @keyword.return.go can fire
-vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
+-- Let treesitter @constant win for user-declared consts; nil/true/false still
+-- fall to @lsp.typemod.variable.defaultLibrary. Clearing readonly.go alone is
+-- not enough: @lsp.type.variable.go sits one priority *below* the typemods but
+-- still above treesitter, so it would repaint every const with the variable
+-- color. Both have to be silent for treesitter to show through.
+vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {})
+vim.api.nvim_set_hl(0, "@lsp.type.variable.go", {})
 
 set_hl(g.module, { fg = c.module, italic = true })
 
@@ -129,13 +135,14 @@ set_hl({
     "@function",
     "@function.call",
     "@method.call",
+    "@constructor",
     "Title",
     "@lsp.typemod.namespace.declaration",
 }, { fg = c.fg, bold = false })
 
 set_hl(g.variable, { fg = c.emph })
 
-set_hl({ "@punctuation.bracket", "@string.delimiter", "@constructor" }, { fg = c.clear })
+set_hl({ "@punctuation.bracket", "@string.delimiter" }, { fg = c.clear })
 
 -- ── UI: backgrounds ───────────────────────────────────────────────────────────
 

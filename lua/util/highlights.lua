@@ -44,7 +44,15 @@ M.groups = {
         "@lsp.type.property",
         "@lsp.type.variable",
         "@lsp.type.parameter",
-        "@lsp.typemod.variable.definition",
+        -- @lsp.typemod.variable.definition is deliberately absent. A `const`
+        -- declaration is one token carrying *both* `readonly` and `definition`,
+        -- and nvim paints every typemod at the same priority (see
+        -- semantic_tokens.lua: `set_mark0(..., 2)`) iterating `pairs`, so
+        -- coloring `definition` makes const declarations flip between the
+        -- variable color and the constant color at random. Left undefined it
+        -- paints nothing, `@lsp.typemod.variable.readonly` wins for constants,
+        -- and plain variable definitions still get the variable color from
+        -- @lsp.type.variable one priority below.
         "TSVariable",
         "TSVariableBuiltin",
     },

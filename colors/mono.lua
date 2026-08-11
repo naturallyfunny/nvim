@@ -89,7 +89,13 @@ set_hl({
 
 set_hl({ "@keyword.return", "@keyword.return.go" }, { fg = c.fg })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.go", {}) -- let treesitter handle keywords so @keyword.return.go can fire
-vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {}) -- let treesitter @constant win; nil/true/false fall to @lsp.typemod.variable.defaultLibrary
+-- Let treesitter @constant win for user-declared consts; nil/true/false still
+-- fall to @lsp.typemod.variable.defaultLibrary. Clearing readonly.go alone is
+-- not enough: @lsp.type.variable.go sits one priority *below* the typemods but
+-- still above treesitter, so it would repaint every const with the variable
+-- color. Both have to be silent for treesitter to show through.
+vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.go", {})
+vim.api.nvim_set_hl(0, "@lsp.type.variable.go", {})
 
 set_hl(g.module, { fg = c.grey })
 
