@@ -9,7 +9,7 @@
         "description": "Inline function call + err check"
     },
     "env string guard": {
-        "prefix": "lsenv",
+        "prefix": "genvs",
         "body": [
             "${1:varName} := os.Getenv(\"${2:ENV_VAR}\")",
             "if $1 == \"\" {",
@@ -17,5 +17,14 @@
             "}"
         ],
         "description": "Getenv + empty string guard"
+    },
+    "load dotenv": {
+        "prefix": "lenv",
+        "body": [
+            "if err := godotenv.Load(); err != nil {",
+            "\tlog.Println(\"info: .env file not found, using system environment variables\")",
+            "}"
+        ],
+        "description": "godotenv.Load with soft fallback"
     }
 }
