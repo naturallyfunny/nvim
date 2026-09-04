@@ -27,7 +27,7 @@ local c = {
     keyword = "#555555",
     ret = "#404040", -- return and conditional keywords
     module = "#777777",
-    string = "#95bdb7",
+    string = "#4b5f5c",
     bconst = "#3a6ea8", -- builtin constants: nil, true, self…
     const = "#7d4f80",
     ptype = "#4a4d5c", -- primitive/builtin types, rendered italic
@@ -42,6 +42,7 @@ local c = {
     inactive = "#888888",
     gutter = "#808080",
     subtle = "#777777",
+    vivid = "#5F5F5F",
     clear = "#555555",
     grey = "#555555",
     border = "#555555",
@@ -137,9 +138,9 @@ set_hl({
     "@function.call",
     "@method.call",
     "@constructor",
-    "Title",
-    "@lsp.typemod.namespace.declaration",
-}, { fg = c.fg, bold = false })
+}, { fg = c.vivid, bold = false })
+
+set_hl({ "Title", "@lsp.typemod.namespace.declaration" }, { fg = c.fg, bold = false })
 
 set_hl(g.variable, { fg = c.emph })
 

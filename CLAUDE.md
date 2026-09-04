@@ -42,7 +42,7 @@ Everything unusual in this config orbits a single design goal: **zero hardcoded 
 - Chrome: `gutter`, `shade`, `inactive`, `grey`, `subtle`, `border`, `sel`, `visual`, `nontext`, `match`.
 - Statusline: `bar_bg`, `bar_fg`, `bar_file`, `bar_updates`.
 - Severity: `d_error|warn|hint|info`, `n_warn|error|info`.
-- `mono`/`venom`/`venom-light` add a prominence ladder `faint → soft → clear → bright` (quiet → loud) plus a `bg0..bg9` background ramp. The ladder is ordered by *prominence*, not lightness, which is why the light scheme keeps the same order while its hexes run the other way. `bg*` numbering is shared across those three, so **gaps are intentional** — don't renumber.
+- `mono`/`venom`/`venom-light` add a prominence ladder `faint → soft → clear → bright → vivid` (quiet → loud; `vivid` currently only in `venom`) plus a `bg0..bg9` background ramp. The ladder is ordered by *prominence*, not lightness, which is why the light scheme keeps the same order while its hexes run the other way. `bg*` numbering is shared across those three, so **gaps are intentional** — don't renumber.
 
 `fg`/`on_accent` invert between dark and light schemes; that is the point of naming them by role rather than by color.
 
