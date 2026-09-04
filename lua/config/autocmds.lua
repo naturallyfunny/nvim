@@ -162,6 +162,25 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.conceallevel = 0
     vim.opt_local.spell = false
+
+    vim.keymap.set({ "n", "x" }, "mx", function()
+      local first, last = vim.fn.line("v"), vim.fn.line(".")
+      if first > last then
+        first, last = last, first
+      end
+      local lines = vim.api.nvim_buf_get_lines(0, first - 1, last, false)
+      for i, line in ipairs(lines) do
+        if line:match("^%s*[-*+] %[ %]") then
+          lines[i] = line:gsub("%[ %]", "[x]", 1)
+        elseif line:match("^%s*[-*+] %[[xX]%]") then
+          lines[i] = line:gsub("%[[xX]%]", "[ ]", 1)
+        end
+      end
+      vim.api.nvim_buf_set_lines(0, first - 1, last, false, lines)
+      if vim.fn.mode():match("[vV\22]") then
+        vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
+      end
+    end, { buffer = true, desc = "Toggle markdown checkbox" })
   end,
   desc = "Raw markdown rendering, no spell-check",
 })

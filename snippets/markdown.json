@@ -1,0 +1,9 @@
+{
+    "checkbox": {
+        "prefix": "c",
+        "body": [
+            "- [ ] $0"
+        ],
+        "description": "Unchecked task list item"
+    }
+}
