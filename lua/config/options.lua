@@ -1,6 +1,9 @@
 -- Options are automatically loaded before lazy.nvim startup
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 
+-- Dedicated host venv so molten/jupytext deps never depend on a project venv.
+vim.g.python3_host_prog = vim.fn.expand("~/.venvs/neovim/bin/python")
+
 -- == CUSTOM CURSOR CONFIGURATION ==
 -- n-v-c-sm:block  -> Normal, Visual, Command, Showmatch mode = BLOCK (steady)
 -- i-ci-ve:block   -> Insert, Command-insert, Visual-exclude = BLOCK
