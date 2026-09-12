@@ -57,9 +57,36 @@ return {
             vim.api.nvim_create_autocmd("FileType", {
                 pattern = { "markdown", "quarto" },
                 callback = function()
-                    if vim.fn.expand("%:e") == "ipynb" then
-                        require("quarto").activate()
+                    if vim.fn.expand("%:e") ~= "ipynb" then
+                        return
                     end
+                    require("quarto").activate()
+
+                    local function goto_cell(backward)
+                        local view = vim.fn.winsaveview()
+                        -- Standing on a cell's first line, the fence right above is the
+                        -- current cell, not the previous one; step over it.
+                        if backward and vim.fn.getline(vim.fn.line(".") - 1):match("^```python") then
+                            vim.cmd("normal! k")
+                        end
+                        if vim.fn.search("^```python", backward and "bW" or "W") > 0 then
+                            vim.cmd("normal! j")
+                        else
+                            vim.fn.winrestview(view)
+                        end
+                    end
+
+                    -- LazyVim's treesitter-textobjects registers its own buffer-local
+                    -- ]c/[c on a later FileType autocmd; schedule ours to land after it.
+                    local buf = vim.api.nvim_get_current_buf()
+                    vim.schedule(function()
+                        vim.keymap.set("n", "]c", function()
+                            goto_cell(false)
+                        end, { buffer = buf, desc = "Next code cell" })
+                        vim.keymap.set("n", "[c", function()
+                            goto_cell(true)
+                        end, { buffer = buf, desc = "Previous code cell" })
+                    end)
                 end,
             })
         end,
