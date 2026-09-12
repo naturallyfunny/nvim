@@ -4,6 +4,8 @@ return {
         opts = {
             inlay_hints = { enabled = false },
             servers = {
+                -- XML LSP: completion and validation for Maven pom.xml.
+                lemminx = {},
                 -- sourcekit-lsp ships with Xcode (`xcrun sourcekit-lsp`) and is
                 -- NOT available in Mason, so register it manually and skip the
                 -- Mason install step with `mason = false`.

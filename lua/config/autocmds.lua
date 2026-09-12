@@ -201,3 +201,34 @@ vim.api.nvim_create_autocmd({ "WinNew", "WinClosed", "BufWinEnter" }, {
   end,
   desc = "Ensure main editor windows remain opaque",
 })
+
+-- Organize imports on manual :w, skipped during autosave like formatting is.
+-- Java/TS have no goimports: import fixing is an LSP code action, not part of
+-- the formatter, so it needs its own pre-write pass.
+local _organize_ft = { java = true, typescript = true, javascript = true, vue = true }
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    if _autosaving or not _organize_ft[vim.bo[args.buf].filetype] then return end
+
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = args.buf, method = "textDocument/codeAction" })) do
+      local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
+      params.context = { only = { "source.organizeImports" }, diagnostics = {} }
+
+      local res = client:request_sync("textDocument/codeAction", params, 3000, args.buf)
+      for _, action in ipairs(res and res.result or {}) do
+        if not action.edit and client:supports_method("codeAction/resolve") then
+          local resolved = client:request_sync("codeAction/resolve", action, 3000, args.buf)
+          action = resolved and resolved.result or action
+        end
+        if action.edit then
+          vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
+        elseif action.command then
+          client:exec_cmd(type(action.command) == "table" and action.command or action, { bufnr = args.buf })
+        end
+      end
+    end
+  end,
+  desc = "Organize imports on manual :w (java, ts, vue)",
+})
